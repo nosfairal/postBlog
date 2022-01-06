@@ -1,0 +1,20 @@
+{
+    "name": "nosfair/blogpost",
+    "description": "blogpost",
+    "type": "yes",
+    "require": {
+        "twbs/bootstrap-sass": "^3.4",
+        "twig/twig": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nosfair\\Blogpost\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nosfair",
+            "email": "nosfairalchtion@gmail.com"
+        }
+    ]
+}
