@@ -13,7 +13,7 @@ class User
     private string $password;
     private string $userStatus;
     private string $userRole;
-    private string $creationDate;
+    private DateTime $creationDate;
     
 
     public function __construct(array $donnees)
@@ -201,7 +201,7 @@ class User
     /**
      * Get the value of creationDate
      */ 
-    public function getCreationDate()
+    public function getCreationDate():DateTime
     {
         return $this->creationDate;
     }
@@ -211,7 +211,7 @@ class User
      *
      * @return  self
      */ 
-    public function setCreationDate($creationDate)
+    public function setCreationDate(DateTime $creationDate)
     {
         $this->creationDate = $creationDate;
 
