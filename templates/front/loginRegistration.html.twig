@@ -1,3 +1,4 @@
+{% extends 'index.html.twig' %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,12 +8,14 @@
     <title>Formulaire d'inscription et de connection</title>
 
     <!-- Main css -->
-    <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../public/css/login.css">
 </head>
 <body>
-
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
     <div class="main">
 
         <!-- Sign up form -->
