@@ -15,4 +15,11 @@ abstract class Controller
         $this->loader = new FilesystemLoader(ROOT.'/blogpost/templates');
         $this->twig = new Environment($this->loader);
     }
+    public function render(string $fichier, array $data = []){
+        // Récupère les données et les extrait sous forme de variables
+        extract($data);
+    
+        // Crée le chemin et inclut le fichier de vue
+        require_once(ROOT.'/blogpost/templates/'.$fichier.'.html.twig');
+    }
 }

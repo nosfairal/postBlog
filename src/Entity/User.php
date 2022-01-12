@@ -1,9 +1,9 @@
 <?php
 namespace Nosfair\Blogpost\Entity;
-
+use Nosfair\Blogpost\Entity\Model;
 use DateTime;
 
-class User
+class User extends Model
 {
     private int  $userId;
     private string $lastName;
@@ -16,9 +16,9 @@ class User
     private DateTime $creationDate;
     
 
-    public function __construct(array $donnees)
+    public function __construct()
     {
-        $this->hydrate($donnees);
+        $this->table ='user';
     }
 
     public function hydrate(array $donnees)
