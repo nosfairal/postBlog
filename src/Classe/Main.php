@@ -10,8 +10,8 @@ class Main
         $uri = $_SERVER['REQUEST_URI'];
 
         // On vérifie si elle n'est pas vide et si elle se termine par un /
-        if(!empty($uri) && $uri != '/' && $uri[-1] === '/'){
-        // Dans ce cas on enlève le /
+        if(!empty($uri) && $uri != '/' && $uri[-1] === '/') {
+            // Dans ce cas on enlève le /
             $uri = substr($uri, 0, -1);
 
             // On envoie une redirection permanente
@@ -23,12 +23,13 @@ class Main
         }
         // On sépare les paramètres et on les met dans le tableau $params
         $params=[];
-        if(isset($_GET['p']))
+        if(isset($_GET['p'])) {
             $params = explode('/', $_GET['p']);
+        }
 
         // Si au moins 1 paramètre existe
 
-        if(isset($params[0]) != ""){
+        if(isset($params[0]) != "") {
             // On sauvegarde le 1er paramètre dans $controller en mettant sa 1ère lettre en majuscule, en ajoutant le namespace des controleurs et en ajoutant "Controller" à la fin
             $controller = '\\Nosfair\\Blogpost\\Controller\\'.ucfirst(array_shift($params)).'Controller';
             //var_dump($controller);die;
@@ -38,7 +39,7 @@ class Main
             // On instancie le contrôleur
             $controller = new $controller();
 
-            if(method_exists($controller, $action)){
+            if(method_exists($controller, $action)) {
                 // Si il reste des paramètres, on appelle la méthode en envoyant les paramètres sinon on l'appelle "à vide"
                 (isset($params[0])) ? call_user_func_array([$controller,$action], $params) : $controller->$action();    
             }else{

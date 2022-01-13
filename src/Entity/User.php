@@ -1,4 +1,5 @@
 <?php
+
 namespace Nosfair\Blogpost\Entity;
 use Nosfair\Blogpost\Entity\Model;
 use DateTime;
@@ -25,14 +26,13 @@ class User extends Model
     {
         foreach ($donnees as $key => $value)
         {
-        $method = 'set'.ucfirst($key);
+            $method = 'set'.ucfirst($key);
         
-        if (method_exists($this, $method))
-        {
-            $this->$method($value);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
         }
     }
-  }
 
 
     /**
@@ -46,7 +46,7 @@ class User extends Model
     /**
      * Set the value of userId
      *
-     * @return  self
+     * @return self
      */ 
     public function setUserId($userId)
     {
@@ -66,7 +66,7 @@ class User extends Model
     /**
      * Set the value of lastName
      *
-     * @return  self
+     * @return self
      */ 
     public function setLastName($lastName)
     {
@@ -87,7 +87,7 @@ class User extends Model
     /**
      * Set the value of firstName
      *
-     * @return  self
+     * @return self
      */ 
     public function setFirstName($firstName)
     {
@@ -107,7 +107,7 @@ class User extends Model
     /**
      * Set the value of publicName
      *
-     * @return  self
+     * @return self
      */ 
     public function setPublicName($publicName)
     {
@@ -127,7 +127,7 @@ class User extends Model
     /**
      * Set the value of emailAddress
      *
-     * @return  self
+     * @return self
      */ 
     public function setEmailAddress($emailAddress)
     {
@@ -147,7 +147,7 @@ class User extends Model
     /**
      * Set the value of password
      *
-     * @return  self
+     * @return self
      */ 
     public function setPassword($password)
     {
@@ -167,7 +167,7 @@ class User extends Model
     /**
      * Set the value of userStatus
      *
-     * @return  self
+     * @return self
      */ 
     public function setUserStatus($userStatus)
     {
@@ -187,7 +187,7 @@ class User extends Model
     /**
      * Set the value of userRole
      *
-     * @return  self
+     * @return self
      */ 
     public function setUserRole($userRole)
     {
@@ -209,7 +209,7 @@ class User extends Model
     /**
      * Set the value of creationDate
      *
-     * @return  self
+     * @return self
      */ 
     public function setCreationDate(DateTime $creationDate)
     {

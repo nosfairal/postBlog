@@ -41,51 +41,51 @@ class Model extends Db
         return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
-public function create(Model $model)
-{
-    $champs = [];
-    $inter = [];
-    $valeurs = [];
+    public function create(Model $model)
+    {
+        $champs = [];
+        $inter = [];
+        $valeurs = [];
 
  
-    foreach($model as $champ => $valeur){
+        foreach($model as $champ => $valeur){
        
-        if($valeur != null && $champ != 'db' && $champ != 'table'){
-            $champs[] = $champ;
-            $inter[] = "?";
-            $valeurs[] = $valeur;
+            if($valeur != null && $champ != 'db' && $champ != 'table') {
+                $champs[] = $champ;
+                $inter[] = "?";
+                $valeurs[] = $valeur;
+            }
         }
-    }
 
    
-    $liste_champs = implode(', ', $champs);
-    $liste_inter = implode(', ', $inter);
+        $liste_champs = implode(', ', $champs);
+        $liste_inter = implode(', ', $inter);
 
 
-    return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
-}
+        return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
+    }
 
     public function update(int $id, Model $model)
-{
-    $champs = [];
-    $valeurs = [];
+    {
+        $champs = [];
+        $valeurs = [];
 
 
-    foreach($model as $champ => $valeur){
+        foreach($model as $champ => $valeur){
         
-        if($valeur !== null && $champ != 'db' && $champ != 'table'){
-            $champs[] = "$champ = ?";
-            $valeurs[] = $valeur;
+            if($valeur !== null && $champ != 'db' && $champ != 'table') {
+                $champs[] = "$champ = ?";
+                $valeurs[] = $valeur;
+            }
         }
-    }
-    $valeurs[] = $id;
+        $valeurs[] = $id;
 
     
-    $liste_champs = implode(', ', $champs);
+        $liste_champs = implode(', ', $champs);
 
 
-    return $this->requete('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
-}
+        return $this->requete('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
+    }
 
     public function delete(int $id)
     {
@@ -99,7 +99,7 @@ public function create(Model $model)
         $this->db = Db::getInstance();
 
         // On vérifie si on a des attributs
-        if($attributs !== null){
+        if($attributs !== null) {
             // Requête préparée
             $query = $this->db->prepare($sql);
             $query->execute($attributs);
@@ -118,7 +118,7 @@ public function create(Model $model)
             $setter = 'set'.ucfirst($key);
             
   
-            if(method_exists($this, $setter)){
+            if(method_exists($this, $setter)) {
   
                 $this->$setter($value);
             }

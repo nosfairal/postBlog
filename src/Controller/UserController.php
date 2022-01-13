@@ -8,6 +8,7 @@ class UserController extends Controller
 {
     /**
      * list of users in the Db
+     *
      * @return void
      */
     public function index()
@@ -15,15 +16,16 @@ class UserController extends Controller
         $user = new User;
         $users = $user->findAll();
         var_dump($users);
-        $this->render('back/userIndex', compact('users'));
+        $this->twig->display('back/userIndex.html.twig', compact('users'));
     }
     /**
- * Méthode permettant d'afficher un article à partir de son slug
- *
- * @param int $id
- * @return void
- */
-    public function show (int $id){
+     * Méthode permettant d'afficher un article à partir de son slug
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function show(int $id)
+    {
         // On instancie le modèle
         $model = new User;
 

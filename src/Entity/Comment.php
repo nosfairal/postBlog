@@ -24,14 +24,13 @@ class Comment extends Model
     {
         foreach ($donnees as $key => $value)
         {
-        $method = 'set'.ucfirst($key);
+            $method = 'set'.ucfirst($key);
         
-        if (method_exists($this, $method))
-        {
-            $this->$method($value);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
         }
     }
-  }
 
 
     /**
@@ -45,7 +44,7 @@ class Comment extends Model
     /**
      * Set the value of author
      *
-     * @return  self
+     * @return self
      */ 
     public function setAuthor($author)
     {
@@ -65,7 +64,7 @@ class Comment extends Model
     /**
      * Set the value of content
      *
-     * @return  self
+     * @return self
      */ 
     public function setContent($content)
     {
@@ -85,7 +84,7 @@ class Comment extends Model
     /**
      * Set the value of publicationDate
      *
-     * @return  self
+     * @return self
      */ 
     public function setPublicationDate(DateTime $publicationDate)
     {
@@ -105,7 +104,7 @@ class Comment extends Model
     /**
      * Set the value of creationDate
      *
-     * @return  self
+     * @return self
      */ 
     public function setCreationDate(DateTime $creationDate)
     {
@@ -125,7 +124,7 @@ class Comment extends Model
     /**
      * Set the value of lastUpdate
      *
-     * @return  self
+     * @return self
      */ 
     public function setLastUpdate(DateTime $lastUpdate)
     {
@@ -145,7 +144,7 @@ class Comment extends Model
     /**
      * Set the value of commentId
      *
-     * @return  self
+     * @return self
      */ 
     public function setCommentId($commentId)
     {
@@ -165,7 +164,7 @@ class Comment extends Model
     /**
      * Set the value of commentStatus
      *
-     * @return  self
+     * @return self
      */ 
     public function setCommentStatus($commentStatus)
     {
@@ -185,7 +184,7 @@ class Comment extends Model
     /**
      * Set the value of post
      *
-     * @return  self
+     * @return self
      */ 
     public function setPost($post)
     {

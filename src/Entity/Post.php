@@ -25,14 +25,13 @@ class Post extends Model
     {
         foreach ($donnees as $key => $value)
         {
-        $method = 'set'.ucfirst($key);
+            $method = 'set'.ucfirst($key);
         
-        if (method_exists($this, $method))
-        {
-            $this->$method($value);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
         }
     }
-  }
 
 
     /**
@@ -46,7 +45,7 @@ class Post extends Model
     /**
      * Set the value of postId
      *
-     * @return  self
+     * @return self
      */ 
     public function setPostId($postId)
     {
@@ -66,7 +65,7 @@ class Post extends Model
     /**
      * Set the value of author
      *
-     * @return  self
+     * @return self
      */ 
     public function setAuthor($author)
     {
@@ -86,7 +85,7 @@ class Post extends Model
     /**
      * Set the value of title
      *
-     * @return  self
+     * @return self
      */ 
     public function setTitle($title)
     {
@@ -106,7 +105,7 @@ class Post extends Model
     /**
      * Set the value of slug
      *
-     * @return  self
+     * @return self
      */ 
     public function setSlug($slug)
     {
@@ -126,7 +125,7 @@ class Post extends Model
     /**
      * Set the value of intro
      *
-     * @return  self
+     * @return self
      */ 
     public function setIntro($intro)
     {
@@ -146,7 +145,7 @@ class Post extends Model
     /**
      * Set the value of content
      *
-     * @return  self
+     * @return self
      */ 
     public function setContent($content)
     {
@@ -166,7 +165,7 @@ class Post extends Model
     /**
      * Set the value of publicationDate
      *
-     * @return  self
+     * @return self
      */ 
     public function setPublicationDate(DateTime $publicationDate)
     {
@@ -186,7 +185,7 @@ class Post extends Model
     /**
      * Set the value of creationDate
      *
-     * @return  self
+     * @return self
      */ 
     public function setCreationDate(DateTime $creationDate)
     {
@@ -206,7 +205,7 @@ class Post extends Model
     /**
      * Set the value of lastUpdate
      *
-     * @return  self
+     * @return self
      */ 
     public function setLastUpdate(DateTime $lastUpdate)
     {

@@ -4,7 +4,8 @@
     "type": "blog",
     "require": {
         "twig/twig": "^3.3",
-        "twbs/bootstrap": "5.1.3"
+        "twbs/bootstrap": "5.1.3",
+        "symfony/dotenv": "^5.4"
     },
     "autoload": {
         "psr-4": {
