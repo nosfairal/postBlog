@@ -19,7 +19,7 @@ class UserController extends Controller
         $this->twig->display('back/userIndex.html.twig', compact('users'));
     }
     /**
-     * Méthode permettant d'afficher un article à partir de son slug
+     * Method to show a single user
      *
      * @param  int $id
      * @return void
@@ -33,5 +33,10 @@ class UserController extends Controller
         $user = $model->findBy(['userId' =>$id]);
         var_dump($user);
         $this->render('back/user', compact('user'));
+    }
+    public function add()
+    {
+        $user = new User;
+        $this->twig->display('front/loginRegistration.html.twig', compact('user'));
     }
 }

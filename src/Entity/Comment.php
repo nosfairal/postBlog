@@ -14,10 +14,9 @@ class Comment extends Model
     private Datetime $creationDate;
     private DateTime $lastUpdate;
 
-    public function __construct(array $donnees)
+    public function __construct()
     {
         $this->table='comment';
-        $this->hydrate($donnees);
     }
 
     public function hydrate(array $donnees)
