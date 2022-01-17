@@ -19,7 +19,7 @@ class Comment extends Model
         $this->table='comment';
     }
 
-    public function hydrate(array $donnees)
+    public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {

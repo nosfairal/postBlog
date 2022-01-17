@@ -20,7 +20,7 @@ class Post extends Model
         $this->table = 'post';
     }
 
-    public function hydrate(array $donnees)
+    public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {

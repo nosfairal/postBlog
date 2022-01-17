@@ -13,96 +13,107 @@ class Model extends Db
 
     public function findAll()
     {
-        $query = $this->requete('SELECT * FROM '. $this->table);
+        $query = $this->request('SELECT * FROM '. $this->table);
         return $query->fetchAll();
     }
 
-    public function findBy(array $criteres)
+    public function findBy(array $properties)
     {
-        $champs = [];
-        $valeurs = [];
+        $fields = [];
+        $values = [];
 
  
-        foreach($criteres as $champ => $valeur){
+        foreach($properties as $field => $value){
 
-            $champs[] = "$champ = ?";
-            $valeurs[] = $valeur;
+            $fields[] = "$field = ?";
+            $values[] = $value;
         }
 
       
-        $liste_champs = implode(' AND ', $champs);
+        $liste_fields = implode(' AND ', $fields);
         
   
-        return $this->requete('SELECT * FROM '.$this->table.' WHERE '. $liste_champs, $valeurs)->fetchAll();
+        return $this->request('SELECT * FROM '.$this->table.' WHERE '. $liste_fields, $values)->fetchAll();
     }
 
     public function find(int $id)
     {
-        return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
+        return $this->request("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
-    public function create(Model $model)
+    /**
+     * create an instance of an Entity
+     */
+    public function create()
     {
-        $champs = [];
+        $fields = [];
         $inter = [];
-        $valeurs = [];
+        $values = [];
 
  
-        foreach($model as $champ => $valeur){
+        foreach($this as $field => $value){
        
-            if($valeur != null && $champ != 'db' && $champ != 'table') {
-                $champs[] = $champ;
+            if($value != null && $field != 'db' && $field != 'table') {
+                $fields[] = $field;
                 $inter[] = "?";
-                $valeurs[] = $valeur;
+                $values[] = $value;
             }
         }
 
    
-        $liste_champs = implode(', ', $champs);
+        $liste_fields = implode(', ', $fields);
         $liste_inter = implode(', ', $inter);
 
 
-        return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES('.$liste_inter.')', $valeurs);
+        return $this->request('INSERT INTO '.$this->table.' ('. $liste_fields.')VALUES('.$liste_inter.')', $values);
     }
 
-    public function update(int $id, Model $model)
+    /**
+     * update an instance of Entity
+     */
+    public function update()
     {
-        $champs = [];
-        $valeurs = [];
+        $fields = [];
+        $values = [];
 
 
-        foreach($model as $champ => $valeur){
+        foreach($this as $field => $value){
         
-            if($valeur !== null && $champ != 'db' && $champ != 'table') {
-                $champs[] = "$champ = ?";
-                $valeurs[] = $valeur;
+            if($value !== null && $field != 'db' && $field != 'table') {
+                $fields[] = "$field = ?";
+                $values[] = $value;
             }
         }
-        $valeurs[] = $id;
+        $values[] = $this->id;
 
-    
-        $liste_champs = implode(', ', $champs);
+        //convert array into string
+        $liste_fields = implode(', ', $fields);
 
-
-        return $this->requete('UPDATE '.$this->table.' SET '. $liste_champs.' WHERE id = ?', $valeurs);
+        //execute the request
+        return $this->request('UPDATE '.$this->table.' SET '. $liste_fields.' WHERE id = ?', $values);
     }
 
+    /**
+     * Delete an instance of the Entity
+     */
     public function delete(int $id)
     {
-        return $this->requete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+        return $this->request("DELETE FROM {$this->table} WHERE id = ?", [$id]);
     }
 
-
-    public function requete(string $sql, array $attributs = null)
+    /**
+     * 
+     */
+    public function request(string $sql, array $attributes = null)
     {
         // On récupère l'instance de Db
         $this->db = Db::getInstance();
 
         // On vérifie si on a des attributs
-        if($attributs !== null) {
+        if($attributes !== null) {
             // Requête préparée
             $query = $this->db->prepare($sql);
-            $query->execute($attributs);
+            $query->execute($attributes);
             return $query;
         }else{
             // Requête simple
@@ -111,7 +122,7 @@ class Model extends Db
     }
 
 
-    public function hydrate(array $donnees)
+    public function hydrate($donnees)
     {
         foreach($donnees as $key => $value){
 

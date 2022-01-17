@@ -67,7 +67,7 @@ class Form
     public function startForm(string $method = 'post' , string $action ='#', array $attributes = []): self
     {
         // Create the tags form
-        $this->formCode .= "<form action='$action' method='$method'";
+        $this->formCode .= "<form action='$action' method='$method' ";
         //If there are attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '>';
         return $this;
@@ -79,7 +79,7 @@ class Form
      */
     public function endForm(): self
     {
-        $this->formCode .= '</form>';
+        $this->formCode .= ' </form>';
         return $this;
     }
 
@@ -93,13 +93,13 @@ class Form
     public function addLabelFor(string $for, string $text, array $attributes = []):self
     {
         // Openning tag
-        $this->formCode .= "<label for='$for'";
+        $this->formCode .= "<div class='form-group'><label for='$for'";
 
         //Adding attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
         // adding  text
-        $this->formCode .= ">$text</label>";
+        $this->formCode .= ">$text</label> </br>";
 
         return $this;
     }
@@ -111,13 +111,13 @@ class Form
      * @param array $attributes 
      * @return Form
      */
-    public function ajoutInput(string $type, string $name, array $attributes = []):self
+    public function addInput(string $type, string $name, array $attributes = []):self
     {
-        // On ouvre la balise
+        // Openning tags
         $this->formCode .= "<input type='$type' name='$name'";
 
-        // On ajoute les attributs
-        $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '>';
+        // Adding  attributes
+        $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '></div>';
 
         return $this;
     }
@@ -131,13 +131,13 @@ class Form
      */
     public function addTextarea(string $name, string $value = '', array $attributes = []):self
     {
-        // On ouvre la balise
+        // Openning tags
         $this->formCode .= "<textarea name='$name'";
 
-        // On ajoute les attributs
+        // adding  attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
-        // On ajoute le texte
+        // Adding text
         $this->formCode .= ">$value</textarea>";
 
         return $this;
@@ -153,7 +153,7 @@ class Form
     public function addSelect(string $name, array $options, array $attributes = []):self
     {
         // Create the select
-        $this->formCode .= "<select name='$name'";
+        $this->formCode .= "<select name='$name' ";
 
         // Adding attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '>';
@@ -177,13 +177,13 @@ class Form
      */
     public function addButton(string $text, array $attributes = []):self
     {
-        // On ouvre le bouton
-        $this->formCode .= '<button ';
+        // Openning tags
+        $this->formCode .= '</br><button ';
 
-        // On ajoute les attributs
+        // Adding attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
-        // On ajoute le texte et on ferme
+        // Adding text and closing tag
         $this->formCode .= ">$text</button>";
 
         return $this;

@@ -22,7 +22,7 @@ class User extends Model
         $this->table ='user';
     }
 
-    public function hydrate(array $donnees)
+    public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {

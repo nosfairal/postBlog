@@ -2,7 +2,8 @@
 namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\User;
-
+use Nosfair\Blogpost\Repository;
+use Nosfair\Blogpost\Service\Form;
 
 class UserController extends Controller
 {
@@ -32,11 +33,26 @@ class UserController extends Controller
         // On récupère les données
         $user = $model->findBy(['userId' =>$id]);
         var_dump($user);
-        $this->render('back/user', compact('user'));
+        $this->twig->display('back/user.html.twig', compact('user'));
     }
-    public function add()
+    public function register()
     {
-        $user = new User;
-        $this->twig->display('front/loginRegistration.html.twig', compact('user'));
+        $registerForm = new Form;
+
+        $registerForm->startForm()
+            ->addLabelFor('lastName', 'Votre nom :')
+            ->addInput('lastName', 'lastName', ['id' => 'lastName'])
+            ->addLabelFor('firstName', 'Votre prénom :')
+            ->addInput('firstName', 'firstName', ['id' => 'firstName'])
+            ->addLabelFor('email', 'Votre e-mail :')
+            ->addInput('email', 'email', ['id' => 'email'])
+            ->addLabelFor('pass', 'Votre mot de passe :')
+            ->addInput('password', 'password', ['id' => 'pass'])
+            ->addButton('M\'inscrire', ['class' => 'btn btn-primary'])
+            ->endForm();
+            var_dump($registerForm);
+            $this->twig->display('front/loginRegistration.html.twig', ['registerForm' => $registerForm->create()]);
+        /*$user = new User;
+        $this->twig->display('front/loginRegistration.html.twig', compact('user'));*/
     }
 }
