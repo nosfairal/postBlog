@@ -1,6 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
-use Nosfair\Blogpost\Classe\Main;
+use Nosfair\Blogpost\Service\Main;
 define('ROOT', dirname(__DIR__));
 /*$loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/templates');
 $template = new \Twig\Environment($loader, ['cache' => false]);

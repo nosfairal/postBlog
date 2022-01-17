@@ -1,6 +1,6 @@
 <?php
 
-namespace Nosfair\Blogpost\Classe;
+namespace Nosfair\Blogpost\Service;
 
 class Form
 {

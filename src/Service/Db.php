@@ -1,7 +1,7 @@
 <?php
-namespace Nosfair\Blogpost\Classe;
+namespace Nosfair\Blogpost\Service;
 use PDO;
-use Nosfair\Blogpost\Classe\Config;
+use Nosfair\Blogpost\Service\Config;
 use PDOException;
 use Symfony\Component\Dotenv\Dotenv;
 

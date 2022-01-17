@@ -1,5 +1,5 @@
 <?php
-namespace Nosfair\Blogpost\Classe;
+namespace Nosfair\Blogpost\Service;
 use Nosfair\Blogpost\Controller\MainController;
 
 class Main

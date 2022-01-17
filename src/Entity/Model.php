@@ -1,6 +1,6 @@
 <?php
 namespace Nosfair\Blogpost\Entity;
-use Nosfair\Blogpost\Classe\Db;
+use Nosfair\Blogpost\Service\Db;
 
 class Model extends Db
 {
