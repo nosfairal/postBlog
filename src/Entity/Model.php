@@ -53,7 +53,7 @@ class Model extends Db
  
         foreach($this as $field => $value){
        
-            if($value != null && $field != 'db' && $field != 'table') {
+            if($value !== null && $field != 'db' && $field != 'table') {
                 $fields[] = $field;
                 $inter[] = "?";
                 $values[] = $value;

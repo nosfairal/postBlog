@@ -23,7 +23,7 @@ class Form
      * @param array $fields
      * @return bool
      */
-    public function validate(array $form, array $fields)
+    public static function validate(array $form, array $fields)
     {
         //loop into the fields
         foreach($fields as $field){

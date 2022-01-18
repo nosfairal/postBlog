@@ -6,15 +6,15 @@ use DateTime;
 
 class User extends Model
 {
-    private int  $userId;
-    private string $lastName;
-    private string $firstName;
-    private string $publicName;
-    private string $emailAddress;
-    private string $password;
-    private string $userStatus;
-    private string $userRole;
-    private DateTime $creationDate;
+    protected int  $userId;
+    protected string $lastName;
+    protected string $firstName;
+    protected string $publicName;
+    protected string $emailAddress;
+    protected string $password;
+    protected string $userStatus;
+    protected string $userRole;
+    private  $creationDate;
     
 
     public function __construct()
@@ -22,7 +22,7 @@ class User extends Model
         $this->table ='user';
     }
 
-    public function hydrate($donnees)
+    /*public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {
@@ -32,8 +32,20 @@ class User extends Model
                 $this->$method($value);
             }
         }
+    }*/
+
+    public function findOneByEmail(string $email)
+    {
+        return $this->request("SELECT * FROM {$this->table} WHERE emailAddress = ?", [$email])->fetch();
     }
 
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'userId' => $this->userId,
+            'emailAdrress' => $this->emailAddress
+        ];
+    }
 
     /**
      * Get the value of userId
@@ -201,7 +213,7 @@ class User extends Model
     /**
      * Get the value of creationDate
      */ 
-    public function getCreationDate():DateTime
+    public function getCreationDate()
     {
         return $this->creationDate;
     }
@@ -211,7 +223,7 @@ class User extends Model
      *
      * @return self
      */ 
-    public function setCreationDate(DateTime $creationDate)
+    public function setCreationDate( $creationDate)
     {
         $this->creationDate = $creationDate;
 

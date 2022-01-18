@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+    {% block stylesheets %} 
+    <link rel="stylesheet" href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    {#<link rel="stylesheet" href="./public/css/login.css">#}
+    {% endblock %}
+
+    {% block content %}
+
+
+    <h1 id="loginF">Formulaire de connection</h1>
+    {{ loginForm|raw }}
+
+    {% endblock %}
+
+
+    {% block script %} 
+    <script src="vendor/jquery/jquery.min.js"></script>
+    {% endblock %}

@@ -2,17 +2,26 @@
 namespace Nosfair\Blogpost\Repository;
 use Nosfair\Blogpost\Entity\Model;
 use Nosfair\Blogpost\Service\Db;
+use Nosfair\Blogpost\Entity\User;
 
 class UserRepository extends Model
 {
     /**
-     * Récupérer un user à partir de son e-mail
+     * Get an user by e-mail
      * @param string $email 
      * @return mixed 
      */
 
-    public function findOneByEmail(string $email)
+    public function findOneByEmail(string $email) :User
     {
         return $this->request("SELECT * FROM {$this->table} WHERE emailAddress = ?", [$email])->fetch();
+    }
+
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'userId' => $this->id,
+            'emailAdrress' => $this->email
+        ];
     }
 }
