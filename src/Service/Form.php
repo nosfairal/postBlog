@@ -74,12 +74,15 @@ class Form
     }
 
     /**
-     * endings tags form
+     * endings tags form + token
      * @return Form
      */
     public function endForm(): self
     {
+        $token = md5(uniqid());
+        $this->formCode .= "<input type='hidden' name='token' value ='$token'>";
         $this->formCode .= ' </form>';
+        $_SESSION['token'] = $token;
         return $this;
     }
 

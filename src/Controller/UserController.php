@@ -23,57 +23,43 @@ class UserController extends Controller
         $this->twig->display('back/userIndex.html.twig', compact('users'));
     }
 
+    /**
+     * Connect a User
+     */
     public function login()
     {    
+        
          //Verify the form's compliance
          if(Form::validate($_POST, ['emailAddress', 'password'])){
             // Search by email the User
             $user = new User;
+            // $userRepository = new UserRepository;
             $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
-            var_dump($userArray);
-            var_dump($_POST['emailAddress']);
-            //if User doesn't exist
-            /*if(!$userArray){
-                $_SESSION['erreur'] = 'Votre mail est incorrect';
-                
-                header('Location: https://localhost/blogpost/index.php?p=user/login');
-                
-            }else{
-            //User exists
-            $user = $user->hydrate($userArray);
-            $password= $user->getPassword();
-            }
-            //Verify the password
-            if(password_verify($_POST['password'], $password)){
-                $user->setSession();
-                header('Location: https://localhost/blogpost/index.php');
-                
-            }else{
-                //wrong password
-                $_SESSION['erreur'] = 'Votre MDP est incorrect';
-                header('Location: https://localhost/blogpost/index.php?p=user/login');
-               
-            }*/
+            //If email doesn't exist
             if(!$userArray){
                 $_SESSION['erreur'] = 'Vos identifiants sont incorrect';                
                 header('Location: https://localhost/blogpost/index.php?p=user/login');
+                exit;
             }
-            $user = $user->hydrate($userArray);
+            //If email exist
+            $user = $user->hydrate($userArray);            
             $password = $user->getPassword();
-            
-           
-            if($userArray && password_verify($_POST['password'],$password))                      
-                $user->setSession();
-                header('Location: https://localhost/blogpost/index.php');
-                var_dump($user);
-            if(password_verify($_POST['password'],$password)) false;
+            var_dump($password);
+            //If password doesn't complain
+            if(!password_verify($_POST['password'], $password)){                
                 $_SESSION['erreur'] = 'Vos identifiants sont incorrect';
-                header('Location: https://localhost/blogpost/index.php?p=user/login');
-
-            
+                    header('Location: https://localhost/blogpost/index.php?p=user/login');                   
+                    var_dump($user);
+                }else{
+                    $user->setSession();
+                    header('Location: https://localhost/blogpost/index.php');
+                    var_dump($user);
+                    
+                }
          }
          
             var_dump($_SESSION);
+            
         $loginForm = new Form;
 
         $loginForm->startForm()
@@ -88,7 +74,7 @@ class UserController extends Controller
     }
 
     /**
-     * Déconnexion de l'utilisateur
+     * Disconnexion of User
      * @return exit 
      */
     public function logout(){

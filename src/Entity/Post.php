@@ -36,7 +36,7 @@ class Post extends Model
     /**
      * Get the value of postId
      */ 
-    public function getPostId()
+    public function getPostId() :int
     {
         return $this->postId;
     }
@@ -46,7 +46,7 @@ class Post extends Model
      *
      * @return self
      */ 
-    public function setPostId($postId)
+    public function setPostId(int $postId)
     {
         $this->postId = $postId;
 

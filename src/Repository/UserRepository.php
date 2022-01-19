@@ -12,16 +12,16 @@ class UserRepository extends Model
      * @return mixed 
      */
 
-    public function findOneByEmail(string $email) :User
+    public function findOneByEmail(string $email) 
     {
         return $this->request("SELECT * FROM {$this->table} WHERE emailAddress = ?", [$email])->fetch();
     }
 
-    public function setSession()
+    public function setSession() 
     {
         $_SESSION['user'] = [
-            'userId' => $this->id,
-            'emailAdrress' => $this->email
+            'userId' => $this->userId,
+            'emailAdrress' => $this->emailAddress
         ];
     }
 }
