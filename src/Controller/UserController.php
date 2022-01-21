@@ -33,7 +33,7 @@ class UserController extends Controller
          if(Form::validate($_POST, ['emailAddress', 'password'])){
             // Search by email the User
             $user = new User;
-            // $userRepository = new UserRepository;
+            //$userRepository = new UserRepository();
             $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
             //If email doesn't exist
             if(!$userArray){
@@ -91,10 +91,10 @@ class UserController extends Controller
      */
     public function show(int $id)
     {
-        // On instancie le modèle
+        // Instance of the model
         $model = new User;
 
-        // On récupère les données
+        //Get the data
         $user = $model->findBy(['userId' =>$id]);
         var_dump($user);
         $this->twig->display('back/user.html.twig', compact('user'));

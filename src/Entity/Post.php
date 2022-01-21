@@ -5,22 +5,22 @@ use DateTime;
 
 class Post extends Model
 {
-    private int  $postId;
-    private int $author;
-    private string $title;
-    private string $slug;
-    private string $intro;
-    private string $content;
-    private DateTime $publicationDate;
-    private Datetime $creationDate;
-    private DateTime $lastUpdate;
+    protected int  $postId;
+    protected int $author;
+    protected string $title;
+    protected string $slug;
+    protected string $intro;
+    protected string $content;
+    protected DateTime $publicationDate;
+    protected Datetime $creationDate;
+    protected DateTime $lastUpdate;
 
     public function __construct()
     {
         $this->table = 'post';
     }
 
-    public function hydrate($donnees)
+    /*public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {
@@ -30,7 +30,7 @@ class Post extends Model
                 $this->$method($value);
             }
         }
-    }
+    }*/
 
 
     /**
@@ -66,7 +66,7 @@ class Post extends Model
      *
      * @return self
      */ 
-    public function setAuthor($author)
+    public function setAuthor(int $author)
     {
         $this->author = $author;
 

@@ -3,6 +3,7 @@
 <link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 {% endblock %} 
 {% block content %}
-    <h1>Ajouter un nouveau post </h1>
-{{ addPostForm|raw }}
+{% for post in posts %}
+    {{ post.content }}
+{% endfor %}
 {% endblock %}

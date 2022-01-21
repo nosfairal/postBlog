@@ -5,14 +5,14 @@ use DateTime;
 
 class Comment extends Model
 {
-    private int  $commentId;
-    private int $post;
-    private string  $commentStatus;
-    private string $author;
-    private string $content;
-    private DateTime $publicationDate;
-    private Datetime $creationDate;
-    private DateTime $lastUpdate;
+    protected int  $commentId;
+    protected int $post;
+    protected string  $commentStatus;
+    protected string $author;
+    protected string $content;
+    protected DateTime $publicationDate;
+    protected Datetime $creationDate;
+    protected DateTime $lastUpdate;
 
     public function __construct()
     {

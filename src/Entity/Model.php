@@ -1,5 +1,7 @@
 <?php
 namespace Nosfair\Blogpost\Entity;
+
+use Attribute;
 use Nosfair\Blogpost\Service\Db;
 
 class Model extends Db
@@ -38,7 +40,7 @@ class Model extends Db
 
     public function find(int $id)
     {
-        return $this->request("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
+        return $this->request("SELECT * FROM {$this->table} WHERE {$this->table}Id = $id")->fetch();
     }
 
     /**
@@ -49,21 +51,19 @@ class Model extends Db
         $fields = [];
         $inter = [];
         $values = [];
+        foreach($this as $field => $value){          
 
- 
-        foreach($this as $field => $value){
-       
             if($value !== null && $field != 'db' && $field != 'table') {
                 $fields[] = $field;
                 $inter[] = "?";
                 $values[] = $value;
             }
-        }
 
-   
+        }
+        
         $liste_fields = implode(', ', $fields);
         $liste_inter = implode(', ', $inter);
-
+        \var_dump($values);
 
         return $this->request('INSERT INTO '.$this->table.' ('. $liste_fields.')VALUES('.$liste_inter.')', $values);
     }
@@ -71,10 +71,11 @@ class Model extends Db
     /**
      * update an instance of Entity
      */
-    public function update()
+    public function update($modifiedId)
     {
         $fields = [];
         $values = [];
+
 
 
         foreach($this as $field => $value){
@@ -84,13 +85,19 @@ class Model extends Db
                 $values[] = $value;
             }
         }
-        $values[] = $this->id;
+        $values[] = $modifiedId; //$this->postId;
+        \var_dump($values);
+        
+       
 
         //convert array into string
         $liste_fields = implode(', ', $fields);
+\var_dump($fields);
 
         //execute the request
-        return $this->request('UPDATE '.$this->table.' SET '. $liste_fields.' WHERE id = ?', $values);
+        return $this->request('UPDATE '.$this->table.' SET '. $liste_fields.' WHERE '.$this->table.'Id = ?', $values);
+        \var_dump($this);
+        
     }
 
     /**
@@ -98,7 +105,7 @@ class Model extends Db
      */
     public function delete(int $id)
     {
-        return $this->request("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+        return $this->request("DELETE FROM {$this->table} WHERE {$this->table}Id = ?", [$id]);
     }
 
     /**
@@ -106,17 +113,19 @@ class Model extends Db
      */
     public function request(string $sql, array $attributes = null)
     {
-        // On récupère l'instance de Db
+        // Get instanceof Db
         $this->db = Db::getInstance();
 
         // On vérifie si on a des attributs
         if($attributes !== null) {
-            // Requête préparée
+            // Prepare request
+
             $query = $this->db->prepare($sql);
+   
             $query->execute($attributes);
             return $query;
         }else{
-            // Requête simple
+            // Simple request
             return $this->db->query($sql);
         }
     }

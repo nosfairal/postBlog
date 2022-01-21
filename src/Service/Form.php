@@ -51,7 +51,7 @@ class Form
             if(in_array($attribute, $shorts) && $value == true){
                 $str .= " $attribute";
             }else{
-                $str .= " $attribute='$value'";
+                $str .= " $attribute=\"$value\"";
             }
         }
         return $str;
@@ -163,7 +163,7 @@ class Form
 
         // Adding options
         foreach($options as $value => $text){
-            $this->formCode .= "<option value='$value'>$text</option>";
+            $this->formCode .= "<option value=\"$value\">$text</option>";
         }
 
         // Closing the select
