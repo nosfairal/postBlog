@@ -3,6 +3,7 @@ namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\Post;
 use Nosfair\Blogpost\Entity\User;
+use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Service\Form;
 use Nosfair\Blogpost\Service\Db;
 
@@ -28,14 +29,55 @@ class PostController extends Controller
      * @return void
      */
     public function show(int $id)
-    {
-        //Intance of Model
-        $model = new Post;
+    {   
+        
+ 
+        if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+            $model = new Post;
+        $post = $model->findBy(['postId' =>$id]);
+            //Verify form compliance
+            if(Form::validate($_POST, ['content'])){
 
+                $content = strip_tags($_POST['content']);
+
+                //Instance of Post
+                $comment = new Comment;
+
+                //Set the data
+                $comment->setAuthor($_SESSION['user']['userId'])                    
+                    ->setContent($content)
+                    ->setPost($id)                    
+                ;
+                var_dump($comment);
+                //Record
+                $comment->create();
+
+
+                //Redirection + message
+                $_SESSION['message'] = "Votre commentaire a été enregistré avec succès";
+                //header('Location: https://localhost/blogpost/index.php?p=post/index');
+                exit;
+            }else{
+                //form doesn't match
+                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
+            }
+        //Intance of Model
+        
+    }
         // On récupère les données
         $post = $model->findBy(['postId' =>$id]);
-        var_dump($post);
-        $this->render('back/post', compact('post'));
+        //var_dump($post);
+        $addCommentForm = new Form;
+            //Construction of the form
+            $addCommentForm->startForm()->addLabelFor('content', 'Partager un commentaire :')
+                ->addTextarea('content', '', ['class' => 'form-control'])
+                ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
+                ->endForm()
+                ;
+        $this->twig->display('back/post.html.twig', ['post' => $post, 'addCommentForm' => $addCommentForm->create()]);
+        //\var_dump($post);
+        
     }
 
     /**
@@ -80,7 +122,9 @@ class PostController extends Controller
                 $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
             }
             
+            //instance of Form
             $addPostForm = new Form;
+            //Construction of the form
             $addPostForm->startForm()
                 ->addLabelFor('title', 'Titre du post :')
                 ->addInput('text', 'title', [

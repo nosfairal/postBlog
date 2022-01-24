@@ -3,9 +3,7 @@
 <link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 {% endblock %} 
 {% block content %}
-    {% if user is defined %}
-    {%  for attribute in user %}
-     <span class="title"> Nom : {{ attribute.lastName }} </span>
-     {% endfor %}
-    {% endif %}
+
+    {{ prout.content }}
+
 {% endblock %}

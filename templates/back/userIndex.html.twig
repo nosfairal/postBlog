@@ -3,3 +3,8 @@
 {% block stylesheets %} 
 <link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 {% endblock %} 
+{% block content %}
+{% for user in users %}
+    {{ user.firstName }}
+{% endfor %}
+{% endblock %}

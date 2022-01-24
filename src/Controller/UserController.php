@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         $user = new User;
         $users = $user->findAll();
-        var_dump($users);
+        ////var_dump($users);
         $this->twig->display('back/userIndex.html.twig', compact('users'));
     }
 
@@ -44,21 +44,21 @@ class UserController extends Controller
             //If email exist
             $user = $user->hydrate($userArray);            
             $password = $user->getPassword();
-            var_dump($password);
+            //var_dump($password);
             //If password doesn't complain
             if(!password_verify($_POST['password'], $password)){                
                 $_SESSION['erreur'] = 'Vos identifiants sont incorrect';
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
-                    var_dump($user);
+                    //var_dump($user);
                 }else{
                     $user->setSession();
                     header('Location: https://localhost/blogpost/index.php');
-                    var_dump($user);
+                    //var_dump($user);
                     
                 }
          }
          
-            var_dump($_SESSION);
+            //var_dump($_SESSION);
             
         $loginForm = new Form;
 
@@ -97,7 +97,7 @@ class UserController extends Controller
         //Get the data
         $user = $model->findBy(['userId' =>$id]);
         var_dump($user);
-        $this->twig->display('back/user.html.twig', compact('user'));
+        $this->twig->display('back/user.html.twig', ['user' => $user]);
     }
     public function register()
     {
@@ -118,7 +118,7 @@ class UserController extends Controller
                 ->setEmailAddress($email)
                 ->setPassword($password)              
                 ;
-                var_dump($user);
+                //var_dump($user);
             //Insert into BDD
             $user->create();
 
@@ -138,7 +138,7 @@ class UserController extends Controller
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm();
-            var_dump($registerForm);
+            //var_dump($registerForm);
             $this->twig->display('front/register.html.twig', ['registerForm' => $registerForm->create()]);
         /*$user = new User;
         $this->twig->display('front/loginRegistration.html.twig', compact('user'));*/

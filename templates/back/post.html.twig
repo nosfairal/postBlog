@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+{% endblock %} 
+{% block content %}
+    {% if post is defined %}
+    {%  for attribute in post %}
+     <span class="title"> Titre : {{ attribute.title }} </span></br>
+     <span class="title"> Slug : {{ attribute.slug }} </span></br>
+     <span class="title"> Intro : {{ attribute.intro }} </span></br>
+     <span class="title"> Contenu : {{ attribute.content }} </span>
+     {% endfor %}
+     {{ addCommentForm|raw }}
+    {% endif %}
+
+    
+
+{% endblock %}

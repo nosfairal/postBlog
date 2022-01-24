@@ -63,7 +63,7 @@ class Model extends Db
         
         $liste_fields = implode(', ', $fields);
         $liste_inter = implode(', ', $inter);
-        \var_dump($values);
+        //\var_dump($values);
 
         return $this->request('INSERT INTO '.$this->table.' ('. $liste_fields.')VALUES('.$liste_inter.')', $values);
     }
@@ -86,17 +86,17 @@ class Model extends Db
             }
         }
         $values[] = $modifiedId; //$this->postId;
-        \var_dump($values);
+       // \var_dump($values);
         
        
 
         //convert array into string
         $liste_fields = implode(', ', $fields);
-\var_dump($fields);
+//\var_dump($fields);
 
         //execute the request
         return $this->request('UPDATE '.$this->table.' SET '. $liste_fields.' WHERE '.$this->table.'Id = ?', $values);
-        \var_dump($this);
+        //\var_dump($this);
         
     }
 

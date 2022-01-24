@@ -9,7 +9,7 @@ class User extends Model
     protected int  $userId;
     protected string $lastName;
     protected string $firstName;
-    protected string $publicName;
+    public string $publicName;
     protected string $emailAddress;
     protected string $password;
     protected string $userStatus;
