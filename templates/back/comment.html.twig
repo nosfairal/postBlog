@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+{% endblock %} 
+{% block content %}
+    {% if comment is defined %}
+    {%  for attribute in comment %}
+     <span class="title"> Contenu : {{ attribute.content }} </span>
+     {% endfor %}
+     {#{{ addCommentForm|raw }}#}
+    {% endif %}
+
+    
+
+{% endblock %}

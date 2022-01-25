@@ -10,7 +10,7 @@ class Model extends Db
     protected $table;
 
     // Instance of Db
-    private $db;
+    protected $db;
 
 
     public function findAll()

@@ -3,7 +3,6 @@
 <link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 {% endblock %} 
 {% block content %}
-{% for post in posts %}
-    <a href="https://localhost/blogpost/index.php?p=post/show/{{ post.postId }}">{{ post.content }}</a></br>
-{% endfor %}
+    <h1>Modifier un commentaire </h1>
+{{ updateCommentForm|raw }}
 {% endblock %}

@@ -4,6 +4,7 @@ use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\Post;
 use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Entity\Comment;
+use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Service\Form;
 use Nosfair\Blogpost\Service\Db;
 
@@ -23,7 +24,7 @@ class PostController extends Controller
         $this->twig->display('back/postIndex.html.twig', compact('posts'));
     }
     /**
-     * Method to show a single post
+     * Method to show a single post and his comments(s)
      *
      * @param  int $id
      * @return void
@@ -55,7 +56,7 @@ class PostController extends Controller
 
                 //Redirection + message
                 $_SESSION['message'] = "Votre commentaire a été enregistré avec succès";
-                //header('Location: https://localhost/blogpost/index.php?p=post/index');
+                header('Location: https://localhost/blogpost/index.php?p=post/index');
                 exit;
             }else{
                 //form doesn't match
@@ -64,7 +65,7 @@ class PostController extends Controller
             }
         //Intance of Model
         
-    }
+    
         // On récupère les données
         $post = $model->findBy(['postId' =>$id]);
         //var_dump($post);
@@ -75,9 +76,21 @@ class PostController extends Controller
                 ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
                 ->endForm()
                 ;
-        $this->twig->display('back/post.html.twig', ['post' => $post, 'addCommentForm' => $addCommentForm->create()]);
+
+                $commentRepository = new CommentRepository();
+                $commentOfPost = new Comment;
+                $commentOfPost = $commentRepository->findBy(['post' =>$id]);
+                $model = new Post;
+                $postActual = $model->findBy(['postId' =>$id]);
+                
+                var_dump($postActual,'******************', $commentOfPost);
+                $commentStatus = new Comment;
+                $commentStatus= $commentRepository->findBy(['commentStatus' => 'approuved']);   
+
+        $this->twig->display('back/post.html.twig', ['post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
         //\var_dump($post);
-        
+        } 
+       
     }
 
     /**

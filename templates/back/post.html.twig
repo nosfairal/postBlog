@@ -8,9 +8,17 @@
      <span class="title"> Titre : {{ attribute.title }} </span></br>
      <span class="title"> Slug : {{ attribute.slug }} </span></br>
      <span class="title"> Intro : {{ attribute.intro }} </span></br>
-     <span class="title"> Contenu : {{ attribute.content }} </span>
+     <span class="title"> Contenu : {{ attribute.content }} </span></br>
+    
+     
+     {%  for field in commentStatus %}
+     {% if attribute.postId == field.post %}
+     <span class="title"> Commentaires de {{ field.author }} : {{ field.content }} </span></br>
+     {% endif %}
      {% endfor %}
+      {% endfor %}
      {{ addCommentForm|raw }}
+
     {% endif %}
 
     
