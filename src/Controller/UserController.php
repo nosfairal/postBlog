@@ -140,8 +140,7 @@ class UserController extends Controller
             ->endForm();
             //var_dump($registerForm);
             $this->twig->display('front/register.html.twig', ['registerForm' => $registerForm->create()]);
-        /*$user = new User;
-        $this->twig->display('front/loginRegistration.html.twig', compact('user'));*/
+        
     }
 
 }

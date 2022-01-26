@@ -21,7 +21,8 @@ class UserRepository extends Model
     {
         $_SESSION['user'] = [
             'userId' => $this->userId,
-            'emailAdrress' => $this->emailAddress
+            'emailAdrress' => $this->emailAddress,
+            'userRole' => $this->userRole
         ];
     }
 }

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+{% endblock %} 
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <th>Id</th>
+        <th>Titre</th>
+        <th>Slug</th>
+        <th>Introduction</th>
+        <th>Contenu</th>
+        <th>Auteur</th>
+        <th>Date de rédaction</th>
+        <th>Actions</th>
+    </thead>
+    {%  for post in posts %}
+        <tr>
+            <td>{{ post.postId }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.slug }}</td>
+            <td>{{ post.intro }}</td>
+            <td>{{ post.content }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.creationDate }}</td>
+            <td>
+                <a href="https://localhost/blogpost/index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
+            </td>
+    {% endfor %}
+{% endblock %}

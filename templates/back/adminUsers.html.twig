@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+{% endblock %} 
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Pseudo</th>
+        <th>Statut</th>
+        <th>Role</th>
+        <th>Date d'inscription</th>
+        <th>Actions</th>
+    </thead>
+
+    {%  for user in users %}
+        <tr>
+            <td>{{ user.userId }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.publicName }}</td>
+            <td>{{ user.userStatus}}</td>
+            <td>{{ user.userRole }}</td>
+            <td>{{ user.creationDate }}</td>
+            <td>
+                <a href="" class="btn btn-warning">Modifier</a>
+                <a href=""class="btn btn-danger">Supprimer</a>
+            </td>
+    {% endfor %}
+{% endblock %}

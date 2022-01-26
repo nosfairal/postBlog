@@ -205,7 +205,7 @@ class PostController extends Controller
                         ->setIntro($intro)
                         ->setContent($content)                    
                     ;
-                    var_dump($modifiedPost);
+                    //var_dump($modifiedPost);
                     //Record
                     $modifiedPost->update($post->postId);
 
@@ -215,7 +215,7 @@ class PostController extends Controller
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
                 exit;
                 }else{
-                    //form dosen't verify compliance
+                    //form dosen't verify validation
                     $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
                     $title = isset($_POST['title']) ? strip_tags($_POST['title']) : '';
                     $slug= isset($_POST['slug']) ? strip_tags($_POST['slug']) : '';

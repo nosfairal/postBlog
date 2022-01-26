@@ -19,7 +19,7 @@ class Comment extends Model
         $this->table='comment';
     }
 
-    public function hydrate($donnees)
+    /*public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value)
         {
@@ -30,7 +30,7 @@ class Comment extends Model
             }
         }
     }
-
+    */
 
     /**
      * Get the value of author
