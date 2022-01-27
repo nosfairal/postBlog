@@ -70,22 +70,22 @@ class PostController extends Controller
         $post = $model->findBy(['postId' =>$id]);
         //var_dump($post);
         $addCommentForm = new Form;
-            //Construction of the form
-            $addCommentForm->startForm()->addLabelFor('content', 'Partager un commentaire :')
-                ->addTextarea('content', '', ['class' => 'form-control'])
-                ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
-                ->endForm()
-                ;
+        //Construction of the form
+        $addCommentForm->startForm()->addLabelFor('content', 'Partager un commentaire :')
+            ->addTextarea('content', '', ['class' => 'form-control'])
+            ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
+            ->endForm()
+            ;
 
-                $commentRepository = new CommentRepository();
-                $commentOfPost = new Comment;
-                $commentOfPost = $commentRepository->findBy(['post' =>$id]);
-                $model = new Post;
-                $postActual = $model->findBy(['postId' =>$id]);
-                
-                var_dump($postActual,'******************', $commentOfPost);
-                $commentStatus = new Comment;
-                $commentStatus= $commentRepository->findBy(['commentStatus' => 'approuved']);   
+        $commentRepository = new CommentRepository();
+        $commentOfPost = new Comment;
+        $commentOfPost = $commentRepository->findBy(['post' =>$id]);
+        $model = new Post;
+        $postActual = $model->findBy(['postId' =>$id]);
+        
+        //var_dump($postActual,'******************', $commentOfPost);
+        $commentStatus = new Comment;
+        $commentStatus= $commentRepository->findBy(['commentStatus' => 'approuved']);   
 
         $this->twig->display('back/post.html.twig', ['post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
         //\var_dump($post);

@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        \var_dump($_SESSION);
+
         //Verify Admin status
         if($this->isAdmin()){
             $this->twig->display('back/adminIndex.html.twig');
@@ -30,6 +30,21 @@ class AdminController extends Controller
             $this->twig->display('back/adminUsers.html.twig', compact('users'));
         }
     }
+
+    /**
+     * Method to delete a user
+     * @param int $id
+     * return void
+     */
+
+    public function deleteUser(int $id){
+        //Verify Admin status
+        if($this->isAdmin()){
+            $user = new User;
+            $user->delete($id);
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        }
+     }
 
     /**
      * Method to manage posts
@@ -103,9 +118,14 @@ class AdminController extends Controller
             $comment= new Comment;
             $commentRepository = new CommentRepository();
             $commentArray = $commentRepository->findby(['CommentId' => $id]);
-                $commentApprouved =$comment->hydrate($commentArray);
-                \var_dump($commentApprouved);
-                $commentApprouved->setCommentStatus("approuved");
+            $commentApprouved =$comment->hydrate($commentArray);
+
+                if($this->commentStatus = "to validate"){
+                    $commentApprouved->setCommentStatus("approuved");
+                }
+                if($this->commentStatus = "approuved"){
+                    $commentApprouved->setCommentStatus("rejected");
+                }
                 $commentApprouved->update($id);
                 \header('Location: https://localhost/blogpost/index.php?p=admin/comments/');
          }
@@ -121,7 +141,7 @@ class AdminController extends Controller
             return true;
          }else{
              $_SESSION['erreur'] ="Vous n'avez pas les droits pour accéder à cette page";
-             header('location: https://localhost/blogpost/index.php');
+             header('location: '.$_SERVER['HTTP_REFERER']);
          }
      }
 }

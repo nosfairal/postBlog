@@ -44,7 +44,7 @@ class CommentController extends Controller
     /**
      * Method to update a comment
      * @param int $id
-     * retrun void
+     * return void
      */
         
     public function update(int $id)
