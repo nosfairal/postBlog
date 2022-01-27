@@ -10,6 +10,7 @@
         <th>Prénom</th>
         <th>Pseudo</th>
         <th>Statut</th>
+        <th>Changer le statut</th>
         <th>Role</th>
         <th>Date d'inscription</th>
         <th>Actions</th>
@@ -22,11 +23,20 @@
             <td>{{ user.firstName }}</td>
             <td>{{ user.publicName }}</td>
             <td>{{ user.userStatus}}</td>
+            <td>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ user.userId }}" {% if user.userStatus == 'approuved' %} checked {% else %} '' {% endif %} data-id="{{ user.userId }}">
+                    <label class="form-check-label" for="customSwitch{{ user.userId }}"></label>
+                </div>
+            </td>
             <td>{{ user.userRole }}</td>
             <td>{{ user.creationDate }}</td>
             <td>
-                <a href="" class="btn btn-warning">Modifier</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning">Modifier</a>
                 <a href="https://localhost/blogpost/index.php?p=admin/deleteUser/{{ user.userId }}"class="btn btn-danger">Supprimer</a>
             </td>
     {% endfor %}
+{% endblock %}
+{% block script %}
+    <script src="./public/javascript/admin.js"></script>
 {% endblock %}

@@ -5,6 +5,8 @@ use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Entity\Post;
 use Nosfair\Blogpost\Repository\CommentRepository;
+use Nosfair\Blogpost\Repository\UserRepository;
+use Nosfair\Blogpost\Service\Form;
 
 class AdminController extends Controller
 {
@@ -45,6 +47,114 @@ class AdminController extends Controller
             header('Location: '.$_SERVER['HTTP_REFERER']);
         }
      }
+    
+    /**
+     * Method to approuve a comment
+     * @param int $id
+     * @return void
+     */
+
+    public function approuveUser(int $id)
+    {
+        //Verify Admin status
+        if($this->isAdmin()){
+           $user= new User;
+           $userRepository = new userRepository();
+           $userArray = $userRepository->findby(['userId' => $id]);
+           $userApprouved =$user->hydrate($userArray);
+
+               if($this->userStatus = "to validate"){
+                   $userApprouved->setUserStatus("approuved");
+               }
+               if($this->userStatus = "approuved"){
+                   $userApprouved->setUserStatus("rejected");
+               }
+               $userApprouved->update($id);
+               \header('Location: https://localhost/blogpost/index.php?p=admin/users/');
+        }
+    }
+    /**
+     * Method to update a user
+     * @param int $id
+     * return void
+     */
+    public function updateUser(int $id)
+    {
+        // Verify if User is admin
+        if($this->isAdmin()){
+                    
+            // Instance of User
+            $user= new User;
+
+            // Search for the user by id
+            $user = $user->find($id);
+
+            // If User doesn't exist
+            if (!$user) {
+                http_response_code(404);
+                header('Location: /');
+                exit;
+            }
+            //Verify form compliance
+            if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
+                // Verify informations and hash password
+                $email = strip_tags($_POST['email']);
+                $lastName = strip_tags($_POST['lastName']);
+                $firstName = strip_tags($_POST['firstName']);
+                $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
+                $publicName = strip_tags($_POST['lastName']);
+                //Instance of a new User
+                $modifiedUser = new User;
+                
+                //Set the data
+                $modifiedUser->setUserId($id)
+                    ->setLastName($lastName)
+                    ->setFirstName($firstName)
+                    ->setPublicName($publicName)
+                    ->setEmailAddress($email)
+                    ->setPassword($password)              
+                    ;
+                    //var_dump($user);
+                //Insert into BDD
+                $modifiedUser->update($id);
+
+                
+
+
+            //Redirection + message
+            $_SESSION['message'] = "Votre profil a été modifié avec succès";
+            header('Location: https://localhost/blogpost/index.php?p=admin/users');
+            exit;
+            }else{
+                //form dosen't verify validation
+                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                
+            }   
+            //Display the form
+            $updateUserForm = new Form;
+
+        $updateUserForm->startForm()
+            ->addLabelFor('lastName', 'Votre nom :')
+            ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
+            ->addLabelFor('firstName', 'Votre prénom :')
+            ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
+            ->addLabelFor('publicName', 'Votre pseudonyme :')
+            ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
+            ->addLabelFor('email', 'Votre e-mail :')
+            ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
+            ->addLabelFor('password', 'Votre mot de passe :')
+            ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
+            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
+            ->endForm();
+            //var_dump($updateUserForm);
+            $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
+
+        }else{
+            $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
+            header('Location: https://localhost/blogpost/index.php?p=user/login');
+            exit;
+        }
+    }
 
     /**
      * Method to manage posts
@@ -106,7 +216,7 @@ class AdminController extends Controller
      }
 
     /**
-     * Method to approuve or reject a comment
+     * Method to approuve a comment
      * @param int $id
      * @return void
      */

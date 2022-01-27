@@ -25,4 +25,22 @@ class UserRepository extends Model
             'userRole' => $this->userRole
         ];
     }
+    public function findBy(array $properties)
+    {
+        $fields = [];
+        $values = [];
+
+ 
+        foreach($properties as $field => $value){
+
+            $fields[] = "$field = ?";
+            $values[] = $value;
+        }
+
+      
+        $liste_fields = implode(' AND ', $fields);
+        
+  
+        return $this->request('SELECT * FROM user WHERE '. $liste_fields, $values)->fetchAll();
+    }
 }
