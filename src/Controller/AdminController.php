@@ -65,8 +65,9 @@ class AdminController extends Controller
             $userApprouved = $user->hydrate($userArray);
 \var_dump($userApprouved);
     
-            $userApprouved->setUserStatus("approuved");
-               //$userStatus = "approuved";
+            $userApprouved->setUserStatus("approuved")
+                        ->setUserRole("member");
+
             $userApprouved->update($id);
 
             header('Location: https://localhost/blogpost/index.php?p=admin/users/');
