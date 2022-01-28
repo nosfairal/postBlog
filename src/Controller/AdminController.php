@@ -49,7 +49,7 @@ class AdminController extends Controller
      }
     
     /**
-     * Method to approuve a comment
+     * Method to approuve a user
      * @param int $id
      * @return void
      */
@@ -58,19 +58,19 @@ class AdminController extends Controller
     {
         //Verify Admin status
         if($this->isAdmin()){
-           $user= new User;
-           $userRepository = new userRepository();
-           $userArray = $userRepository->findby(['userId' => $id]);
-           $userApprouved =$user->hydrate($userArray);
+            $user = new User;
+            $userRepository = new userRepository();
+            $userArray = $userRepository->findBy(['userId' => $id]);
+            \var_dump($user);
+            $userApprouved = $user->hydrate($userArray);
+\var_dump($userApprouved);
+    
+            $userApprouved->setUserStatus("approuved");
+               //$userStatus = "approuved";
+            $userApprouved->update($id);
 
-               if($this->userStatus = "to validate"){
-                   $userApprouved->setUserStatus("approuved");
-               }
-               if($this->userStatus = "approuved"){
-                   $userApprouved->setUserStatus("rejected");
-               }
-               $userApprouved->update($id);
-               \header('Location: https://localhost/blogpost/index.php?p=admin/users/');
+            header('Location: https://localhost/blogpost/index.php?p=admin/users/');
+
         }
     }
     /**
@@ -227,14 +227,11 @@ class AdminController extends Controller
          if($this->isAdmin()){
             $comment= new Comment;
             $commentRepository = new CommentRepository();
-            $commentArray = $commentRepository->findby(['CommentId' => $id]);
+            $commentArray = $commentRepository->findBy(['commentId' => $id]);
             $commentApprouved =$comment->hydrate($commentArray);
 
                 if($this->commentStatus = "to validate"){
                     $commentApprouved->setCommentStatus("approuved");
-                }
-                if($this->commentStatus = "approuved"){
-                    $commentApprouved->setCommentStatus("rejected");
                 }
                 $commentApprouved->update($id);
                 \header('Location: https://localhost/blogpost/index.php?p=admin/comments/');
