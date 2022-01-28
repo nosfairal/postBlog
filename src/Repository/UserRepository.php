@@ -6,6 +6,12 @@ use Nosfair\Blogpost\Entity\User;
 
 class UserRepository extends Model
 {
+    public function __construct()
+    {
+
+    }
+    
+    
     /**
      * Get an user by e-mail
      * @param string $email 
@@ -42,5 +48,74 @@ class UserRepository extends Model
         
   
         return $this->request('SELECT * FROM user WHERE '. $liste_fields, $values)->fetchAll();
+    }
+    public function update($modifiedId)
+    {
+        $fields = [];
+        $values = [];
+
+
+
+        foreach($this as $field => $value){
+        
+            if($value !== null && $field != 'db' && $field != 'table') {
+                $fields[] = "$field = ?";
+                $values[] = $value;
+            }
+        }
+        $values[] = $modifiedId; //$this->postId;
+       // \var_dump($values);
+        
+       
+
+        //convert array into string
+        $liste_fields = implode(', ', $fields);
+//\var_dump($fields);
+
+        //execute the request
+        return $this->request('UPDATE user SET '. $liste_fields.' WHERE userId = ?', $values);
+        //\var_dump($this);
+        
+    }
+    public function find(int $id)
+    {
+        return $this->request("SELECT * FROM user WHERE userId = $id")->fetch();
+    }
+
+    public function hydrate($donnees)
+    {
+        foreach($donnees as $key => $value){
+
+            $setter = 'set'.ucfirst($key);
+            
+  
+            if(method_exists($this, $setter)) {
+  
+                $this->$setter($value);
+            }
+        }
+        return $this;
+    }
+    public function updateUser($id, $value)
+    {
+        return $this->request('UPDATE user SET userStatus = '.$value.'  WHERE userId = ' .$id );
+    }
+    public function request(string $sql, array $attributes = null)
+    {
+        // Get instanceof Db
+        $this->db = Db::getInstance();
+
+        // On vérifie si on a des attributs
+        if($attributes !== null) {
+            // Prepare request
+
+            $query = $this->db->prepare($sql);
+   
+            $query->execute($attributes);
+            return $query;
+        }else{
+            // Simple request
+            return $this->db->query($sql);
+        }
     }
 }
