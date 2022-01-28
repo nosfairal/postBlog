@@ -33,9 +33,13 @@ class PostController extends Controller
     {   
         
  
-        if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+        if(!isset($_SESSION['user'])){
+            $_SESSION['message'] = "Vous devez être inscrit et connecté pour pouvoir poster";
+            //header('Location: ./index.php?p=user/register');
+        }
+
             $model = new Post;
-        $post = $model->findBy(['postId' =>$id]);
+            $post = $model->findBy(['postId' =>$id]);
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
 
@@ -80,8 +84,7 @@ class PostController extends Controller
         $commentRepository = new CommentRepository();
         $commentOfPost = new Comment;
         $commentOfPost = $commentRepository->findBy(['post' =>$id]);
-        $model = new Post;
-        $postActual = $model->findBy(['postId' =>$id]);
+        \var_dump($commentOfPost);
         
         //var_dump($postActual,'******************', $commentOfPost);
         $commentStatus = new Comment;
@@ -89,7 +92,7 @@ class PostController extends Controller
 
         $this->twig->display('back/post.html.twig', ['post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
         //\var_dump($post);
-        } 
+        
        
     }
 
