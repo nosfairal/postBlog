@@ -1,10 +1,10 @@
 <?php
 namespace Nosfair\Blogpost\Repository;
-use Nosfair\Blogpost\Entity\Model;
+use Nosfair\Blogpost\Repository\ModelRepository;
 use Nosfair\Blogpost\Service\Db;
 use Nosfair\Blogpost\Entity\User;
 
-class UserRepository extends Model
+class UserRepository extends ModelRepository
 {
     public function __construct()
     {
@@ -96,10 +96,7 @@ class UserRepository extends Model
         }
         return $this;
     }
-    public function updateUser($id, $value)
-    {
-        return $this->request('UPDATE user SET userStatus = '.$value.'  WHERE userId = ' .$id );
-    }
+
     public function request(string $sql, array $attributes = null)
     {
         // Get instanceof Db

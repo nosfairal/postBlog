@@ -1,9 +1,9 @@
 <?php
 namespace Nosfair\Blogpost\Entity;
-use Nosfair\Blogpost\Entity\Model;
+use Nosfair\Blogpost\Repository\ModelRepository;
 use DateTime;
 
-class Comment extends Model
+class Comment extends ModelRepository
 {
     protected int  $commentId;
     protected int $post;

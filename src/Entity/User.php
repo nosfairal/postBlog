@@ -1,10 +1,10 @@
 <?php
 
 namespace Nosfair\Blogpost\Entity;
-use Nosfair\Blogpost\Entity\Model;
 use DateTime;
+use Nosfair\Blogpost\Repository\ModelRepository;
 
-class User extends Model
+class User extends ModelRepository
 {
     protected int  $userId;
     protected string $lastName;

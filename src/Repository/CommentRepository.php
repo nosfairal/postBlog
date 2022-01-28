@@ -1,10 +1,11 @@
 <?php
 namespace Nosfair\Blogpost\Repository;
-use Nosfair\Blogpost\Entity\Model;
+
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Service\Db;
+use Nosfair\Blogpost\Repository\ModelRepository;
 
-class CommentRepository extends Model
+class CommentRepository extends ModelRepository
 {   
     public function __construct()
     {

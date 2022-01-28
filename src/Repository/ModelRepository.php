@@ -1,11 +1,13 @@
 <?php
-namespace Nosfair\Blogpost\Entity;
+namespace Nosfair\Blogpost\Repository;
 
 use Attribute;
 use Nosfair\Blogpost\Service\Db;
 
-class Model extends Db
+class ModelRepository extends Db
 {
+
+
     // Table of BDD
     protected $table;
 
