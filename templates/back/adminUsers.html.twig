@@ -12,6 +12,7 @@
         <th>Statut</th>
         <th>Changer le statut</th>
         <th>Role</th>
+        <th>Changer le rôle</th>
         <th>Date d'inscription</th>
         <th>Actions</th>
     </thead>
@@ -30,6 +31,9 @@
                 </div>
             </td>
             <td>{{ user.userRole }}</td>
+            <td>
+                <button type="button" class="btn btn-success" id="buttonUpgrade{{ user.userId }}" data-id="{{ user.userId }}">Rendre Modérateur</button>
+            </td>
             <td>{{ user.creationDate }}</td>
             <td>
                 <a href="https://localhost/blogpost/index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning">Modifier</a>

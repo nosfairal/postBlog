@@ -73,6 +73,33 @@ class AdminController extends Controller
 
         }
     }
+
+    /**
+     * Method to approuve a user
+     * @param int $id
+     * @return void
+     */
+
+    public function upgradeUser(int $id)
+    {
+        //Verify Admin status
+        if($this->isAdmin()){
+            $user = new User;
+            $userRepository = new userRepository();
+            $userArray = $userRepository->findBy(['userId' => $id]);
+            \var_dump($user);
+            $userUpgraded = $user->hydrate($userArray);
+
+    
+            $userUpgraded->setUserRole("moderator");
+               //$userStatus = "approuved";
+            $userUpgraded->update($id);
+
+            header('Location: https://localhost/blogpost/index.php?p=admin/users/');
+
+        }
+    }
+
     /**
      * Method to update a user
      * @param int $id
