@@ -50,11 +50,11 @@ class Main
                 echo "La page recherchée n'existe pas";
             }
         }else{
-            // Ici aucun paramètre n'est défini
-            // On instancie le contrôleur par défaut (page d'accueil)
+            // If no parameter
+            // Instance of default Controller
             $controller = new MainController();
 
-            // On appelle la méthode index
+            // Call to the  method index
             $controller->index();
         }
 

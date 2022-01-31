@@ -44,7 +44,8 @@ class User extends ModelRepository
         $_SESSION['user'] = [
             'userId' => $this->userId,
             'emailAdrress' => $this->emailAddress,
-            'userRole' => $this->userRole
+            'userRole' => $this->userRole,
+            'publicName' => $this->publicName
         ];
     }
 

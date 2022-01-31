@@ -58,7 +58,7 @@ class UserController extends Controller
                 }
          }
          
-            //var_dump($_SESSION);
+
             
         $loginForm = new Form;
 

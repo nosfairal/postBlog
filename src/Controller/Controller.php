@@ -13,6 +13,7 @@ abstract class Controller
     {
         $this->loader = new FilesystemLoader(ROOT.'/blogpost/templates');
         $this->twig = new Environment($this->loader);
+        $this->twig->addGlobal('session', $_SESSION);
     }
     public function render(string $fichier, array $data = [])
     {
