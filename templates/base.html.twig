@@ -20,11 +20,14 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="https://localhost/blogpost/index.php">ACCUEIL <span class="sr-only"></span></a>
+                <li class="nav-item">
+                    <a class="nav-link {% set urlPage = app.request.attributes.get('_route') %}{% if urlPage == "index.php" %} active {% endif %}" href="https://localhost/blogpost/index.php">ACCUEIL <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://localhost/blogpost/index.php?p=user/register">S'inscrire</a>
+                    <a class="nav-link {% if currentUrl %} active {% endif %}" href="https://localhost/blogpost/index.php?p=user/register">S'inscrire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if currentUrl %} active {% endif %}" href="./index.php?p=post/index">Tous les posts</a>
                 </li>
                 {% if session.user %} {% else %}
                 <li class="nav-item">

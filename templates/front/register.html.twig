@@ -6,9 +6,11 @@
     {% endblock %}
 
     {% block content %}
-    <h1>Formulaire d'inscription</h1>
+    <div class="container">
+    <h1>Formulaire d'inscription</h1>    
     {{ registerForm|raw }}
-    <a href="https://localhost/blogpost/index.php?p=user/login">Déjà inscrit?</a>
+    <a href="./index.php?p=user/login">Déjà inscrit?</a>
+    </div>
 
     {% endblock %}
 

@@ -20,8 +20,7 @@ class PostController extends Controller
     {
         $post = new Post;
         $posts = $post->findAll();
-        var_dump($posts);
-        $this->twig->display('back/postIndex.html.twig', compact('posts'));
+        $this->twig->display('front/postIndex.html.twig', compact('posts'));
     }
     /**
      * Method to show a single post and his comments(s)
@@ -84,7 +83,7 @@ class PostController extends Controller
         $commentRepository = new CommentRepository();
         $commentOfPost = new Comment;
         $commentOfPost = $commentRepository->findBy(['post' =>$id]);
-        \var_dump($commentOfPost);
+        //\var_dump($commentOfPost);
         
         //var_dump($postActual,'******************', $commentOfPost);
         $commentStatus = new Comment;

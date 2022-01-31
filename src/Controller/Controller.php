@@ -14,6 +14,7 @@ abstract class Controller
         $this->loader = new FilesystemLoader(ROOT.'/blogpost/templates');
         $this->twig = new Environment($this->loader);
         $this->twig->addGlobal('session', $_SESSION);
+        $this->twig->addGlobal("currentUrl", $_SERVER["REQUEST_URI"]);
     }
     public function render(string $fichier, array $data = [])
     {
