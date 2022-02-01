@@ -12,10 +12,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-
+        $currentPage="admin";
         //Verify Admin status
         if($this->isAdmin()){
-            $this->twig->display('back/adminIndex.html.twig');
+            $this->twig->display('back/adminIndex.html.twig', compact('currentPage'));
         }
     }
 
@@ -27,9 +27,10 @@ class AdminController extends Controller
     {
         //Verify Admin status
         if($this->isAdmin()){
+            $currentPage="adminUsers";
             $user = new User;
             $users = $user->findAll();
-            $this->twig->display('back/adminUsers.html.twig', compact('users'));
+            $this->twig->display('back/adminUsers.html.twig', compact('users','currentPage'));
         }
     }
 
@@ -192,9 +193,10 @@ class AdminController extends Controller
     {
         //Verify Admin status
         if($this->isAdmin()){
+            $currentPage="adminPosts";
             $post = new Post;
             $posts = $post->findAll();
-            $this->twig->display('back/adminPosts.html.twig', compact('posts'));
+            $this->twig->display('back/adminPosts.html.twig', compact('posts', 'currentPage'));
         }
     }
 
@@ -222,9 +224,10 @@ class AdminController extends Controller
     {
         //Verify Admin status
         if($this->isAdmin()){
+            $currentPage="adminComments";
             $comment= new Comment;
             $comments = $comment->findAll();
-            $this->twig->display('back/adminComments.html.twig', compact('comments'));
+            $this->twig->display('back/adminComments.html.twig', compact('comments', 'currentPage'));
         }
     }
 
@@ -272,7 +275,7 @@ class AdminController extends Controller
 
      private function isAdmin()
      {
-         if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin'){
+         if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin' || $_SESSION['user']['userRole'] == 'moderator'){
             return true;
          }else{
              $_SESSION['erreur'] ="Vous n'avez pas les droits pour accéder à cette page";

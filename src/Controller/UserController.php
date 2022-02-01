@@ -100,7 +100,8 @@ class UserController extends Controller
         $this->twig->display('back/user.html.twig', ['user' => $user]);
     }
     public function register()
-    {
+    {   
+        $currentPage = "register";
         //Verify the form's compliance
         if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
             // Verify informations and hash password
@@ -138,8 +139,7 @@ class UserController extends Controller
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm();
-            //var_dump($registerForm);
-            $this->twig->display('front/register.html.twig', ['registerForm' => $registerForm->create()]);
+            $this->twig->display('front/register.html.twig', ['currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         
     }
 

@@ -20,7 +20,8 @@ class PostController extends Controller
     {
         $post = new Post;
         $posts = $post->findAll();
-        $this->twig->display('front/postIndex.html.twig', compact('posts'));
+        $currentPage = "postIndex";
+        $this->twig->display('front/postIndex.html.twig', compact('posts','currentPage'));
     }
     /**
      * Method to show a single post and his comments(s)

@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
+    {% block title %}Inscription{% endblock %}
     {% block stylesheets %} 
     <link rel="stylesheet" href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    {#<link rel="stylesheet" href="./public/css/login.css">#}
+    <link rel="stylesheet" href="./public/css/style.css">
     {% endblock %}
 
     {% block content %}
     <div class="container">
-    <h1>Formulaire d'inscription</h1>    
-    {{ registerForm|raw }}
-    <a href="./index.php?p=user/login">Déjà inscrit?</a>
+        <h1>Formulaire d'inscription</h1>    
+        {{ registerForm|raw }}
+        <a href="./index.php?p=user/login">Déjà inscrit?</a>
     </div>
 
     {% endblock %}
 
 
     {% block script %} 
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/jquery/jquery.min.js"></script>
     {% endblock %}
