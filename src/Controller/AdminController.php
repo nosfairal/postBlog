@@ -62,17 +62,15 @@ class AdminController extends Controller
             $user = new User;
             $userRepository = new userRepository();
             $userArray = $userRepository->findBy(['userId' => $id]);
-            \var_dump($user);
             $userApprouved = $user->hydrate($userArray);
-\var_dump($userApprouved);
     
             $userApprouved->setUserStatus("approuved")
                         ->setUserRole("member");
 
             $userApprouved->update($id);
 
-            header('Location: https://localhost/blogpost/index.php?p=admin/users/');
-
+            header('location: ./index.php?p=admin/index/');
+            exit;
         }
     }
 
@@ -162,21 +160,21 @@ class AdminController extends Controller
             //Display the form
             $updateUserForm = new Form;
 
-        $updateUserForm->startForm()
-            ->addLabelFor('lastName', 'Votre nom :')
-            ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
-            ->addLabelFor('firstName', 'Votre prénom :')
-            ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
-            ->addLabelFor('publicName', 'Votre pseudonyme :')
-            ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
-            ->addLabelFor('email', 'Votre e-mail :')
-            ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
-            ->addLabelFor('password', 'Votre mot de passe :')
-            ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
-            ->endForm();
-            //var_dump($updateUserForm);
-            $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
+            $updateUserForm->startForm()
+                ->addLabelFor('lastName', 'Votre nom :')
+                ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
+                ->addLabelFor('firstName', 'Votre prénom :')
+                ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
+                ->addLabelFor('publicName', 'Votre pseudonyme :')
+                ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
+                ->addLabelFor('email', 'Votre e-mail :')
+                ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
+                ->addLabelFor('password', 'Votre mot de passe :')
+                ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
+                ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
+                ->endForm();
+                //var_dump($updateUserForm);
+                $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
 
         }else{
             $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
