@@ -1,5 +1,6 @@
 * {
   font-size: large !important;
+
 }
 h1 {
   font-size: 3rem !important;
@@ -7,4 +8,7 @@ h1 {
 footer.bg-dark {
   position: relative!important;
   bottom: 0 !important;
+}
+.navbar {
+  z-index: 10;
 }

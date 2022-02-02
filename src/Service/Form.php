@@ -102,7 +102,7 @@ class Form
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
         // adding  text
-        $this->formCode .= ">$text</label> </br>";
+        $this->formCode .= ">$text</label>";
 
         return $this;
     }
@@ -120,7 +120,8 @@ class Form
         $this->formCode .= "<input type='$type' name='$name'";
 
         // Adding  attributes
-        $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '></div>';
+        $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '>';
+        $this->formCode .= "</div>";
 
         return $this;
     }
