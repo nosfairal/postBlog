@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
 <table class="table table-striped">
@@ -36,11 +38,12 @@
             </td>
             <td>{{ user.creationDate }}</td>
             <td>
-                <a href="https://localhost/blogpost/index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning">Modifier</a>
-                <a href="https://localhost/blogpost/index.php?p=admin/deleteUser/{{ user.userId }}"class="btn btn-danger">Supprimer</a>
+                <a href="./index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning">Modifier</a>
+                <a href="./index.php?p=admin/deleteUser/{{ user.userId }}"class="btn btn-danger">Supprimer</a>
             </td>
         </tr>
     {% endfor %}
+    </table>
 {% endblock %}
 {% block script %}
     <script src="./public/javascript/adminUser.js"></script>

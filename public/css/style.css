@@ -4,3 +4,7 @@
 h1 {
   font-size: 3rem !important;
 }
+footer.bg-dark {
+  position: relative!important;
+  bottom: 0 !important;
+}
