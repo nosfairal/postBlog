@@ -23,7 +23,7 @@ class UserRepository extends ModelRepository
         return $this->request("SELECT * FROM {$this->table} WHERE emailAddress = ?", [$email])->fetch();
     }
 
-    public function setSession() 
+    public function setSession()
     {
         $_SESSION['user'] = [
             'userId' => $this->userId,
@@ -77,10 +77,12 @@ class UserRepository extends ModelRepository
         //\var_dump($this);
         
     }
+
     public function find(int $id)
     {
         return $this->request("SELECT * FROM user WHERE userId = $id")->fetch();
     }
+
 
     public function hydrate($donnees)
     {

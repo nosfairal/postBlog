@@ -37,7 +37,7 @@ class UserController extends Controller
             $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
             //If email doesn't exist
             if(!$userArray){
-                $_SESSION['erreur'] = 'Vos identifiants sont incorrect';                
+                $_SESSION['erreur'] = 'Vos identifiants sont incorrects';                
                 header('Location: https://localhost/blogpost/index.php?p=user/login');
                 exit;
             }
@@ -47,10 +47,11 @@ class UserController extends Controller
             //var_dump($password);
             //If password doesn't complain
             if(!password_verify($_POST['password'], $password)){                
-                $_SESSION['erreur'] = 'Vos identifiants sont incorrect';
+                $_SESSION['erreur'] = 'Vos identifiants sont incorrects';
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
                     //var_dump($user);
                 }else{
+                    $userRepository = new UserRepository();
                     $user->setSession();
                     header('Location: https://localhost/blogpost/index.php');
                     //var_dump($user);

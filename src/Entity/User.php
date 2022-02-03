@@ -14,7 +14,7 @@ class User extends ModelRepository
     protected string $password;
     protected string $userStatus;
     protected string $userRole;
-    private  $creationDate;
+    protected  $creationDate;
     
 
     public function __construct()
