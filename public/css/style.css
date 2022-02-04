@@ -1,14 +1,26 @@
 * {
-  font-size: large !important;
+   font-size: large !important;
+   padding: 0;
+   margin: 0;
 
 }
 h1 {
   font-size: 3rem !important;
 }
-footer.bg-dark {
-  position: relative!important;
+/* footer.bg-dark {
   bottom: 0 !important;
+  position: auto!important;
+} */
+
+.tableContainer {
+  height: 300px;
+  overflow: scroll;
 }
-.navbar {
-  z-index: 10;
+.tableContainer th {
+  position: sticky ;
+  top: 0;
+  background-color: red;
+}
+.content {
+  height: auto;
 }

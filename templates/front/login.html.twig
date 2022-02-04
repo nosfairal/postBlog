@@ -7,7 +7,7 @@
     {% endblock %}
 
     {% block content %}
-     {% if session.erreur == "Vos identifiants sont incorrects" %}
+    {% if session.erreur == "Vos identifiants sont incorrects" %}
         <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
     {% endif %} 
     
