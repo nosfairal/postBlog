@@ -125,6 +125,24 @@ class Form
 
         return $this;
     }
+    /**
+     * Adding input field
+     * @param string $type 
+     * @param string $name
+     * @param array $attributes 
+     * @return Form
+     */
+    public function addLink(string $href, string $name, array $attributes = []):self
+    {
+        // Openning tags
+        $this->formCode .= "<div><a href='$href' name='$name'";
+
+        // Adding  attributes
+        $this->formCode .= $attributes ? $this->addAttributes($attributes).'>' : '</a>';
+        $this->formCode .= "</div>";
+
+        return $this;
+    }
 
     /**
      * Adding a textarea field

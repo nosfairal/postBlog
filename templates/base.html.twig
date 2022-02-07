@@ -33,7 +33,7 @@
                             <a class="nav-link {% if currentPage == "postIndex" %} active {% endif %}" href="./index.php?p=post/index">Tous les posts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if currentPage == "contact" %} active {% endif %}" href="./index.php?p=contact">Me contacter</a>
+                            <a class="nav-link {% if currentPage == "contact" %} active {% endif %}" href="./index.php?p=contact/index">Me contacter</a>
                         </li>
                         {% if session.user.userRole == "admin" or session.user.userRole == "moderator" %}
                             <li class="nav-item">

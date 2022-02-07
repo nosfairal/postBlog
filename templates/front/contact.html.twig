@@ -8,6 +8,9 @@
     {% endblock %}
 
     {% block content %}
+        {% if session.message == "Merci pour votre message, je vous réponds dans les plus brefs délais" %}
+        <div class="alert alert-success" role="alert">{{ session.message}}</div>
+        {% endif %}     
         {% if session.erreur == "le formulaire est incomplet" %}
             <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
         {% endif %} 
@@ -18,9 +21,10 @@
     {% endblock %}
     {% block script %}
         <script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
+        
         <script>
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: '#'}).then(function(token) {
+            grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: 'contact'}).then(function(token) {
                 document.getElementById('recaptchaResponse').value = token
             });
         });
