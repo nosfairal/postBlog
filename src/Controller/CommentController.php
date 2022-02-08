@@ -32,7 +32,6 @@ class CommentController extends Controller
 
         // On récupère les données
         $comment = $model->findBy(['CommentId' =>$id]);
-        var_dump($comment);
         $this->twig->display('back/comment.html.twig', compact('comment'));
     }
     public function add()
@@ -62,7 +61,6 @@ class CommentController extends Controller
             if (!$comment) {
                 http_response_code(404);
                 header('Location: /');
-                exit;
             }
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
@@ -75,8 +73,7 @@ class CommentController extends Controller
                 $modifiedcomment->setcommentId($comment->commentId)                    
                     ->setContent($content)                    
                 ;
-                var_dump($modifiedcomment);
-                //Record
+                //Record of the modified comment
                 $modifiedcomment->update($comment->commentId);
 
 

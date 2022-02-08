@@ -66,7 +66,6 @@ class PostController extends Controller
                 //Redirection + message
                 $_SESSION['message'] = "Votre commentaire a été enregistré avec succès";
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
-                exit;
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';

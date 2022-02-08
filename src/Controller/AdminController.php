@@ -120,7 +120,6 @@ class AdminController extends Controller
             if (!$user) {
                 http_response_code(404);
                 header('Location: /');
-                exit;
             }
             //Verify form compliance
             if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){

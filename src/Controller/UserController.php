@@ -39,7 +39,6 @@ class UserController extends Controller
             if(!$userArray){
                 $_SESSION['erreur'] = 'Vos identifiants sont incorrects';                
                 header('Location: https://localhost/blogpost/index.php?p=user/login');
-                exit;
             }
             //If email exist
             $user = $user->hydrate($userArray);            
@@ -51,7 +50,6 @@ class UserController extends Controller
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
                     //var_dump($user);
                 }else{
-                    $userRepository = new UserRepository();
                     $user->setSession();
                     header('Location: https://localhost/blogpost/index.php');
                     //var_dump($user);
