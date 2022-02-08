@@ -32,14 +32,20 @@ class PostController extends Controller
     public function show(int $id)
     {   
         
- 
+        //Verify if User is connected
         if(!isset($_SESSION['user'])){
             $_SESSION['message'] = "Vous devez être inscrit et connecté pour pouvoir poster";
             //header('Location: ./index.php?p=user/register');
         }
-
+            //Instance of new Post
             $model = new Post;
             $post = $model->findBy(['postId' =>$id]);
+            //Instance of new User
+            $user = new User;
+            //Get the publicName of the author of the post
+            $userPublicName = $user->getPostAuthorPublicName($id);
+            $userPublicName= $userPublicName->publicName;
+            //var_dump($userPublicName);
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
 
@@ -67,20 +73,21 @@ class PostController extends Controller
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
                 $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
             }
-        //Intance of Model
         
     
-        // On récupère les données
+        // Get datas
         $post = $model->findBy(['postId' =>$id]);
         //var_dump($post);
+        //Instance of Form
         $addCommentForm = new Form;
         //Construction of the form
         $addCommentForm->startForm()->addLabelFor('content', 'Partager un commentaire :')
             ->addTextarea('content', '', ['class' => 'form-control'])
-            ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
+            ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary mb-2'])
             ->endForm()
             ;
-
+        
+        // Instance of Comment
         $commentRepository = new CommentRepository();
         $commentOfPost = new Comment;
         $commentOfPost = $commentRepository->findBy(['post' =>$id]);
@@ -88,9 +95,10 @@ class PostController extends Controller
         
         //var_dump($postActual,'******************', $commentOfPost);
         $commentStatus = new Comment;
+        //Get comments approuved
         $commentStatus= $commentRepository->findBy(['commentStatus' => 'approuved']);   
 
-        $this->twig->display('back/post.html.twig', ['post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
+        $this->twig->display('front/post.html.twig', ['author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
         //\var_dump($post);
         
        

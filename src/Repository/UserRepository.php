@@ -99,6 +99,11 @@ class UserRepository extends ModelRepository
         return $this;
     }
 
+    public function getPostAuthorPublicName($id)
+    {
+        return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $id")->fetch();
+    }
+
     public function request(string $sql, array $attributes = null)
     {
         // Get instanceof Db
@@ -117,4 +122,5 @@ class UserRepository extends ModelRepository
             return $this->db->query($sql);
         }
     }
+
 }
