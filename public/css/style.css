@@ -3,8 +3,8 @@
     padding: 0;
       margin: 0;
 }
-h1 {
-  font-size: 3rem !important;
+#contactTitle {
+  font-size: 10rem;
 }
 /* footer.bg-dark {
   bottom: 0 !important;

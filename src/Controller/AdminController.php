@@ -174,7 +174,6 @@ class AdminController extends Controller
         }else{
             $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
             header('Location: https://localhost/blogpost/index.php?p=user/login');
-            exit;
         }
     }
 

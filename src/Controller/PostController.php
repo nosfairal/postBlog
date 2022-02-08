@@ -194,7 +194,6 @@ class PostController extends Controller
                 if (!$post) {
                     http_response_code(404);
                     header('Location: /');
-                    exit;
                 }
                 //Verify form compliance
                 if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
