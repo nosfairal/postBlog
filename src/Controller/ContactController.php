@@ -21,6 +21,7 @@ class ContactController extends Controller
                 $firstName= strip_tags($_POST['firstName']);
                 $email = strip_tags($_POST['email']);
                 $message = strip_tags($_POST['message']);
+                $mailPass=$_ENV["EPASS"];
 
                 $mail = new PHPMailer(true);
                 try{
@@ -34,7 +35,7 @@ class ContactController extends Controller
                     $mail->SMTPAuth = true;
                     $mail->SMTPSecure = 'ssl';
                     $mail->Username = $_ENV["EMAIL"];
-                    $mail->Password = $_ENV["EPASS"];
+                    $mail->Password = $mailPass;
                     //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                     $mail->Port = 465;   
                     $mail->Charset ="utf-8";
