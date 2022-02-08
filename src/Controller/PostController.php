@@ -59,7 +59,6 @@ class PostController extends Controller
                     ->setContent($content)
                     ->setPost($id)                    
                 ;
-                var_dump($comment);
                 //Record
                 $comment->create();
 
