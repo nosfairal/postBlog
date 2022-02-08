@@ -9,6 +9,6 @@ function approuve(){
     let xmlhttp = new XMLHttpRequest;
     xmlhttp.open('GET', "https://localhost/blogpost/index.php?p=admin/approuveComment/"+this.dataset.id);
     xmlhttp.send();
-};
+}
 
 
