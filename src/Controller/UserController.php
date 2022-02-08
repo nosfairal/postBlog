@@ -79,7 +79,6 @@ class UserController extends Controller
     public function logout(){
         unset($_SESSION['user']);
         header('Location: '. $_SERVER['HTTP_REFERER']);
-        exit;
     }
 
     /**

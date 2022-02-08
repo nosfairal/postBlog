@@ -1,14 +1,14 @@
-window.onload = () =>{
-    let buttons = document.querySelectorAll(".form-check-input")
+window.onload = () => {
+    let buttons = document.querySelectorAll(".form-check-input");
     for(let button of buttons){
-        button.addEventListener("click", approuve)
+        button.addEventListener("click", approuve);
     }
-}
+};
 
 function approuve(){
     let xmlhttp = new XMLHttpRequest;
-    xmlhttp.open('GET', 'https://localhost/blogpost/index.php?p=admin/approuveComment/'+this.dataset.id)
-    xmlhttp.send()
-}
+    xmlhttp.open('GET', "https://localhost/blogpost/index.php?p=admin/approuveComment/"+this.dataset.id);
+    xmlhttp.send();
+};
 
 

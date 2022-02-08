@@ -70,7 +70,6 @@ class AdminController extends Controller
             $userApprouved->update($id);
 
             header('location: ./index.php?p=admin/index/');
-            exit;
         }
     }
 

@@ -80,7 +80,6 @@ class CommentController extends Controller
             //Redirection + message
             $_SESSION['message'] = "Votre commentaire a été modifié avec succès";
             header('Location: https://localhost/blogpost/index.php?p=comment/index');
-            exit;
             }else{
                 //form dosen't verify compliance
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
