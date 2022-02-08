@@ -141,15 +141,12 @@ class AdminController extends Controller
                     ;
                     //var_dump($user);
                 //Insert into BDD
-                $modifiedUser->update($id);
-
-                
+                $modifiedUser->update($id);                
 
 
             //Redirection + message
             $_SESSION['message'] = "Votre profil a été modifié avec succès";
             header('Location: https://localhost/blogpost/index.php?p=admin/users');
-            exit;
             }else{
                 //form dosen't verify validation
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
