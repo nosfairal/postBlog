@@ -1,25 +1,16 @@
 * {
-  font-size: large !important;
-    padding: 0;
-      margin: 0;
+  padding: 0;
+  margin: 0;
 }
-#contactTitle {
-  font-size: 10rem;
-}
-/* footer.bg-dark {
-  bottom: 0 !important;
-  position: auto!important;
-} */
 
 .tableContainer {
   height: 300px;
   overflow: scroll;
 }
+
 .tableContainer th {
-  position: sticky ;
+  position: sticky;
   top: 0;
   background-color: red;
 }
-.content {
-  height: auto;
-}
+
