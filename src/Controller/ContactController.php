@@ -18,9 +18,10 @@ class ContactController extends Controller
        
             if(Form::validate($_POST, ['name', 'firstName', 'email', 'message'])){
                 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-                $firstName= strip_tags($_POST['firstName']);
-                $email = strip_tags($_POST['email']);
-                $message = strip_tags($_POST['message']);
+                $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING); 
+                $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+                $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
+                $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING); 
                 $mailPass=$_ENV["EPASS"];
 
                 $mail = new PHPMailer(true);
