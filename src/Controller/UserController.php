@@ -48,13 +48,13 @@ class UserController extends Controller
             if(!password_verify($_POST['password'], $password)){                
                 $_SESSION['erreur'] = 'Vos identifiants sont incorrects';
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
-                    //var_dump($user);
-                }else{
-                    $user->setSession();
-                    header('Location: https://localhost/blogpost/index.php');
-                    //var_dump($user);
-                    
+                    return;
                 }
+                $user->setSession();
+                header('Location: https://localhost/blogpost/index.php');
+
+                    
+                
          }
          
 
