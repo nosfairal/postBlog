@@ -103,11 +103,13 @@ class UserController extends Controller
         //Verify the form's compliance
         if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
             // Verify informations and hash password
-            $email = strip_tags($_POST['email']);
-            $lastName = strip_tags($_POST['lastName']);
-            $firstName = strip_tags($_POST['firstName']);
-            $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
-            $publicName = strip_tags($_POST['lastName']);
+            $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
+            $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_STRING);
+            $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
+            $passwordSafe = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $password = password_hash($passwordSafe, PASSWORD_ARGON2I);
+            $publicName = filter_input(INPUT_POST, 'publicName', FILTER_SANITIZE_STRING);
             //Instance of a new User
             $user = new User;
 

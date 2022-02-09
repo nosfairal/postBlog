@@ -197,10 +197,10 @@ class PostController extends Controller
                 }
                 //Verify form compliance
                 if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
-                    $title = strip_tags($_POST['title']);
-                    $slug= strip_tags($_POST['slug']);
-                    $intro = strip_tags($_POST['intro']);
-                    $content = strip_tags($_POST['content']);
+                    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                    $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
+                    $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);
+                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                     //Instance of Post
                     $modifiedPost = new Post;

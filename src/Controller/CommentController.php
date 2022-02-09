@@ -64,7 +64,7 @@ class CommentController extends Controller
             }
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
-                $content = strip_tags($_POST['content']);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                 //Instance of comment
                 $modifiedcomment = new Comment;
@@ -83,7 +83,7 @@ class CommentController extends Controller
             }else{
                 //form dosen't verify compliance
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
+                $content = isset($_POST['content']) ? strip_tags($_POST['content']) : '';
             }   
             //Display the form
             $updateCommentForm = new Form;
