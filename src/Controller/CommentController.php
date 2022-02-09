@@ -3,6 +3,7 @@ namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Service\Session;
 
 
 class CommentController extends Controller
@@ -78,7 +79,7 @@ class CommentController extends Controller
 
 
             //Redirection + message
-            $_SESSION['message'] = "Votre commentaire a été modifié avec succès";
+            Session::put("message", "Votre commentaire a été modifié avec succès");
             header('Location: https://localhost/blogpost/index.php?p=comment/index');
             }else{
                 //form dosen't verify compliance
@@ -98,7 +99,7 @@ class CommentController extends Controller
             $this->twig->display('back/updateComment.html.twig', ['updateCommentForm' => $updateCommentForm->create()]);
             return;
         }
-            $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
+            Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
             header('Location: https://localhost/blogpost/index.php?p=user/login');
     }
 }

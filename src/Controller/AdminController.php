@@ -4,6 +4,7 @@ namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Entity\Post;
+use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Form;
@@ -145,7 +146,7 @@ class AdminController extends Controller
 
 
             //Redirection + message
-            $_SESSION['message'] = "Votre profil a été modifié avec succès";
+            Session::put("message","Votre profil a été modifié avec succès");
             header('Location: https://localhost/blogpost/index.php?p=admin/users');
             return;
             }
@@ -172,7 +173,7 @@ class AdminController extends Controller
                 $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
 
         }else{
-            $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
+            Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
             header('Location: https://localhost/blogpost/index.php?p=user/login');
         }
     }
@@ -270,7 +271,7 @@ class AdminController extends Controller
          if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin' || $_SESSION['user']['userRole'] == 'moderator'){
             return true;
          }else{
-             $_SESSION['erreur'] ="Vous n'avez pas les droits pour accéder à cette page";
+             Session::put("erreur","Vous n'avez pas les droits pour accéder à cette page");
              header('location: '.$_SERVER['HTTP_REFERER']);
          }
      }

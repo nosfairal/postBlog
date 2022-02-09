@@ -6,6 +6,7 @@ use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Service\Db;
 
 
@@ -34,7 +35,7 @@ class PostController extends Controller
         
         //Verify if User is connected
         if(!isset($_SESSION['user'])){
-            $_SESSION['message'] = "Vous devez être inscrit et connecté pour pouvoir poster";
+            Session::put("message", "Vous devez être inscrit et connecté pour pouvoir poster");
             //header('Location: ./index.php?p=user/register');
         }
             //Instance of new Post
@@ -64,7 +65,7 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                $_SESSION['message'] = "Votre commentaire a été enregistré avec succès";
+                Session::put("message", "Votre commentaire a été enregistré avec succès");
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
             }else{
                 //form doesn't match
@@ -132,7 +133,7 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                $_SESSION['message'] = "Votre post a été enregistré avec succès";
+                Session::put("message", "Votre post a été enregistré avec succès");
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
             }else{
                 //form doesn't match
@@ -167,7 +168,7 @@ class PostController extends Controller
                 $this->twig->display('back/newPost.html.twig', ['addPostForm' => $addPostForm->create()]);
         
         }else{
-            $_SESSION['erreur'] ="Vous devez être connecté pour accéder à cette page";
+            Session::put("erreur", "Vous devez être connecté pour accéder à cette page");
             header('Location: https://localhost/blogpost/index.php?p=user/login');
         }
         
@@ -218,7 +219,7 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                $_SESSION['message'] = "Votre post a été modifié avec succès";
+                Session::put("message", "Votre post a été modifié avec succès");
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
                 }else{
                     //form dosen't verify validation
@@ -256,7 +257,7 @@ class PostController extends Controller
                     $this->twig->display('back/updatePost.html.twig', ['updatePostForm' => $updatePostForm->create()]);   
 
             }else{
-                $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
+                Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
                 header('Location: https://localhost/blogpost/index.php?p=user/login');
             }
  

@@ -4,6 +4,7 @@ namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Service\Form;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Nosfair\Blogpost\Service\Session;
 use PHPMailer\PHPMailer\SMTP;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -48,8 +49,8 @@ class ContactController extends Controller
                 $mail->Subject ="Questions via blogPost";
                 $mail->Body = $body;
                 $mail->send();
-                $_SESSION['message'] = "Merci pour votre message, je vous réponds dans les plus brefs délais";
-                \header('Location: ./index.php?p=contact/index');
+                Session::put("message","Merci pour votre message, je vous réponds dans les plus brefs délais");
+                header('Location: ./index.php?p=contact/index');
                 
 
             }catch(Exception $e){

@@ -5,6 +5,7 @@ use DateTime;
 use DateTimeInterface;
 use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\User;
+use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Form;
 
@@ -37,7 +38,7 @@ class UserController extends Controller
             $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
             //If email doesn't exist
             if(!$userArray){
-                $_SESSION['erreur'] = 'Vos identifiants sont incorrects';                
+                Session::put("erreur", 'Vos identifiants sont incorrects');                
                 header('Location: https://localhost/blogpost/index.php?p=user/login');
             }
             //If email exist
@@ -46,7 +47,7 @@ class UserController extends Controller
             //var_dump($password);
             //If password doesn't complain
             if(!password_verify($_POST['password'], $password)){                
-                $_SESSION['erreur'] = 'Vos identifiants sont incorrects';
+                Session::put("erreur", 'Vos identifiants sont incorrects');
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
                     return;
                 }
@@ -77,7 +78,7 @@ class UserController extends Controller
      * @return exit 
      */
     public function logout(){
-        unset($_SESSION['user']);
+        Session::forget("user");
         header('Location: '. $_SERVER['HTTP_REFERER']);
     }
 
