@@ -17,7 +17,7 @@ class ContactController extends Controller
         $currentPage = "contact";
        
             if(Form::validate($_POST, ['name', 'firstName', 'email', 'message'])){
-                $name = strip_tags($_POST['name']);
+                $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
                 $firstName= strip_tags($_POST['firstName']);
                 $email = strip_tags($_POST['email']);
                 $message = strip_tags($_POST['message']);

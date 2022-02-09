@@ -95,12 +95,10 @@ class CommentController extends Controller
                 ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
                 ->endForm()
                 ;
-                $this->twig->display('back/updateComment.html.twig', ['updateCommentForm' => $updateCommentForm->create()]);   
-
-        }else{
+            $this->twig->display('back/updateComment.html.twig', ['updateCommentForm' => $updateCommentForm->create()]);
+            return;
+        }
             $_SESSION['erreur'] = "Vous devez vous connecter pour ajouter une annonce";
             header('Location: https://localhost/blogpost/index.php?p=user/login');
-        }
-
     }
 }

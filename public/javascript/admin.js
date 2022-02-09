@@ -9,7 +9,7 @@ window.onload = () => {
     for(let button of buttons){
         button.addEventListener("click", approuve);
     }
-}
+};
 
 
 
