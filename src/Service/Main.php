@@ -38,7 +38,7 @@ class Main
             // On sauvegarde le 2ème paramètre dans $action si il existe, sinon index
             $action = isset($params[0]) ? array_shift($params) : 'index';
 
-            // On instancie le contrôleur
+            // Instance of a controller
             $controller = new $controller();
 
             if(method_exists($controller, $action)) {
@@ -46,8 +46,8 @@ class Main
                 (isset($params[0])) ? call_user_func_array([$controller,$action], $params) : $controller->$action();    
             }else{
                 // On envoie le code réponse 404
-                http_response_code(404);
-                echo "La page recherchée n'existe pas";
+                //http_response_code(404);
+                $this->twig->display('front/404.html.twig');
             }
         }else{
             // If no parameter

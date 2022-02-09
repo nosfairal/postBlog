@@ -26,10 +26,10 @@ class PostController extends Controller
     /**
      * Method to show a single post and his comments(s)
      *
-     * @param  int $id
+     * @param  int $postId
      * @return void
      */
-    public function show(int $id)
+    public function show(int $postId)
     {   
         
         //Verify if User is connected
@@ -39,17 +39,17 @@ class PostController extends Controller
         }
             //Instance of new Post
             $model = new Post;
-            $post = $model->findBy(['postId' =>$id]);
+            $post = $model->findBy(['postId' =>$postId]);
             //Instance of new User
             $user = new User;
             //Get the publicName of the author of the post
-            $userPublicName = $user->getPostAuthorPublicName($id);
+            $userPublicName = $user->getPostAuthorPublicName($postId);
             $userPublicName= $userPublicName->publicName;
             //var_dump($userPublicName);
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
 
-                $content = strip_tags($_POST['content']);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                 //Instance of Post
                 $comment = new Comment;
@@ -57,7 +57,7 @@ class PostController extends Controller
                 //Set the data
                 $comment->setAuthor($_SESSION['user']['userId'])                    
                     ->setContent($content)
-                    ->setPost($id)                    
+                    ->setPost($postId)                    
                 ;
                 //Record
                 $comment->create();
@@ -69,12 +69,12 @@ class PostController extends Controller
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
+                $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
         
     
         // Get datas
-        $post = $model->findBy(['postId' =>$id]);
+        $post = $model->findBy(['postId' =>$postId]);
         //var_dump($post);
         //Instance of Form
         $addCommentForm = new Form;
@@ -88,7 +88,7 @@ class PostController extends Controller
         // Instance of Comment
         $commentRepository = new CommentRepository();
         $commentOfPost = new Comment;
-        $commentOfPost = $commentRepository->findBy(['post' =>$id]);
+        $commentOfPost = $commentRepository->findBy(['post' =>$postId]);
         //\var_dump($commentOfPost);
         
         //var_dump($postActual,'******************', $commentOfPost);
@@ -111,10 +111,10 @@ class PostController extends Controller
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
             //Verify form compliance
             if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
-                $title = strip_tags($_POST['title']);
-                $slug= strip_tags($_POST['slug']);
-                $intro = strip_tags($_POST['intro']);
-                $content = strip_tags($_POST['content']);
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
+                $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                 //Instance of Post
                 $post = new Post;
@@ -137,10 +137,10 @@ class PostController extends Controller
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                $title = isset($_POST['title']) ? strip_tags($_POST['title']) : '';
-                $slug= isset($_POST['slug']) ? strip_tags($_POST['slug']) : '';
-                $intro = isset($_POST['intro']) ?strip_tags($_POST['intro']): '';
-                $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
+                $title = isset($_POST['title']) ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                $slug= isset($_POST['slug']) ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
+                $intro = isset($_POST['intro']) ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
+                $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
             
             //instance of Form
@@ -179,7 +179,7 @@ class PostController extends Controller
      * retrun void
      */
         
-        public function update(int $id)
+        public function update(int $postId)
         {
            // Verify User's session
             if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
@@ -188,7 +188,7 @@ class PostController extends Controller
                 $post= new Post;
 
                 // Search for the post by id
-                $post = $post->find($id);
+                $post = $post->find($postId);
 
                 // If Post doesn't exist
                 if (!$post) {
