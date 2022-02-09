@@ -22,8 +22,10 @@ class ContactController extends Controller
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
             $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING); 
-            $mailPass= filter_var ( $_ENV["EPASS"] , FILTER_DEFAULT );
-            $myMail = filter_var ( $_ENV["EMAIL"] , FILTER_DEFAULT );
+            $mailPass= filter_var($_ENV["EPASS"] , FILTER_DEFAULT );
+            $myMail = filter_var($_ENV["EMAIL"] , FILTER_DEFAULT );
+            $host= filter_var($_ENV["HOST"] , FILTER_DEFAULT );
+            $port = filter_var($_ENV["PORT"] , FILTER_DEFAULT );
 
             $mail = new PHPMailer(true);
             try{
@@ -33,13 +35,13 @@ class ContactController extends Controller
                 $body .= "Message: ".$message. "\r\n";
                 //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
-                $mail->Host = "smtp.gmail.com" ;
+                $mail->Host = $host;
                 $mail->SMTPAuth = true;
                 $mail->SMTPSecure = 'ssl';
-                $mail->Username = $_ENV["EMAIL"];
+                $mail->Username = $myMail;
                 $mail->Password = $mailPass;
                 //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Port = 465;   
+                $mail->Port = $port;   
                 $mail->Charset ="utf-8";
                 $mail->setFrom($email, $name);
                 $mail->addAddress($myMail);
