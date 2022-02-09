@@ -36,38 +36,38 @@ class AdminController extends Controller
 
     /**
      * Method to delete a user
-     * @param int $id
+     * @param int $userId
      * return void
      */
 
-    public function deleteUser(int $id){
+    public function deleteUser(int $userId){
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
-            $user->delete($id);
+            $user->delete($userId);
             header('Location: '.$_SERVER['HTTP_REFERER']);
         }
      }
     
     /**
      * Method to approuve a user
-     * @param int $id
+     * @param int $userId
      * @return void
      */
 
-    public function approuveUser(int $id)
+    public function approuveUser(int $userId)
     {
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
             $userRepository = new userRepository();
-            $userArray = $userRepository->findBy(['userId' => $id]);
+            $userArray = $userRepository->findBy(['userId' => $userId]);
             $userApprouved = $user->hydrate($userArray);
     
             $userApprouved->setUserStatus("approuved")
                         ->setUserRole("member");
 
-            $userApprouved->update($id);
+            $userApprouved->update($userId);
 
             header('location: ./index.php?p=admin/index/');
         }
@@ -75,24 +75,24 @@ class AdminController extends Controller
 
     /**
      * Method to approuve a user
-     * @param int $id
+     * @param int $userId
      * @return void
      */
 
-    public function upgradeUser(int $id)
+    public function upgradeUser(int $userId)
     {
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
             $userRepository = new userRepository();
-            $userArray = $userRepository->findBy(['userId' => $id]);
+            $userArray = $userRepository->findBy(['userId' => $userId]);
             \var_dump($user);
             $userUpgraded = $user->hydrate($userArray);
 
     
             $userUpgraded->setUserRole("moderator");
                //$userStatus = "approuved";
-            $userUpgraded->update($id);
+            $userUpgraded->update($userId);
 
             header('Location: https://localhost/blogpost/index.php?p=admin/users/');
 
@@ -101,10 +101,10 @@ class AdminController extends Controller
 
     /**
      * Method to update a user
-     * @param int $id
+     * @param int $userId
      * return void
      */
-    public function updateUser(int $id)
+    public function updateUser(int $userId)
     {
         // Verify if User is admin
         if($this->isAdmin()){
@@ -113,7 +113,7 @@ class AdminController extends Controller
             $user= new User;
 
             // Search for the user by id
-            $user = $user->find($id);
+            $user = $user->find($userId);
 
             // If User doesn't exist
             if (!$user) {
@@ -132,7 +132,7 @@ class AdminController extends Controller
                 $modifiedUser = new User;
                 
                 //Set the data
-                $modifiedUser->setUserId($id)
+                $modifiedUser->setUserId($userId)
                     ->setLastName($lastName)
                     ->setFirstName($firstName)
                     ->setPublicName($publicName)
@@ -141,17 +141,17 @@ class AdminController extends Controller
                     ;
                     //var_dump($user);
                 //Insert into BDD
-                $modifiedUser->update($id);                
+                $modifiedUser->update($userId);                
 
 
             //Redirection + message
             $_SESSION['message'] = "Votre profil a été modifié avec succès";
             header('Location: https://localhost/blogpost/index.php?p=admin/users');
-            }else{
-                //form dosen't verify validation
-                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                
-            }   
+            return;
+            }
+            //form dosen't verify validation
+            $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                 
             //Display the form
             $updateUserForm = new Form;
 
@@ -194,15 +194,15 @@ class AdminController extends Controller
 
     /**
      * Method to delete a post
-     * @param int $id
+     * @param int $postId
      * return void
      */
 
-     public function deletePost(int $id){
+     public function deletePost(int $postId){
         //Verify Admin status
         if($this->isAdmin()){
             $post = new Post;
-            $post->delete($id);
+            $post->delete($postId);
             header('Location: '.$_SERVER['HTTP_REFERER']);
         }
      }
@@ -225,38 +225,38 @@ class AdminController extends Controller
 
     /**
      * Method to delete a comment
-     * @param int $id
+     * @param int $commentId
      * return void
      */
 
-    public function deleteComment(int $id){
+    public function deleteComment(int $commentId){
         //Verify Admin status
         if($this->isAdmin()){
             $comment= new Comment;
-            $comment->delete($id);
+            $comment->delete($commentId);
             header('Location: '.$_SERVER['HTTP_REFERER']);
         }
      }
 
     /**
      * Method to approuve a comment
-     * @param int $id
+     * @param int $commentId
      * @return void
      */
 
-     public function approuveComment(int $id)
+     public function approuveComment(int $commentId)
      {
          //Verify Admin status
          if($this->isAdmin()){
             $comment= new Comment;
             $commentRepository = new CommentRepository();
-            $commentArray = $commentRepository->findBy(['commentId' => $id]);
+            $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
             $commentApprouved =$comment->hydrate($commentArray);
 
                 if($this->commentStatus = "to validate"){
                     $commentApprouved->setCommentStatus("approuved");
                 }
-                $commentApprouved->update($id);
+                $commentApprouved->update($commentId);
                 \header('Location: https://localhost/blogpost/index.php?p=admin/comments/');
          }
      }
