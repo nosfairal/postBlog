@@ -1,9 +1,16 @@
 <?php
 namespace Nosfair\Blogpost\Service;
 use Nosfair\Blogpost\Controller\MainController;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class Main
-{
+{   
+    public function __construct()
+    {   
+        $this->loader = new FilesystemLoader(ROOT.'/blogpost/templates');
+        $this->twig = new Environment($this->loader);
+    }
     public function start()
     {
         //Start the session
@@ -47,6 +54,10 @@ class Main
             }else{
                 // On envoie le code réponse 404
                 //http_response_code(404);
+                $upTwo = \dirname(__DIR__ , 2);
+                $url = '\templates\front\404.html.twig';
+                //var_dump($upTwo.$url);
+        
                 $this->twig->display('front/404.html.twig');
             }
         }else{

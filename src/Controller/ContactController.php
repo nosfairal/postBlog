@@ -73,18 +73,18 @@ class ContactController extends Controller
         $addContactForm->startForm()
             ->addLabelFor('name', 'Nom :')
             ->addInput('text', 'name', [
-                'class' => 'form-control',
+                'class' => 'form-control mb-2',
                 'value' => $name])
             ->addLabelFor('firstName', 'Prénom :')
             ->addInput('text', 'firstName', [
-                'class' => 'form-control',
+                'class' => 'form-control mb-2',
                 'value' => $firstName])
             ->addLabelFor('email', 'Votre mail :')
             ->addInput('text', 'email', [
-                'class' => 'form-control',
+                'class' => 'form-control mb-2',
                 'value' => $email])
             ->addLabelFor('message', 'Votre message :')
-            ->addTextarea('message', $message, ['class' => 'form-control'])
+            ->addTextarea('message', $message, ['class' => 'form-control mb-2'])
             ->addInput('hidden', 'recaptcha-response', [
                 'id' => 'recaptchaResponse'])
             ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])

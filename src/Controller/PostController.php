@@ -69,7 +69,7 @@ class PostController extends Controller
                 header('Location: https://localhost/blogpost/index.php?p=post/index');
             }else{
                 //form doesn't match
-                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
                 $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
         

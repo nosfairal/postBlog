@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="./public/css/style.css">
 {% endblock %} 
 {% block content %}
+<div class="container">
+<h1 class="text-center">Tous les posts du site</h1>
     {% for post in posts %}
         <div class="container mt-4">
             <div class="card w-100">
@@ -18,4 +20,5 @@
             </div>
         </div>
     {% endfor %}
+</div>
 {% endblock %}

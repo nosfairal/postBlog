@@ -3,7 +3,7 @@ namespace Nosfair\Blogpost\Service;
 class Session
 {
     /**
-	 * Affect asked value to asked SuperGlobal $_SESSION
+	 * Affect a value to asked SuperGlobal $_SESSION
 	 *
 	 * @param string $key
 	 * @param $value
