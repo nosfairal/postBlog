@@ -127,7 +127,6 @@ class PostController extends Controller
                     ->setIntro($intro)
                     ->setContent($content)                    
                 ;
-                var_dump($post);
                 //Record
                 $post->create();
 

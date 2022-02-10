@@ -95,7 +95,6 @@ class UserController extends Controller
 
         //Get the data
         $user = $model->findBy(['userId' =>$id]);
-        var_dump($user);
         $this->twig->display('back/user.html.twig', ['user' => $user]);
     }
     public function register()

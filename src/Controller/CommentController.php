@@ -17,7 +17,6 @@ class CommentController extends Controller
     {
         $comment = new Comment;
         $comments = $comment->findAll();
-        var_dump($comments);
         $this->twig->display('back/commentIndex.html.twig', compact('comments'));
     }
     /**
