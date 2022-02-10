@@ -7,11 +7,13 @@
     {% endblock %}
 
     {% block content %}
-    <div class="p-4">
+    <div class="container">
+    <div class="mb-4">
         <h1>Formulaire d'inscription</h1>    
-        {{ registerForm|raw }}
-        <a href="./index.php?p=user/login">Déjà inscrit?</a>
+        {{ registerForm|raw }}        
     </div>
+    <a href="./index.php?p=user/login" class="mt-4">Déjà inscrit?</a>
+    <div>
     {% endblock %}
 
 
