@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
+<h1 class="text-center mb-4">Gestion des posts</h1>
+<a href="./index.php?p=post/add" class="text-decoration-none link-secondary">Ajouter un nouveau post <i class="bi bi-plus"></i></a>
 <div class = "table-responsive">
     <table class="table table-striped ">
         <thead>
@@ -27,8 +29,8 @@
                 <td>{{ post.author }}</td>
                 <td>{{ post.creationDate }}</td>
                 <td>
-                    <a href="https://localhost/blogpost/index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
-                    <a href="https://localhost/blogpost/index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
+                    <a href="./index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
+                    <a href="./index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
