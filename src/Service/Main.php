@@ -52,11 +52,7 @@ class Main
                 // Si il reste des paramètres, on appelle la méthode en envoyant les paramètres sinon on l'appelle "à vide"
                 (isset($params[0])) ? call_user_func_array([$controller,$action], $params) : $controller->$action();    
             }else{
-                // On envoie le code réponse 404
-                //http_response_code(404);
-                $upTwo = \dirname(__DIR__ , 2);
-                $url = '\templates\front\404.html.twig';
-                //var_dump($upTwo.$url);
+                // Show the 404 page
         
                 $this->twig->display('front/404.html.twig');
             }

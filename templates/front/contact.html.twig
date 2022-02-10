@@ -9,7 +9,9 @@
 
     {% block content %}
         {% if session.message == "Merci pour votre message, je vous réponds dans les plus brefs délais" %}
-        <div class="alert alert-success" role="alert">{{ session.message}}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="10000">
+            <span>{{ session.message}}</span>
+        </div>
         {% endif %}     
         {% if session.erreur == "le formulaire est incomplet" %}
             <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
@@ -22,7 +24,9 @@
     {% endblock %}
     {% block script %}
         <script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
-        
+        <script src="./vendor/components/jquery/jquery.min.js"></script>
+        <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="./public/javascript/contact.js"></script>
         <script>
         grecaptcha.ready(function() {
             grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: 'contact'}).then(function(token) {
@@ -30,5 +34,4 @@
             });
         });
         </script>
-
     {% endblock %}
