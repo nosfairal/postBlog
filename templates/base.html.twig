@@ -82,7 +82,7 @@
         </main>
         {% block footer %}
             <!-- Footer -->
-            <footer class="bg-dark text-center footer text-white bottom-0">
+            <footer class="bg-dark text-center footer text-white mt-4 bottom-0">
                 <!-- Grid container -->
                 <div class="container ">
                     <!-- Section: Social media -->
@@ -105,15 +105,27 @@
                     </section>
                     <!-- Section: Social media -->
 
-                    <!-- Section: Text -->
+                    <!-- Section: Admin -->
                     <section class="mb-4">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                        eum harum corrupti dicta, aliquam sequi voluptate quas.
-                    </p>
+                    <div class="row">
+                        {% if session.user.userRole == "admin" or session.user.userRole == "moderator" %}
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <a class="h5 {% if currentPage == "admin" %} active {% endif %}" href="./index.php?p=admin/index">Administration du site</a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <a class="h5 {% if currentPage == "adminPosts" %} active {% endif %}" href="./index.php?p=admin/posts">Gérer les posts</a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <a class="h5 {% if currentPage == "adminComments" %} active {% endif %}" href="./index.php?p=admin/comments">Gérer les commentaires</a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <a class="h5 {% if currentPage == "adminUsers" %} active {% endif %}" href="./index.php?p=admin/users">Gérer les utilisateurs</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                   
                     </section>
-                    <!-- Section: Text -->
+                    <!-- Section: Admin -->
 
                     <!-- Section: Links -->
                     <section class="">
