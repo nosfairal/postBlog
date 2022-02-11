@@ -172,7 +172,7 @@ class Form
      * @param array $attributes 
      * @return Form
      */
-    public function addSelect(string $name, array $options, array $attributes = []):self
+    /*public function addSelect(string $name, array $options, array $attributes = []):self
     {
         // Create the select
         $this->formCode .= "<select name='$name' ";
@@ -189,7 +189,7 @@ class Form
         $this->formCode .= '</select>';
 
         return $this;
-    }
+    }*/
 
     /**
      * Adding a button

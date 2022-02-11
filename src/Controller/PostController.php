@@ -257,7 +257,7 @@ class PostController extends Controller
 
             }else{
                 Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-                header('Location: https://localhost/blogpost/index.php?p=user/login');
+                header('Location: ./index.php?p=user/login');
             }
  
         }

@@ -46,7 +46,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $user = new User;
             $user->delete($userId);
-            header('Location: '.$_SERVER['HTTP_REFERER']);
+            header('Location: ./index.php?p=admin/users/');
         }
      }
     

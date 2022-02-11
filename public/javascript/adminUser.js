@@ -24,7 +24,7 @@ function init2(){
     }
 }
 
-window.onload = () => {init1();init2()};
+window.onload = () => {init1();init2();};
 
 
 
