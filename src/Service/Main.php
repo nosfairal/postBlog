@@ -15,8 +15,8 @@ class Main
     {
         //Start the session
         session_start();
-        // On récupère l'adresse
-        $uri = $_SERVER['REQUEST_URI'];
+        // Get the address
+        $uri = isset($_SERVER['REQUEST_URI']);
 
         // On vérifie si elle n'est pas vide et si elle se termine par un /
         if(!empty($uri) && $uri != '/' && $uri[-1] === '/') {

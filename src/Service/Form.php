@@ -82,7 +82,7 @@ class Form
         $token = md5(uniqid());
         $this->formCode .= "<input type='hidden' name='token' value ='$token'>";
         $this->formCode .= ' </form>';
-        $_SESSION['token'] = $token;
+        Session::put("token", $token);
         return $this;
     }
 

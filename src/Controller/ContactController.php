@@ -61,11 +61,11 @@ class ContactController extends Controller
 
         }else{
             //form doesn't match
-            $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-            $name= isset($_POST['name']) ? strip_tags($_POST['name']) : '';
-            $firstName= isset($_POST['firstName']) ? strip_tags($_POST['firstName']) : '';
-            $email = isset($_POST['email']) ?strip_tags($_POST['email']): '';
-            $message = isset($_POST['message']) ?strip_tags($_POST['message']) : '';
+            Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+            $name= isset($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING) : '';
+            $firstName= isset($_POST['firstName']) ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING) : '';
+            $email = isset($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';
+            $message = isset($_POST['message']) ? filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) : '';
         }
         //instance of Form
         $addContactForm = new Form;

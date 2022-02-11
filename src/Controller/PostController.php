@@ -223,10 +223,10 @@ class PostController extends Controller
                 }else{
                     //form dosen't verify validation
                     $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                    $title = isset($_POST['title']) ? strip_tags($_POST['title']) : '';
-                    $slug= isset($_POST['slug']) ? strip_tags($_POST['slug']) : '';
-                    $intro = isset($_POST['intro']) ?strip_tags($_POST['intro']): '';
-                    $content = isset($_POST['content']) ?strip_tags($_POST['content']) : '';
+                    $title = isset($_POST['title']) ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                    $slug= isset($_POST['slug']) ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
+                    $intro = isset($_POST['intro']) ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
+                    $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
                 }   
                 //Display the form
                 $updatePostForm = new Form;

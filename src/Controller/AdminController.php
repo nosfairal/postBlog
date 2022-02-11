@@ -152,7 +152,7 @@ class AdminController extends Controller
             return;
             }
             //form dosen't verify validation
-            $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+            Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
                  
             //Display the form
             $updateUserForm = new Form;
