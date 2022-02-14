@@ -7,20 +7,25 @@
     {% endblock %}
 
     {% block content %}
-    {% if session.erreur == "Vos identifiants sont incorrects" %}
-        <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
-    {% endif %} 
-    
-    <h1 class="text-center">Formulaire de connection</h1>
-    
-    <div class="container">
-        
-        {{ loginForm|raw }}
-    </div>
+        {% if session.erreur == "Vos identifiants sont incorrects" %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="5000">
+                <span>Vos identifiants sont incorrects</span>
+            </div>
+        {% endif %}
+        <div class="container">
+            <h1 class="text-center">Formulaire de connection</h1>   
+                {{ loginForm|raw }}
+            <div class="text-center mt-4">
+                <img src="./public/images/bienvenue.png" width="600px" high="600px" alt="Erreur 404">
+            </div>
+        </div>
 
     {% endblock %}
 
 
     {% block script %} 
-    <script src="vendor/jquery/jquery.min.js"></script>
+        {{ parent() }}  
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="./public/javascript/loginAlert.js"></script>
     {% endblock %}

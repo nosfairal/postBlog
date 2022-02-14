@@ -18,8 +18,8 @@ class ContactController extends Controller
         $currentPage = "contact";
        
         if(Form::validate($_POST, ['name', 'firstName', 'email', 'message'])){
-            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-            $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING); 
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
             $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING); 
@@ -62,8 +62,8 @@ class ContactController extends Controller
         }else{
             //form doesn't match
             Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
-            $name= isset($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING) : '';
-            $firstName= isset($_POST['firstName']) ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING) : '';
+            $name= isset($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+            $firstName= isset($_POST['firstName']) ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
             $email = isset($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';
             $message = isset($_POST['message']) ? filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) : '';
         }

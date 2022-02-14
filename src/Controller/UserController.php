@@ -52,9 +52,7 @@ class UserController extends Controller
                     return;
                 }
                 $user->setSession();
-                header('Location: https://localhost/blogpost/index.php');
-
-                    
+                header('Location: https://localhost/blogpost/index.php');                    
                 
          }
          
@@ -137,7 +135,7 @@ class UserController extends Controller
             ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
             ->addLabelFor('password', 'Votre mot de passe :')
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
+            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-dark'])
             ->endForm();
             $this->twig->display('front/register.html.twig', ['currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         

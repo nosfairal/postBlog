@@ -259,7 +259,7 @@ class AdminController extends Controller
                     $commentApprouved->setCommentStatus("approuved");
                 }
                 $commentApprouved->update($commentId);
-                \header('Location: https://localhost/blogpost/index.php?p=admin/comments/');
+                \header('Location: ./index.php?p=admin/comments/');
          }
      }
     
@@ -273,7 +273,7 @@ class AdminController extends Controller
             return true;
          }else{
              Session::put("erreur","Vous n'avez pas les droits pour accéder à cette page");
-             header('location: '.$_SERVER['HTTP_REFERER']);
+             $this->twig->display('front/404.html.twig');
          }
      }
 }

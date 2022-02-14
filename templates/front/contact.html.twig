@@ -9,7 +9,7 @@
 
     {% block content %}
         {% if session.message == "Merci pour votre message, je vous réponds dans les plus brefs délais" %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="10000">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="7000">
             <span>{{ session.message}}</span>
         </div>
         {% endif %}     
@@ -23,10 +23,12 @@
         </div>
     {% endblock %}
     {% block script %}
+        
+        {{ parent() }}  
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
-        <script src="./vendor/components/jquery/jquery.min.js"></script>
-        <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="./public/javascript/contact.js"></script>
+        <script src="./public/javascript/alert.js"></script>
         <script>
         grecaptcha.ready(function() {
             grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: 'contact'}).then(function(token) {

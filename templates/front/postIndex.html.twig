@@ -6,19 +6,26 @@
 <link rel="stylesheet" href="./public/css/style.css">
 {% endblock %} 
 {% block content %}
-<div class="container">
-<h1 class="text-center">Tous les posts du site</h1>
-    {% for post in posts %}
-        <div class="container mt-4">
-            <div class="card w-100">
-                <div class="card-body">
-                    <h5 class="card-title"><a href="https://localhost/blogpost/index.php?p=post/show/{{ post.postId }}">{{ post.title }}</a></br></h5>
-                    <p class="card-text">{{ post.intro }}</p>
-                    <div class="card-footer text-muted">Publié le : {{ post.creationDate|date("d/m/Y \\à H:i") }}
+    <div class="container">
+    <h1 class="text-center">Tous les posts du site</h1>
+        {% for post in posts %}
+            <div class="container mt-4">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="https://localhost/blogpost/index.php?p=post/show/{{ post.postId }}">{{ post.title }}</a></br></h5>
+                        <p class="card-text">{{ post.intro }}</p>
+                        <div class="card-footer text-muted">Publié le : {{ post.creationDate|date("d/m/Y \\à H:i") }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+{% block script %} 
+    {{ parent() }}  
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="./public/javascript/loginAlert.js"></script>
 {% endblock %}
