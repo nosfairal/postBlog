@@ -12,7 +12,7 @@ class ModelRepository extends Db
     protected $table;
 
     // Instance of Db
-    protected $db;
+    protected $database;
 
 
     public function findAll()
@@ -116,19 +116,19 @@ class ModelRepository extends Db
     public function request(string $sql, array $attributes = null)
     {
         // Get instanceof Db
-        $this->db = Db::getInstance();
+        $this->database = Db::getInstance();
 
         // On vérifie si on a des attributs
         if($attributes !== null) {
             // Prepare request
 
-            $query = $this->db->prepare($sql);
+            $query = $this->database->prepare($sql);
    
             $query->execute($attributes);
             return $query;
         }else{
             // Simple request
-            return $this->db->query($sql);
+            return $this->database->query($sql);
         }
     }
 
