@@ -46,7 +46,7 @@ class UserController extends Controller
             $password = $user->getPassword();
             //var_dump($password);
             //If password doesn't complain
-            if(!password_verify($_POST['password'], $password)){                
+            if(!password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $password)){                
                 Session::put("erreur", 'Vos identifiants sont incorrects');
                     header('Location: https://localhost/blogpost/index.php?p=user/login');                   
                     return;

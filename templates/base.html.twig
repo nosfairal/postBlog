@@ -19,7 +19,7 @@
                 <a class="navbar-brand" href="#">
                     <img src="./public/images/francoisT.jpg" width="100px" high="100px" class="rounded-3" alt="Photo François Thialon">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -69,16 +69,12 @@
                             </li>
                         </ul>
                     {% else %}
-                        <div>
-                        </div>
                     {% endif %}
                 </div>
             </nav>
         </header>
         <main>
         {% block content %}
-            <div class="content">
-            </div>
         {% endblock %}
         </main>
         {% block footer %}
@@ -177,8 +173,9 @@
         {% endblock %}
     
         {% block script %}
-            <script src="./vendor/components/jquery/jquery.min.js"></script>
-           
+           <script src="./vendor/components/jquery/jquery.min.js"></script>
+           <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+           <script src="./public/javascript/close.js"></script>
         {% endblock %}
     {% endblock %}
     </body>
