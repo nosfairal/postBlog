@@ -20,6 +20,7 @@
                     <div class="card-footer text-muted">
                         <p>Publié le : {{ attribute.creationDate|date("d/m/Y \\à H:i") }}</p>
                         <p>Rédigé par : {{ author }}</p>
+                        {% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}
                     </div>
                 </div>
             </div>
