@@ -13,7 +13,7 @@ class Post extends ModelRepository
     protected string $content;
     protected DateTime $publicationDate;
     protected Datetime $creationDate;
-    protected DateTime $lastUpdate;
+    protected string $lastUpdate;
 
     public function __construct()
     {
@@ -196,7 +196,7 @@ class Post extends ModelRepository
     /**
      * Get the value of lastUpdate
      */ 
-    public function getLastUpdate():DateTime
+    public function getLastUpdate()
     {
         return $this->lastUpdate;
     }
@@ -206,7 +206,7 @@ class Post extends ModelRepository
      *
      * @return self
      */ 
-    public function setLastUpdate(DateTime $lastUpdate)
+    public function setLastUpdate($lastUpdate)
     {
         $this->lastUpdate = $lastUpdate;
 
