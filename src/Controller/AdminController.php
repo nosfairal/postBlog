@@ -205,7 +205,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $post = new Post;
             $post->delete($postId);
-            header('Location: '.$_SERVER['HTTP_REFERER']);
+            header('Location: ./index.php?p=admin/comments');
         }
      }
 
@@ -236,7 +236,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $comment= new Comment;
             $comment->delete($commentId);
-            header('Location: '.$_SERVER['HTTP_REFERER']);
+            header('Location: ./index.php?p=admin/comments');
         }
      }
 
@@ -255,11 +255,11 @@ class AdminController extends Controller
             $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
             $commentApprouved =$comment->hydrate($commentArray);
 
-                if($this->commentStatus = "to validate"){
-                    $commentApprouved->setCommentStatus("approuved");
+                if($this->commentStatus == 0){
+                    $commentApprouved->setCommentStatus(1);
                 }
                 $commentApprouved->update($commentId);
-                \header('Location: ./index.php?p=admin/comments/');
+                header('Location: ./index.php?p=admin/comments');
          }
      }
     

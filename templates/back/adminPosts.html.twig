@@ -5,37 +5,48 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
-<h1 class="text-center mb-4">Gestion des posts</h1>
-<a href="./index.php?p=post/add" class="text-decoration-none link-secondary">Ajouter un nouveau post <i class="bi bi-plus"></i></a>
-<div class = "table-responsive">
-    <table class="table table-striped ">
-        <thead>
-            <th>Id</th>
-            <th>Titre</th>
-            <th>Slug</th>
-            <th>Introduction</th>
-            <th>Contenu</th>
-            <th>Auteur</th>
-            <th>Date de rédaction</th>
-            <th>Actions</th>
-        </thead>
-        {%  for post in posts %}
-            <tr>
-                <td>{{ post.postId }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.slug }}</td>
-                <td>{{ post.intro }}</td>
-                <td>{{ post.content }}</td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.creationDate }}</td>
-                <td>
-                    <a href="./index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
-                    <a href="./index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-</div>
+    <h1 class="text-center mb-4">Gestion des posts</h1>
+    <a href="./index.php?p=post/add" class="h4 mb-4 text-decoration-none link-secondary">Ajouter un nouveau post <i class="bi bi-plus"></i></a>
+    <div class = "table-responsive">
+        <table class="table table-striped ">
+            <thead>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Slug</th>
+                <th>Introduction</th>
+                <th>Contenu</th>
+                <th>Auteur</th>
+                <th>Date de rédaction</th>
+                <th>Actions</th>
+            </thead>
+            {%  for post in posts %}
+                <tr>
+                    <td>{{ post.postId }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.slug }}</td>
+                    <td>{{ post.intro }}</td>
+                    <td>{% set text = post.content |split(' ') %} 
+                        {% if text|length > 10 %} 
+                            {% for t in text|slice(0, 10) %}
+                                {{ t }} 
+                            {% endfor %}
+                            ...
+                        {% else %}
+                            {{ text|join(' ') }}
+                        {% endif %}</td>
+                    <td>{{ post.author }}</td>
+                    <td>{{ post.creationDate }}</td>
+                    <td>
+                        <a href="./index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
+                        <a href="./index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="text-center">
+    <img src="./public/images/admin.png" alt="admin" class="img-fluid">
+    </div>
 {% endblock %}
 {% block script %}
     {{ parent() }}

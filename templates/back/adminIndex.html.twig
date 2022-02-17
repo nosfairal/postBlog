@@ -5,10 +5,10 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
-<div class="container">
-    <h1 class="text-center">Bienvenue dans l'administration</h1>
-    <div class="row">
-        <div class="card col m-2">
+<h1 class="text-center">Bienvenue dans l'administration</h1>
+<div class="container">    
+    <div class="row text-center">
+        <div class="card col-lg-3 m-2 mx-auto">
             <div class="card-body">
                 <h5 class="card-title"><a href="./index.php?p=admin/posts">Gérer les posts</a></h5>
                     <p class="card-text">C'est ici que vous pouvez créer , modifier ou encore supprimer un post sur le blog.</p>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="card col m-2">
+        <div class="card col-lg-3 m-2 mx-auto">
             <div class="card-body">
                 <h5 class="card-title"><a href="./index.php?p=admin/comments">Gérer les commentaires</a></h5>
                     <p class="card-text">C'est ici que vous pouvez valider, modifier ou encore supprimer un commentaire sur le blog.</p>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="card col m-2">
+        <div class="card col-lg-3 m-2 mx-auto">
             <div class="card-body">
                 <h5 class="card-title"><a href="./index.php?p=admin/users">Gérer les utilisateurs</a></h5>
                     <p class="card-text">C'est ici que vous pouvez valider ou modifier les informations d'un utilisateur du blog.</p>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="text-center">
-    <img src="./public/images/admin.png" width="600px" high="600px" alt="admin">
+    <img src="./public/images/admin.png" alt="admin" class="img-fluid">
     </div>
 </div>
 {% endblock %}

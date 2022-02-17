@@ -9,7 +9,7 @@
     {% block content %}
     <div class="container">
     <h1 class="text-center">Bienvenue sur le blogpost de François Thialon</h1>
-    {% for post in posts %}
+    {% for post in posts|slice(-3) %}
         <div class="container mt-4">
             <div class="card w-100">
                 <div class="card-body">

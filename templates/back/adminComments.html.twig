@@ -23,20 +23,24 @@
             <td>{{ comment.content }}</td>
             <td>{{ comment.author }}</td>
             <td>{{ comment.creationDate }}</td>
-            <td>{{ comment.commentStatus }}</td>
+            <td>{% if comment.commentStatus == 1 %} Approuvé {% else %} à valider {% endif %}</td>
             <td>
                 <div class="form-check form-switch">
-                    <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ comment.commentId }}" {% if comment.commentStatus == 'approuved' %} checked {% else %} '' {% endif %} data-id="{{ comment.commentId }}">
+                    <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ comment.commentId }}" {% if comment.commentStatus == 1 %} checked {% else %} '' {% endif %} data-id="{{ comment.commentId }}">
                     <label class="form-check-label" for="customSwitch{{ comment.commentId }}"></label>
                 </div>
             </td>
             <td>
                 <a href="https://localhost/blogpost/index.php?p=comment/update/{{ comment.commentId }}" class="btn btn-warning">Modifier</a>
                 <a href="https://localhost/blogpost/index.php?p=admin/deleteComment/{{ comment.commentId }}"class="btn btn-danger">Supprimer</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/approuveComment/{{ comment.commentId }}"class="btn btn-danger">approuver</a>
             </td>
         </tr>
     {% endfor %}
     </table>
+    </div>
+    <div class="text-center">
+    <img src="./public/images/admin.png" alt="admin" class="img-fluid">
     </div>
 {% endblock %}
 {% block script %}

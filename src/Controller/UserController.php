@@ -117,7 +117,6 @@ class UserController extends Controller
                 ->setEmailAddress($email)
                 ->setPassword($password)              
                 ;
-                //var_dump($user);
             //Insert into BDD
             $user->create();
 
@@ -125,17 +124,17 @@ class UserController extends Controller
         $registerForm = new Form;
 
         $registerForm->startForm()
-            ->addLabelFor('lastName', 'Votre nom :')
+            ->addLabelFor('lastName', 'Votre nom :',['class' => 'label-color'])
             ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
-            ->addLabelFor('firstName', 'Votre prénom :')
+            ->addLabelFor('firstName', 'Votre prénom :',['class' => 'label-color'])
             ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
-            ->addLabelFor('publicName', 'Votre pseudonyme :')
+            ->addLabelFor('publicName', 'Votre pseudonyme :',['class' => 'label-color'])
             ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
-            ->addLabelFor('email', 'Votre e-mail :')
+            ->addLabelFor('email', 'Votre e-mail :',['class' => 'label-color'])
             ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
-            ->addLabelFor('password', 'Votre mot de passe :')
+            ->addLabelFor('password', 'Votre mot de passe :',['class' => 'label-color'])
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-dark'])
+            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-secondary label-color'])
             ->endForm();
             $this->twig->display('front/register.html.twig', ['currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         

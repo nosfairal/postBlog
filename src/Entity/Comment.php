@@ -7,7 +7,7 @@ class Comment extends ModelRepository
 {
     protected int  $commentId;
     protected int $post;
-    protected string  $commentStatus;
+    protected int $commentStatus;
     protected string $author;
     protected string $content;
     protected DateTime $publicationDate;
@@ -155,7 +155,7 @@ class Comment extends ModelRepository
     /**
      * Get the value of commentStatus
      */ 
-    public function getCommentStatus()
+    public function getCommentStatus():int
     {
         return $this->commentStatus;
     }
