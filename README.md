@@ -1,0 +1,2 @@
+# postBlog
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/21c5f98f10364f089fc51db93a44c3fe)](https://app.codacy.com/gh/nosfairal/postBlog?utm_source=github.com&utm_medium=referral&utm_content=nosfairal/postBlog&utm_campaign=Badge_Grade_Settings)
