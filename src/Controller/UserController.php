@@ -39,7 +39,7 @@ class UserController extends Controller
             //If email doesn't exist
             if(!$userArray){
                 Session::put("erreur", 'Vos identifiants sont incorrects');                
-                header('Location: https://localhost/blogpost/index.php?p=user/login');
+                Session::redirect("./index.php?p=user/login");
             }
             //If email exist
             $user = $user->hydrate($userArray);            
@@ -48,11 +48,11 @@ class UserController extends Controller
             //If password doesn't complain
             if(!password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $password)){                
                 Session::put("erreur", 'Vos identifiants sont incorrects');
-                    header('Location: https://localhost/blogpost/index.php?p=user/login');                   
+                    Session::redirect("./index.php?p=user/login");                   
                     return;
                 }
                 $user->setSession();
-                header('Location: https://localhost/blogpost/index.php');                    
+                Session::redirect("./index.php?");                
                 
          }
          
@@ -77,7 +77,7 @@ class UserController extends Controller
      */
     public function logout(){
         Session::forget("user");
-        header('Location: '. $_SERVER['HTTP_REFERER']);
+        Session::redirect("./index.php?p=user/login");
     }
 
     /**

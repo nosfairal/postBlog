@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="./public/css/style.css">
 {% endblock %} 
 {% block content %}
+    {% if session.message == "Votre commentaire a été enregistré avec succès, sa validation sera traitée dans les plus brefs délais" %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="3000">
+            <span>Votre commentaire a été enregistré avec succès, sa validation sera traitée dans les plus brefs délais</span>
+        </div>
+    {% endif %}
     <div class="container">
     <h1 class="text-center">Tous les posts du site</h1>
         {% for post in posts %}
@@ -26,4 +31,5 @@
 {% block script %} 
     {{ parent() }}
     <script src="./public/javascript/loginAlert.js"></script>
+    <script src="./public/javascript/alert.js"></script>
 {% endblock %}

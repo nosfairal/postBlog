@@ -99,9 +99,22 @@ class UserRepository extends ModelRepository
         return $this;
     }
 
-    public function getPostAuthorPublicName($id)
+    /**
+     * Get the public name of the author of a post
+     */
+
+    public function getPostAuthorPublicName($postId)
     {
-        return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $id")->fetch();
+        return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $postId")->fetch();
+    }
+
+    /**
+     * Get the public name of the author of a comment
+     */
+
+    public function getCommentAuthorPublicName($commentId)
+    {
+        return $this->request("SELECT user.publicName FROM user JOIN comment ON user.userId = comment.author WHERE comment.commentId = $commentId")->fetch();
     }
 
     public function request(string $sql, array $attributes = null)

@@ -8,6 +8,7 @@ use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Service\Db;
 
@@ -27,7 +28,7 @@ class PostController extends Controller
         $this->twig->display('front/postIndex.html.twig', compact('posts','currentPage'));
     }
     /**
-     * Method to show a single post and his comments(s)
+     * Method to show a single post and his comment(s)
      *
      * @param  int $postId
      * @return void
@@ -37,7 +38,7 @@ class PostController extends Controller
         
         //Verify if User is connected
         if(!isset($_SESSION['user'])){
-            Session::put("message", "Vous devez être inscrit et connecté pour pouvoir poster");
+            Session::put("message", "Vous devez être inscrit et connecté pour pouvoir commenter");
             //header('Location: ./index.php?p=user/register');
         }
             //Instance of new Post
@@ -67,8 +68,8 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                Session::put("message", "Votre commentaire a été enregistré avec succès");
-                header('Location: https://localhost/blogpost/index.php?p=post/index');
+                Session::put("message", "Votre commentaire a été enregistré avec succès, sa validation sera traitée dans les plus brefs délais");
+                Session::redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
                 Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
@@ -92,17 +93,20 @@ class PostController extends Controller
         $commentRepository = new CommentRepository();
         $commentOfPost = new Comment;
         $commentOfPost = $commentRepository->findBy(['post' =>$postId]);
-        //\var_dump($commentOfPost);
-        
-        //var_dump($postActual,'******************', $commentOfPost);
-        $commentStatus = new Comment;
-        //Get comments approuved
-        $commentStatus= $commentRepository->findBy(['commentStatus' => 'approuved']);   
+        //Get the publicName of the author of the post
+        $commentator =new User;
+        $commentatorPublicNameList = [];
+        foreach ($commentOfPost as $com) {
+            $commentId = $com->commentId;
+            $commentatorPublicName = $commentator->getCommentAuthorPublicName($commentId);
+            array_push($commentatorPublicNameList, $commentatorPublicName->{'publicName'});
+        };
 
-        $this->twig->display('front/post.html.twig', ['author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
-        //\var_dump($post);
+        //Get comments approuved
+        $commentStatus = new Comment;
         
-       
+        $commentStatus= $commentRepository->findBy(['commentStatus' => 1]);   
+        $this->twig->display('front/post.html.twig', ['commentators' => $commentatorPublicNameList,'author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
     }
 
     /**
@@ -135,7 +139,7 @@ class PostController extends Controller
 
                 //Redirection + message
                 Session::put("message", "Votre post a été enregistré avec succès");
-                header('Location: https://localhost/blogpost/index.php?p=post/index');
+                Session::redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
@@ -170,7 +174,7 @@ class PostController extends Controller
         
         }else{
             Session::put("erreur", "Vous devez être connecté pour accéder à cette page");
-            header('Location: https://localhost/blogpost/index.php?p=user/login');
+            Session::redirect("./index.php?p=user/login");
         }
         
         
@@ -195,7 +199,7 @@ class PostController extends Controller
                 // If Post doesn't exist
                 if (!$post) {
                     http_response_code(404);
-                    header('Location: /');
+                    Session::redirect("/index.php?p=post/index");
                 }
                 //Verify form compliance
                 if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
@@ -226,9 +230,9 @@ class PostController extends Controller
 
                 //Redirection + message
                 Session::put("message", "Votre post a été modifié avec succès");
-                header('Location: https://localhost/blogpost/index.php?p=post/index');
+                Session::redirect("./index.php?p=post/index");
                 }else{
-                    //form dosen't verify validation
+                    //form doesn't verify validation
                     $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
                     $title = isset($_POST['title']) ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
                     $slug= isset($_POST['slug']) ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
@@ -264,7 +268,7 @@ class PostController extends Controller
 
             }else{
                 Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-                header('Location: ./index.php?p=user/login');
+                Session::redirect("./index.php?p=user/login");
             }
  
         }

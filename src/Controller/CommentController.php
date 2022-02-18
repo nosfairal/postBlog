@@ -22,16 +22,20 @@ class CommentController extends Controller
     /**
      * Method to show a single comment
      *
-     * @param  int $id
+     * @param  int $commentId
      * @return void
      */
-    public function show(int $id)
+    public function show(int $commentId)
     {
         // On instancie le modèle
         $model = new Comment;
 
         // On récupère les données
-        $comment = $model->findBy(['CommentId' =>$id]);
+        $comment = $model->findBy(['CommentId' =>$commentId]);
+        if (!$comment) {
+            http_response_code(404);
+            Session::redirect("./index.php?p=comment/index");
+        }
         $this->twig->display('back/comment.html.twig', compact('comment'));
     }
     public function add()
@@ -46,7 +50,7 @@ class CommentController extends Controller
      * return void
      */
         
-    public function update(int $id)
+    public function update(int $commentId)
     {
        // Verify User's session
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
@@ -55,12 +59,12 @@ class CommentController extends Controller
             $comment= new Comment;
 
             // Search for the comment by id
-            $comment = $comment->find($id);
+            $comment = $comment->find($commentId);
 
             // If comment doesn't exist
             if (!$comment) {
                 http_response_code(404);
-                header('Location: /');
+                Session::redirect("./index.php?p=comment/index");
             }
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
@@ -79,7 +83,7 @@ class CommentController extends Controller
 
             //Redirection + message
             Session::put("message", "Votre commentaire a été modifié avec succès");
-            header('Location: https://localhost/blogpost/index.php?p=comment/index');
+            Session::redirect("./index.php?p=comment/index");
             }else{
                 //form dosen't verify compliance
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
@@ -99,6 +103,6 @@ class CommentController extends Controller
             return;
         }
             Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-            header('Location: https://localhost/blogpost/index.php?p=user/login');
+            Session::redirect("./index.php?p=user/login'");
     }
 }

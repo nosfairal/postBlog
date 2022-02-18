@@ -50,7 +50,7 @@ class ContactController extends Controller
                 $mail->Body = $body;
                 $mail->send();
                 Session::put("message","Merci pour votre message, je vous réponds dans les plus brefs délais");
-                header('Location: ./index.php?p=contact/index');
+                Session::redirect("./index.php?p=contact/index");
                 
 
             }catch(Exception $e){
@@ -61,7 +61,7 @@ class ContactController extends Controller
 
         }else{
             //form doesn't match
-            Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+            Session::put("error","le formulaire est incomplet");
             $name= isset($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
             $firstName= isset($_POST['firstName']) ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
             $email = isset($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';

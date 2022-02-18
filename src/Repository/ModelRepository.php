@@ -140,6 +140,15 @@ class ModelRepository extends Db
         return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $id")->fetch();
     }
 
+    /**
+     * Get the public name of the author of a comment
+     */
+
+    public function getCommentAuthorPublicName($commentId)
+    {
+        return $this->request("SELECT user.publicName FROM user JOIN comment ON user.userId = comment.author WHERE comment.commentId = $commentId")->fetch();
+    }
+    
     public function hydrate($donnees)
     {
         foreach($donnees as $key => $value){

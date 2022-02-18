@@ -46,7 +46,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $user = new User;
             $user->delete($userId);
-            header('Location: ./index.php?p=admin/users/');
+            Session::redirect("./index.php?p=admin/users");
         }
      }
     
@@ -70,7 +70,7 @@ class AdminController extends Controller
 
             $userApprouved->update($userId);
 
-            header('location: ./index.php?p=admin/index/');
+            Session::redirect("./index.php?p=admin/index");
         }
     }
 
@@ -94,7 +94,7 @@ class AdminController extends Controller
                //$userStatus = "approuved";
             $userUpgraded->update($userId);
 
-            header('Location: https://localhost/blogpost/index.php?p=admin/users/');
+            Session::redirect("./index.php?p=admin/users");
 
         }
     }
@@ -118,7 +118,7 @@ class AdminController extends Controller
             // If User doesn't exist
             if (!$user) {
                 http_response_code(404);
-                header('Location: /');
+                Session::redirect("./index.php?p=admin/users");
             }
             //Verify form compliance
             if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
@@ -148,7 +148,7 @@ class AdminController extends Controller
 
             //Redirection + message
             Session::put("message","Votre profil a été modifié avec succès");
-            header('Location: https://localhost/blogpost/index.php?p=admin/users');
+            Session::redirect("./index.php?p=admin/users");
             return;
             }
             //form dosen't verify validation
@@ -159,23 +159,21 @@ class AdminController extends Controller
 
             $updateUserForm->startForm()
                 ->addLabelFor('lastName', 'Votre nom :')
-                ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
+                ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control','value' => $user->lastName])
                 ->addLabelFor('firstName', 'Votre prénom :')
-                ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
+                ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control','value' => $user->firstName])
                 ->addLabelFor('publicName', 'Votre pseudonyme :')
-                ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
-                ->addLabelFor('email', 'Votre e-mail :')
+                ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control','value' => $user->publicName])
+                ->addLabelFor('email', 'Votre email :')
                 ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
-                ->addLabelFor('password', 'Votre mot de passe :')
-                ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-                ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-primary'])
+                ->addButton('Modifier', ['type' => 'submit', 'class' => 'btn btn-primary'])
                 ->endForm();
                 //var_dump($updateUserForm);
                 $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
 
         }else{
             Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-            header('Location: https://localhost/blogpost/index.php?p=user/login');
+            Session::redirect("./index.php?p=user/login");
         }
     }
 
@@ -205,7 +203,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $post = new Post;
             $post->delete($postId);
-            header('Location: ./index.php?p=admin/comments');
+            Session::redirect("./index.php?p=admin/comments");
         }
      }
 
@@ -236,7 +234,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $comment= new Comment;
             $comment->delete($commentId);
-            header('Location: ./index.php?p=admin/comments');
+            Session::redirect("./index.php?p=admin/comments");
         }
      }
 
@@ -259,7 +257,7 @@ class AdminController extends Controller
                     $commentApprouved->setCommentStatus(1);
                 }
                 $commentApprouved->update($commentId);
-                header('Location: ./index.php?p=admin/comments');
+                Session::redirect("./index.php?p=admin/comments");
          }
      }
     

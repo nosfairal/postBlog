@@ -9,12 +9,13 @@
 
     {% block content %}
         {% if session.message == "Merci pour votre message, je vous réponds dans les plus brefs délais" %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="7000">
-            <span>{{ session.message}}</span>
-        </div>
-        {% endif %}     
-        {% if session.erreur == "le formulaire est incomplet" %}
-            <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="7000">
+                <span>{{ session.message}}</span>
+            </div>
+        {% elseif session.error == "le formulaire est incomplet" %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="3000">
+            <span>{{ session.erreur}}</span>
+            </div>
         {% endif %} 
         <div class="container">
         <h1 class="text-center">Me contacter</h1>

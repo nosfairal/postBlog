@@ -5,10 +5,15 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
+    {% if session.message == "Vous devez être inscrit et connecté pour pouvoir commenter" %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="3000">
+            <span>Vous devez être inscrit et connecté pour pouvoir poster</span>
+        </div>
+    {% endif %}
     <div class="container">
     {% if post is defined %}
         {%  for attribute in post %}
-        <div class="container mt-4">
+        <div class="container mt-4 mb-4">
             <div class="card w-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ attribute.title }}</h5>
@@ -25,12 +30,13 @@
                 </div>
             </div>
         </div>        
-   
+        
         {%  for field in commentStatus %}
-        {% if attribute.postId == field.post %}
-            <span class="title"> Commentaires de {{ field.author }} : {{ field.content }} </span></br>
-        {% endif %}
 
+        {% if attribute.postId == field.post %}
+            <span class="title mt-4"> Commentaire de  {% set i = i + 1 %}{{ commentators[i - 1] }} : {{ field.content }} </span></br>
+        {% endif %}
+        
         {% endfor %}
         {% endfor %}
         {{ addCommentForm|raw }}

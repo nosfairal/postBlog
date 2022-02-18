@@ -8,7 +8,7 @@ class Comment extends ModelRepository
     protected int  $commentId;
     protected int $post;
     protected int $commentStatus;
-    protected string $author;
+    protected int $author;
     protected string $content;
     protected DateTime $publicationDate;
     protected Datetime $creationDate;
