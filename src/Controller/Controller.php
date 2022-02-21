@@ -18,10 +18,10 @@ abstract class Controller
     }
     public function render(string $fichier, array $data = [])
     {
-        // Récupère les données et les extrait sous forme de variables
+        // Get gata and extract into variables
         extract($data);
     
-        // Crée le chemin et inclut le fichier de vue
+        // Create the way and include the file's view
         include_once ROOT.'/blogpost/templates/'.$fichier.'.html.twig';
     }
 }

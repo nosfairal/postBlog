@@ -35,15 +35,19 @@ class PostController extends Controller
      */
     public function show(int $postId)
     {   
-        
+        $session= new Session;
         //Verify if User is connected
         if(!isset($_SESSION['user'])){
-            Session::put("message", "Vous devez être inscrit et connecté pour pouvoir commenter");
+            $session->put("message", "Vous devez être inscrit et connecté pour pouvoir commenter");
             //header('Location: ./index.php?p=user/register');
         }
             //Instance of new Post
             $model = new Post;
             $post = $model->findBy(['postId' =>$postId]);
+            if (!$post) {
+                http_response_code(404);
+                $session->redirect("./index.php?p=post/index");
+            }
             //Instance of new User
             $user = new User;
             //Get the publicName of the author of the post
@@ -68,11 +72,11 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                Session::put("message", "Votre commentaire a été enregistré avec succès, sa validation sera traitée dans les plus brefs délais");
-                Session::redirect("./index.php?p=post/index");
+                $session->put("message", "Votre commentaire a été enregistré avec succès, sa validation sera traitée dans les plus brefs délais");
+                $session->redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
-                Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+                $session->put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
                 $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
         
@@ -114,8 +118,11 @@ class PostController extends Controller
      */
     public function add()
     {
+        //instance of Session
+        $session = new Session;
         //Verify User connexion
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+            
             //Verify form compliance
             if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
                 $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
@@ -138,8 +145,8 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                Session::put("message", "Votre post a été enregistré avec succès");
-                Session::redirect("./index.php?p=post/index");
+                $session->put("message", "Votre post a été enregistré avec succès");
+                $session->redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
@@ -166,15 +173,16 @@ class PostController extends Controller
                     'class' => 'form-control',
                     'value' => $intro])
                 ->addLabelFor('content', 'Votre post')
-                ->addTextarea('content', $content, ['class' => 'form-control'])
+                ->addTextarea('content', $content, ['class' => 'form-control',
+                    'rows' => '10'])
                 ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
                 ->endForm()
                 ;
                 $this->twig->display('back/newPost.html.twig', ['addPostForm' => $addPostForm->create()]);
         
         }else{
-            Session::put("erreur", "Vous devez être connecté pour accéder à cette page");
-            Session::redirect("./index.php?p=user/login");
+            $session->put("erreur", "Vous devez être connecté pour accéder à cette page");
+            $session->redirect("./index.php?p=user/login");
         }
         
         
@@ -186,10 +194,13 @@ class PostController extends Controller
      */
         
         public function update(int $postId)
-        {
+        {   
+            //instance of Session
+            $session = new Session;
            // Verify User's session
             if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
-                    
+                
+                
                 // Instance of Post
                 $post= new Post;
 
@@ -199,7 +210,8 @@ class PostController extends Controller
                 // If Post doesn't exist
                 if (!$post) {
                     http_response_code(404);
-                    Session::redirect("/index.php?p=post/index");
+                    
+                    $session->redirect("./index.php?p=post/index");
                 }
                 //Verify form compliance
                 if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
@@ -229,8 +241,8 @@ class PostController extends Controller
 
 
                 //Redirection + message
-                Session::put("message", "Votre post a été modifié avec succès");
-                Session::redirect("./index.php?p=post/index");
+                $session->put("message", "Votre post a été modifié avec succès");
+                $session->redirect("./index.php?p=post/index");
                 }else{
                     //form doesn't verify validation
                     $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
@@ -260,15 +272,16 @@ class PostController extends Controller
                     ->addLabelFor('content', 'Votre post')
                     ->addTextarea('content', $post->content, [
                         'id' => 'content',
-                        'class' => 'form-control'])
+                        'class' => 'form-control',
+                        'rows' => '10'])
                     ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
                     ->endForm()
                     ;
                     $this->twig->display('back/updatePost.html.twig', ['updatePostForm' => $updatePostForm->create()]);   
 
             }else{
-                Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-                Session::redirect("./index.php?p=user/login");
+                $session->put("erreur", "Vous devez vous connecter pour ajouter une annonce");
+                $session->redirect("./index.php?p=user/login");
             }
  
         }
