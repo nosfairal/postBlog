@@ -59,8 +59,7 @@ class ContactController extends Controller
                 
 
             }catch(Exception $e){
-                echo "Message non envoyé. Erreur: {$mail->ErrorInfo}";
-
+                $session->put("message","Votre message n'a pas pu être envoyé");  
         };
             
 
