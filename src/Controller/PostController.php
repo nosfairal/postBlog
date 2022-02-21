@@ -11,7 +11,7 @@ use Nosfair\Blogpost\Service\Form;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Service\Db;
-
+use Nosfair\Blogpost\Service\GlobalConstant;
 
 class PostController extends Controller
 {
@@ -35,9 +35,10 @@ class PostController extends Controller
      */
     public function show(int $postId)
     {   
-        $session= new Session;
+        $session = new Session;
+        $global = new GlobalConstant;
         //Verify if User is connected
-        if(!isset($_SESSION['user'])){
+        if(!$session->issetSession('user')){
             $session->put("message", "Vous devez être inscrit et connecté pour pouvoir commenter");
             //header('Location: ./index.php?p=user/register');
         }
@@ -63,7 +64,7 @@ class PostController extends Controller
                 $comment = new Comment;
 
                 //Set the data
-                $comment->setAuthor($_SESSION['user']['userId'])                    
+                $comment->setAuthor($session->get("user")['userId'])                    
                     ->setContent($content)
                     ->setPost($postId)                    
                 ;
@@ -77,7 +78,7 @@ class PostController extends Controller
             }else{
                 //form doesn't match
                 $session->put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
-                $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
         
     
@@ -120,8 +121,10 @@ class PostController extends Controller
     {
         //instance of Session
         $session = new Session;
+        //instance of Globalconstant
+        $global = new GlobalConstant;
         //Verify User connexion
-        if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+        if($session->issetSession('user') && !empty($session->get("user")['userId'])){
             
             //Verify form compliance
             if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
@@ -134,7 +137,7 @@ class PostController extends Controller
                 $post = new Post;
 
                 //Set the data
-                $post->setAuthor($_SESSION['user']['userId'])                    
+                $post->setAuthor($session->get("user")['userId'])                    
                     ->setTitle($title)
                     ->setSlug($slug)
                     ->setIntro($intro)
@@ -150,10 +153,10 @@ class PostController extends Controller
             }else{
                 //form doesn't match
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                $title = isset($_POST['title']) ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
-                $slug= isset($_POST['slug']) ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
-                $intro = isset($_POST['intro']) ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
-                $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+                $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
+                $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
             
             //instance of Form
@@ -197,6 +200,8 @@ class PostController extends Controller
         {   
             //instance of Session
             $session = new Session;
+            //instance of Globalconstant
+            $global = new GlobalConstant;
            // Verify User's session
             if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
                 
@@ -246,10 +251,10 @@ class PostController extends Controller
                 }else{
                     //form doesn't verify validation
                     $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                    $title = isset($_POST['title']) ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
-                    $slug= isset($_POST['slug']) ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
-                    $intro = isset($_POST['intro']) ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
-                    $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+                    $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                    $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
+                    $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
+                    $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
                 }   
                 //Display the form
                 $updatePostForm = new Form;

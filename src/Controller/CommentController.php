@@ -3,6 +3,7 @@ namespace Nosfair\Blogpost\Controller;
 use Nosfair\Blogpost\Controller\Controller;
 use Nosfair\Blogpost\Entity\Comment;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Service\GlobalConstant;
 use Nosfair\Blogpost\Service\Session;
 
 
@@ -27,14 +28,16 @@ class CommentController extends Controller
      */
     public function show(int $commentId)
     {
-        // On instancie le modèle
+        //Instance of Session
+        $session = new Session;
+        // instance of Model
         $model = new Comment;
 
-        // On récupère les données
+        //Get the data
         $comment = $model->findBy(['CommentId' =>$commentId]);
         if (!$comment) {
             http_response_code(404);
-            Session::redirect("./index.php?p=comment/index");
+            $session->redirect("./index.php?p=comment/index");
         }
         $this->twig->display('back/comment.html.twig', compact('comment'));
     }
@@ -52,7 +55,11 @@ class CommentController extends Controller
         
     public function update(int $commentId)
     {
-       // Verify User's session
+        //Instance of Session
+        $session = new Session;
+        //Instance of GlobalConstant
+        $global = new GlobalConstant;
+        // Verify User's session
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
                 
             // Instance of comment
@@ -64,7 +71,7 @@ class CommentController extends Controller
             // If comment doesn't exist
             if (!$comment) {
                 http_response_code(404);
-                Session::redirect("./index.php?p=comment/index");
+                $session->redirect("./index.php?p=comment/index");
             }
             //Verify form compliance
             if(Form::validate($_POST, ['content'])){
@@ -82,12 +89,12 @@ class CommentController extends Controller
 
 
             //Redirection + message
-            Session::put("message", "Votre commentaire a été modifié avec succès");
-            Session::redirect("./index.php?p=comment/index");
+            $session->put("message", "Votre commentaire a été modifié avec succès");
+            $session->redirect("./index.php?p=comment/index");
             }else{
                 //form dosen't verify compliance
                 $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
-                $content = isset($_POST['content']) ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }   
             //Display the form
             $updateCommentForm = new Form;
@@ -102,7 +109,7 @@ class CommentController extends Controller
             $this->twig->display('back/updateComment.html.twig', ['updateCommentForm' => $updateCommentForm->create()]);
             return;
         }
-            Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-            Session::redirect("./index.php?p=user/login'");
+            $session->put("erreur", "Vous devez vous connecter pour ajouter une annonce");
+            $session->redirect("./index.php?p=user/login'");
     }
 }

@@ -47,4 +47,18 @@ class Session
 	public static function redirect(string $url) {
         header('location: '.$url);
     }
+
+	/**
+	 * Obtain $_SESSION
+	 */
+	public static function getGlobalSession()
+	{
+		return $_SESSION;
+	}
+
+	public static function issetSession(string $key)
+	{
+		return isset($_SESSION[$key]);
+	}
+
 }

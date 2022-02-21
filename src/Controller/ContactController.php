@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Nosfair\Blogpost\Service\Session;
 use PHPMailer\PHPMailer\SMTP;
+use Nosfair\Blogpost\Service\GlobalConstant;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
@@ -16,6 +17,10 @@ class ContactController extends Controller
     public function index()
     {
         $currentPage = "contact";
+        //Instance of Session
+        $session = new Session;
+        //instance of Globalconstant
+        $global = new GlobalConstant;
        
         if(Form::validate($_POST, ['name', 'firstName', 'email', 'message'])){
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -49,8 +54,8 @@ class ContactController extends Controller
                 $mail->Subject ="Questions via blogPost";
                 $mail->Body = $body;
                 $mail->send();
-                Session::put("message","Merci pour votre message, je vous réponds dans les plus brefs délais");
-                Session::redirect("./index.php?p=contact/index");
+                $session->put("message","Merci pour votre message, je vous réponds dans les plus brefs délais");
+                $session->redirect("./index.php?p=contact/index");
                 
 
             }catch(Exception $e){
@@ -61,11 +66,11 @@ class ContactController extends Controller
 
         }else{
             //form doesn't match
-            Session::put("error","le formulaire est incomplet");
-            $name= isset($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
-            $firstName= isset($_POST['firstName']) ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
-            $email = isset($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';
-            $message = isset($_POST['message']) ? filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) : '';
+            $session->put("error","le formulaire est incomplet");
+            $name= $global->issetPost('name') ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+            $firstName= $global->issetPost('firstName') ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+            $email = $global->issetPost('email') ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';
+            $message = $global->issetPost('message') ? filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) : '';
         }
         //instance of Form
         $addContactForm = new Form;

@@ -29,32 +29,32 @@ class UserController extends Controller
      */
     public function login()
     {    
-        
-         //Verify the form's compliance
-         if(Form::validate($_POST, ['emailAddress', 'password'])){
-            // Search by email the User
-            $user = new User;
-            //$userRepository = new UserRepository();
-            $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
-            //If email doesn't exist
-            if(!$userArray){
-                Session::put("erreur", 'Vos identifiants sont incorrects');                
-                Session::redirect("./index.php?p=user/login");
+        $session = new Session;
+        //Verify the form's compliance
+        if(Form::validate($_POST, ['emailAddress', 'password'])){
+        // Search by email the User
+        $user = new User;
+        //$userRepository = new UserRepository();
+        $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
+        //If email doesn't exist
+        if(!$userArray){
+            $session->put("erreur", 'Vos identifiants sont incorrects');                
+            $session->redirect("./index.php?p=user/login");
+        }
+        //If email exist
+        $user = $user->hydrate($userArray);            
+        $password = $user->getPassword();
+        //var_dump($password);
+        //If password doesn't complain
+        if(!password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $password)){                
+            $session->put("erreur", 'Vos identifiants sont incorrects');
+                $session->redirect("./index.php?p=user/login");                   
+                return;
             }
-            //If email exist
-            $user = $user->hydrate($userArray);            
-            $password = $user->getPassword();
-            //var_dump($password);
-            //If password doesn't complain
-            if(!password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $password)){                
-                Session::put("erreur", 'Vos identifiants sont incorrects');
-                    Session::redirect("./index.php?p=user/login");                   
-                    return;
-                }
-                $user->setSession();
-                Session::redirect("./index.php?");                
-                
-         }
+            $user->setSession();
+            $session->redirect("./index.php?");                
+            
+        }
          
 
             
@@ -76,8 +76,10 @@ class UserController extends Controller
      * @return exit 
      */
     public function logout(){
-        Session::forget("user");
-        Session::redirect("./index.php?p=user/login");
+        //instance of Session
+        $session = new Session;
+        $session->forget("user");
+        $session->redirect("./index.php?p=user/login");
     }
 
     /**
