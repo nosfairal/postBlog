@@ -36,6 +36,7 @@ class PostController extends Controller
     public function show(int $postId)
     {   
         $session = new Session;
+        $sessionStopMessage = $session->forget('message');
         $global = new GlobalConstant;
         //Verify if User is connected
         if(!$session->issetSession('user')){
@@ -56,7 +57,7 @@ class PostController extends Controller
             $userPublicName= $userPublicName->publicName;
             //var_dump($userPublicName);
             //Verify form compliance
-            if(Form::validate($_POST, ['content'])){
+            if(Form::validate($_POST, ['content']) && $session->issetSession('user')){
 
                 $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
@@ -111,7 +112,7 @@ class PostController extends Controller
         $commentStatus = new Comment;
         
         $commentStatus= $commentRepository->findBy(['commentStatus' => 1]);   
-        $this->twig->display('front/post.html.twig', ['commentators' => $commentatorPublicNameList,'author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
+        $this->twig->display('front/post.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'commentators' => $commentatorPublicNameList,'author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
     }
 
     /**
@@ -203,7 +204,7 @@ class PostController extends Controller
             //instance of Globalconstant
             $global = new GlobalConstant;
            // Verify User's session
-            if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+            if($session->issetSession('user') && !empty($_SESSION['user']['userId'])){
                 
                 
                 // Instance of Post

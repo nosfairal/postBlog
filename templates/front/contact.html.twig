@@ -12,10 +12,12 @@
             <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="7000">
                 <span>{{ session.message}}</span>
             </div>
+            {{ sessionStopMessage }}
         {% elseif session.error == "le formulaire est incomplet" %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="3000">
             <span>{{ session.erreur}}</span>
-            </div>
+            </div>  
+            {{ sessionStop }}      
         {% endif %} 
         <div class="container">
         <h1 class="text-center">Me contacter</h1>

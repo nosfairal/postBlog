@@ -1,5 +1,5 @@
 $(function() {
-    var alert = $("div.alert-danger[auto-close]");
+    var alert = $("div.alert[auto-close]");
     alert.each(function() {
       var that = $(this);
       var timePeriod = that.attr("auto-close");

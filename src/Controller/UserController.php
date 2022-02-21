@@ -28,8 +28,10 @@ class UserController extends Controller
      * Connect a User
      */
     public function login()
-    {    
+    {   
+        //Instance of Session
         $session = new Session;
+        $sessionStop = $session->forget('error');
         //Verify the form's compliance
         if(Form::validate($_POST, ['emailAddress', 'password'])){
         // Search by email the User
@@ -68,7 +70,7 @@ class UserController extends Controller
             ->addButton('Me connecter', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm();
 
-        $this->twig->display('front/login.html.twig', ['loginForm' => $loginForm->create()]);
+        $this->twig->display('front/login.html.twig', ['sessionStop' => $sessionStop, 'loginForm' => $loginForm->create()]);
     }
 
     /**
@@ -79,6 +81,7 @@ class UserController extends Controller
         //instance of Session
         $session = new Session;
         $session->forget("user");
+        $session->put("message", "Merci et à bientôt");
         $session->redirect("./index.php?p=user/login");
     }
 
@@ -101,6 +104,7 @@ class UserController extends Controller
     {   
         //Instance of Session
         $session = new Session;
+        $sessionStopMessage = $session->forget('message');
         $currentPage = "register";
         //Verify the form's compliance
         if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
@@ -122,9 +126,10 @@ class UserController extends Controller
                 ->setPassword($password)              
                 ;
             
+            $session->put("message", "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais");
             //Insert into BDD
             $user->create();
-            $session->put("message", "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais");
+            
 
         }
         $registerForm = new Form;
@@ -142,7 +147,7 @@ class UserController extends Controller
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-secondary label-color'])
             ->endForm();
-            $this->twig->display('front/register.html.twig', ['currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
+            $this->twig->display('front/register.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         
     }
 

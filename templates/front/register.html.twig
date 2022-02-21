@@ -8,9 +8,10 @@
 
     {% block content %}
     {% if session.message == "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais" %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="5000">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="5000">
                 <span>Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais</span>
             </div>
+            {{ sessionStopMessage }}
     {% endif %}
     <div class="container">
     <h1 class="text-center">S'inscrire</h1>

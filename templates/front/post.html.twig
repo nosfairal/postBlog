@@ -10,6 +10,11 @@
             <span>Vous devez être inscrit et connecté pour pouvoir poster</span>
         </div>
     {% endif %}
+    {% if session.error == "le formulaire est incomplet" %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="3000">
+            <span>le formulaire est incomplet</span>
+        </div>
+    {% endif %}
     <div class="container">
     {% if post is defined %}
         {%  for attribute in post %}

@@ -19,6 +19,8 @@ class ContactController extends Controller
         $currentPage = "contact";
         //Instance of Session
         $session = new Session;
+        $sessionStop = $session->forget('error');
+        $sessionStopMessage = $session->forget('message');
         //instance of Globalconstant
         $global = new GlobalConstant;
        
@@ -94,7 +96,7 @@ class ContactController extends Controller
             ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm()
             ;
-        $this->twig->display('front/contact.html.twig', ['currentPage' => $currentPage, 'addContactForm' => $addContactForm->create()]);
+        $this->twig->display('front/contact.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'sessionStop' => $sessionStop, 'currentPage' => $currentPage, 'addContactForm' => $addContactForm->create()]);
     }
 
 }
