@@ -7,6 +7,11 @@
     {% endblock %}
 
     {% block content %}
+    {% if session.message == "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais" %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="5000">
+                <span>Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais</span>
+            </div>
+    {% endif %}
     <div class="container">
     <h1 class="text-center">S'inscrire</h1>
     <p>Vous souhaitez participer et commenter le blog, il suffit de remplir le formulaire juste en dessous :</p>

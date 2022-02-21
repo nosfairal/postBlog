@@ -42,11 +42,13 @@ class AdminController extends Controller
      */
 
     public function deleteUser(int $userId){
+        //Instance of Session
+        $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
             $user->delete($userId);
-            Session::redirect("./index.php?p=admin/users");
+            $session->redirect("./index.php?p=admin/users");
         }
      }
     
@@ -58,6 +60,8 @@ class AdminController extends Controller
 
     public function approuveUser(int $userId)
     {
+        //Instance of Session
+        $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
@@ -70,7 +74,7 @@ class AdminController extends Controller
 
             $userApprouved->update($userId);
 
-            Session::redirect("./index.php?p=admin/index");
+            $session->redirect("./index.php?p=admin/index");
         }
     }
 
@@ -82,6 +86,8 @@ class AdminController extends Controller
 
     public function upgradeUser(int $userId)
     {
+        //Instance of Session
+        $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
             $user = new User;
@@ -94,7 +100,7 @@ class AdminController extends Controller
                //$userStatus = "approuved";
             $userUpgraded->update($userId);
 
-            Session::redirect("./index.php?p=admin/users");
+            $session->redirect("./index.php?p=admin/users");
 
         }
     }
@@ -106,6 +112,8 @@ class AdminController extends Controller
      */
     public function updateUser(int $userId)
     {
+        //Instance of Session
+        $session = new Session;
         // Verify if User is admin
         if($this->isAdmin()){
                     
@@ -118,7 +126,7 @@ class AdminController extends Controller
             // If User doesn't exist
             if (!$user) {
                 http_response_code(404);
-                Session::redirect("./index.php?p=admin/users");
+                $session->redirect("./index.php?p=admin/users");
             }
             //Verify form compliance
             if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
@@ -147,12 +155,12 @@ class AdminController extends Controller
 
 
             //Redirection + message
-            Session::put("message","Votre profil a été modifié avec succès");
-            Session::redirect("./index.php?p=admin/users");
+            $session->put("message","Votre profil a été modifié avec succès");
+            $session->redirect("./index.php?p=admin/users");
             return;
             }
             //form dosen't verify validation
-            Session::put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+            $session->put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
                  
             //Display the form
             $updateUserForm = new Form;
@@ -172,8 +180,8 @@ class AdminController extends Controller
                 $this->twig->display('back/updateUser.html.twig', ['updateUserForm' => $updateUserForm->create()]);   
 
         }else{
-            Session::put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-            Session::redirect("./index.php?p=user/login");
+            $session->put("erreur", "Vous devez vous connecter pour ajouter une annonce");
+            $session->redirect("./index.php?p=user/login");
         }
     }
 
@@ -198,14 +206,17 @@ class AdminController extends Controller
      * return void
      */
 
-     public function deletePost(int $postId){
+    public function deletePost(int $postId)
+    {
+        //Instance of Session
+        $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
             $post = new Post;
             $post->delete($postId);
-            Session::redirect("./index.php?p=admin/comments");
-        }
-     }
+            $session->redirect("./index.php?p=admin/comments");
+    }
+    }
 
 
     /**
@@ -229,14 +240,17 @@ class AdminController extends Controller
      * return void
      */
 
-    public function deleteComment(int $commentId){
+    public function deleteComment(int $commentId)
+    {
+        //Instance of Session
+        $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
             $comment= new Comment;
             $comment->delete($commentId);
-            Session::redirect("./index.php?p=admin/comments");
+            $session->redirect("./index.php?p=admin/comments");
         }
-     }
+    }
 
     /**
      * Method to approuve a comment
@@ -244,34 +258,42 @@ class AdminController extends Controller
      * @return void
      */
 
-     public function approuveComment(int $commentId)
-     {
-         //Verify Admin status
-         if($this->isAdmin()){
-            $comment= new Comment;
-            $commentRepository = new CommentRepository();
-            $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
-            $commentApprouved =$comment->hydrate($commentArray);
+    public function approuveComment(int $commentId)
+    {
+        //Instance of Session
+        $session = new Session;
+        //Verify Admin status
+        if($this->isAdmin()){
+        $comment= new Comment;
+        $commentRepository = new CommentRepository();
+        $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
+        $commentApprouved =$comment->hydrate($commentArray);
 
-                if($this->commentStatus == 0){
-                    $commentApprouved->setCommentStatus(1);
-                }
-                $commentApprouved->update($commentId);
-                Session::redirect("./index.php?p=admin/comments");
-         }
-     }
+            if($this->commentStatus == 0){
+                $commentApprouved->setCommentStatus(1);
+            }
+            $commentApprouved->update($commentId);
+            $session->redirect("./index.php?p=admin/comments");
+        }
+    }
     
     /**
      * Method to verify Admin status
      */
 
-     private function isAdmin()
-     {
-         if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin' || $_SESSION['user']['userRole'] == 'moderator'){
-            return true;
-         }else{
-             Session::put("erreur","Vous n'avez pas les droits pour accéder à cette page");
-             $this->twig->display('front/404.html.twig');
-         }
-     }
+    private function isAdmin()
+    {
+        //Instance of Session
+        $session = new Session;
+        if(!$session->get('user')){
+            $session->put("erreur","Vous devez être connecté pour accéder à cette page");
+            $session->redirect("./index.php?p=user/login");
+        }
+        if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin' || $_SESSION['user']['userRole'] == 'moderator'){
+        return true;
+        }
+        $session->put("erreur","Vous n'avez pas les droits pour accéder à cette page");
+        $this->twig->display('front/404.html.twig');
+        
+    }
 }

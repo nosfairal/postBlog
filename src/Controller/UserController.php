@@ -47,7 +47,7 @@ class UserController extends Controller
         //var_dump($password);
         //If password doesn't complain
         if(!password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $password)){                
-            $session->put("erreur", 'Vos identifiants sont incorrects');
+                $session->put("erreur", 'Vos identifiants sont incorrects');
                 $session->redirect("./index.php?p=user/login");                   
                 return;
             }
@@ -99,6 +99,8 @@ class UserController extends Controller
     }
     public function register()
     {   
+        //Instance of Session
+        $session = new Session;
         $currentPage = "register";
         //Verify the form's compliance
         if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
@@ -119,8 +121,10 @@ class UserController extends Controller
                 ->setEmailAddress($email)
                 ->setPassword($password)              
                 ;
+            
             //Insert into BDD
             $user->create();
+            $session->put("message", "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais");
 
         }
         $registerForm = new Form;

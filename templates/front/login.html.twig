@@ -12,6 +12,9 @@
                 <span>Vos identifiants sont incorrects</span>
             </div>
         {% endif %}
+        {% if session.erreur == "Vous devez être connecté pour accéder à cette page" %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">{{ session.erreur }}</div>
+        {% endif %}  
         <div class="container">
             <h1 class="text-center">Formulaire de connection</h1>   
                 {{ loginForm|raw }}

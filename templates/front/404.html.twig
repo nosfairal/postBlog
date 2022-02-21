@@ -9,8 +9,8 @@
     {% block content %}
         <div class="container">
         {% if session.erreur == "Vous n'avez pas les droits pour accéder à cette page" %}
-        <div class="alert alert-danger" role="alert">{{ session.erreur }}</div>
-        {% endif %} 
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">{{ session.erreur }}</div>
+        {% endif %}
         <h1 class="text-center">La page que vous cherchez n'existe pas</h1>
         <div class="text-center">
         <img src="./public/images/404.png" width="600px" high="600px" class="img-fluid" alt="Erreur 404">
