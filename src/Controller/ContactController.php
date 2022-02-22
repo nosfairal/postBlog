@@ -67,7 +67,7 @@ class ContactController extends Controller
 
         }else{
             //form doesn't match
-            $session->put("error","le formulaire est incomplet");
+            $session->put("error","le formulaire de contact est incomplet");
             $name= $global->issetPost('name') ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
             $firstName= $global->issetPost('firstName') ? filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
             $email = $global->issetPost('email') ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL): '';

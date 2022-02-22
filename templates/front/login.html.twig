@@ -14,13 +14,13 @@
             {{ sessionStop }} 
         {% elseif session.erreur == "Vous devez être connecté pour accéder à cette page" %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="5000">
-                {{ session.erreur }}
+                 <span>Vous devez être connecté pour accéder à cette page</span>
             </div>
             {{ sessionStop }} 
         {% endif %} 
         {% if session.message == "Merci et à bientôt" %}
             <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="5000">
-                {{ session.message }}
+                <span>Merci et à bientôt</span>
             </div>             
         {% endif %} 
         <div class="container">

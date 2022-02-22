@@ -3,6 +3,7 @@ namespace Nosfair\Blogpost\Service;
 use Nosfair\Blogpost\Controller\MainController;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Nosfair\Blogpost\Service\GlobalConstant;
 
 class Main
 {   
@@ -17,6 +18,8 @@ class Main
         session_start();
         // Get the address
         $uri = isset($_SERVER['REQUEST_URI']);
+        //instance of GlobalConstant
+        $global = new GlobalConstant;
 
         // Verify if not empty and finish by an  /
         if(!empty($uri) && $uri != '/' && $uri[-1] === '/') {
@@ -32,7 +35,7 @@ class Main
         }
         // Explode parameters and put in the array $params.
         $params=[];
-        if(isset($_GET['p'])) {
+        if($global->issetGET('p')) {
             $params = explode('/', $_GET['p']);
         }
 

@@ -10,6 +10,11 @@ class GlobalConstant
         return isset($_POST[$key]);
     }
 
+    public static function issetGet(string $key)
+    {
+        return isset($_GET[$key]);
+    }
+
     public static function Post(string $key)
     {
         return ($_POST[$key]);

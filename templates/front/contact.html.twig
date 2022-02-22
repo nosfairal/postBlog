@@ -10,12 +10,12 @@
     {% block content %}
         {% if session.message == "Merci pour votre message, je vous réponds dans les plus brefs délais" %}
             <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="7000">
-                <span>{{ session.message}}</span>
+                <span>Merci pour votre message, je vous réponds dans les plus brefs délais</span>
             </div>
             {{ sessionStopMessage }}
-        {% elseif session.error == "le formulaire est incomplet" %}
+        {% elseif session.error == "le formulaire de contact est incomplet" %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="3000">
-            <span>{{ session.erreur}}</span>
+            <span>le formulaire est incomplet</span>
             </div>  
             {{ sessionStop }}      
         {% endif %} 
