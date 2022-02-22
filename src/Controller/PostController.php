@@ -215,7 +215,7 @@ class PostController extends Controller
             $global = new GlobalConstant;
             $arrayPost = new GlobalConstant;
            // Verify User's session
-            if($session->issetSession('user') && !empty($_SESSION['user']['userId'])){
+            if($session->issetSession('user') && $session->notEmptySession('user')['userId']){
                 
                 
                 // Instance of Post

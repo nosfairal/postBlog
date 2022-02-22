@@ -11,14 +11,16 @@
     <h1 class="text-center">Bienvenue sur le blogpost de François Thialon</h1>
     {% for post in posts|slice(-3) %}
         <div class="container mt-4">
+            <a class="text-decoration-none" href="./index.php?p=post/show/{{ post.postId }}">
             <div class="card w-100">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="./index.php?p=post/show/{{ post.postId }}">{{ post.title }}</a></br></h5>
+                    <h5 class="card-title">{{ post.title }}</br></h5>
                     <p class="card-text">{{ post.intro }}</p>
                     <div class="card-footer text-muted">Publié le : {{ post.creationDate|date("d/m/Y \\à H:i") }}
                     </div>
                 </div>
             </div>
+            </a>
         </div>
     {% endfor %}
     <div>

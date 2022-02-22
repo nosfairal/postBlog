@@ -21,3 +21,7 @@
 .label-color {
   color: antiquewhite;
 }
+
+a > .card {
+  color: black;
+}

@@ -6,7 +6,10 @@
 {% endblock %} 
 {% block content %}
     <h1>Ajouter un nouveau post </h1>
-{{ addPostForm|raw }}
+    {{ addPostForm|raw }}
+    <div class="text-center">
+    <img src="./public/images/admin.png" alt="admin" class="img-fluid">
+    </div>
 {% endblock %}
 {% block script %}
     {{ parent() }}
