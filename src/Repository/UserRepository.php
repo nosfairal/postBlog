@@ -78,9 +78,9 @@ class UserRepository extends ModelRepository
         
     }
 
-    public function find(int $id)
+    public function find(int $userId)
     {
-        return $this->request("SELECT * FROM user WHERE userId = $id")->fetch();
+        return $this->request("SELECT * FROM user WHERE userId = $userId")->fetch();
     }
 
 

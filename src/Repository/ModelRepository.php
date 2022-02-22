@@ -135,9 +135,9 @@ class ModelRepository extends Db
     /**
      * Find the publicName of the author of a post
      */
-    public function getPostAuthorPublicName($id)
+    public function getPostAuthorPublicName($postId)
     {
-        return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $id")->fetch();
+        return $this->request("SELECT user.publicName FROM user JOIN post ON user.userId = post.author WHERE post.postId = $postId")->fetch();
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace Nosfair\Blogpost\Service;
+use Nosfair\Blogpost\Service\Session;
 
 class Form
 {
@@ -79,10 +80,11 @@ class Form
      */
     public function endForm(): self
     {
+        $session = new Session;
         $token = md5(uniqid());
         $this->formCode .= "<input type='hidden' name='token' value ='$token'>";
         $this->formCode .= ' </form>';
-        Session::put("token", $token);
+        $session->put("token", $token);
         return $this;
     }
 
