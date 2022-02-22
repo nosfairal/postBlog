@@ -114,6 +114,8 @@ class AdminController extends Controller
     {
         //Instance of Session
         $session = new Session;
+        //Instance of Form
+        $form = new Form;
         // Verify if User is admin
         if($this->isAdmin()){
                     
@@ -129,7 +131,7 @@ class AdminController extends Controller
                 $session->redirect("./index.php?p=admin/users");
             }
             //Verify form compliance
-            if(Form::validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
+            if($form->validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
                 // Verify informations and hash password
                 $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
                 $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 

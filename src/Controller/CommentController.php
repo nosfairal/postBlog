@@ -59,6 +59,8 @@ class CommentController extends Controller
     {
         //Instance of Session
         $session = new Session;
+        //Instance of Form
+        $form = new Form;
         //Instance of GlobalConstant
         $global = new GlobalConstant;
         // Verify User's session
@@ -76,7 +78,7 @@ class CommentController extends Controller
                 $session->redirect("./index.php?p=comment/index");
             }
             //Verify form compliance
-            if(Form::validate($_POST, ['content'])){
+            if($form->validate($_POST, ['content'])){
                 $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                 //Instance of comment
