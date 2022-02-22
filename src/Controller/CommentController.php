@@ -65,7 +65,7 @@ class CommentController extends Controller
         $global = new GlobalConstant;
         $arrayPost = new GlobalConstant;
         // Verify User's session
-        if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
+        if($session->issetSession('user') && $session->notEmptySession('user')['userId']){
                 
             // Instance of comment
             $comment= new Comment;

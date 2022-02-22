@@ -61,4 +61,8 @@ class Session
 		return isset($_SESSION[$key]);
 	}
 
+	public static function notEmptySession(string $key)
+    {
+        return !empty($_SESSION[$key]);
+    }
 }
