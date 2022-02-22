@@ -42,6 +42,7 @@ class PostController extends Controller
         $form = new Form;
         //Instance of GlobalConstant
         $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
         //Verify if User is connected
         if(!$session->issetSession('user')){
             $session->put("message", "Vous devez être inscrit et connecté pour pouvoir commenter");
@@ -61,7 +62,7 @@ class PostController extends Controller
             $userPublicName= $userPublicName->publicName;
             //var_dump($userPublicName);
             //Verify form compliance
-            if($form->validate($_POST, ['content']) && $session->issetSession('user')){
+            if($form->validate($arrayPost->collectInput(), ['content']) && $session->issetSession('user')){
 
                 $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
@@ -128,11 +129,14 @@ class PostController extends Controller
         $session = new Session;
         //instance of Globalconstant
         $global = new GlobalConstant;
+        //instance of Form
+        $form = new Form;
+        $arrayPost = new GlobalConstant;
         //Verify User connexion
         if($session->issetSession('user') && !empty($session->get("user")['userId'])){
             
             //Verify form compliance
-            if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
+            if($form->validate($arrayPost->collectInput(), ['title', 'slug', 'intro', 'content'])){
                 $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
                 $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
                 $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);
@@ -209,6 +213,7 @@ class PostController extends Controller
             $form = new Form;
             //instance of Globalconstant
             $global = new GlobalConstant;
+            $arrayPost = new GlobalConstant;
            // Verify User's session
             if($session->issetSession('user') && !empty($_SESSION['user']['userId'])){
                 
@@ -226,7 +231,7 @@ class PostController extends Controller
                     $session->redirect("./index.php?p=post/index");
                 }
                 //Verify form compliance
-                if($form->validate($_POST, ['title', 'slug', 'intro', 'content'])){
+                if($form->validate($arrayPost->collectInput(), ['title', 'slug', 'intro', 'content'])){
                     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
                     $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
                     $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);

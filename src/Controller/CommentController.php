@@ -63,6 +63,7 @@ class CommentController extends Controller
         $form = new Form;
         //Instance of GlobalConstant
         $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
         // Verify User's session
         if(isset($_SESSION['user']) && !empty($_SESSION['user']['userId'])){
                 
@@ -78,7 +79,7 @@ class CommentController extends Controller
                 $session->redirect("./index.php?p=comment/index");
             }
             //Verify form compliance
-            if($form->validate($_POST, ['content'])){
+            if($form->validate($arrayPost->collectInput(), ['content'])){
                 $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
                 //Instance of comment
