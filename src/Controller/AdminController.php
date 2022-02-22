@@ -305,7 +305,7 @@ class AdminController extends Controller
             $session->put("erreur","Vous devez être connecté pour accéder à cette page");
             $session->redirect("./index.php?p=user/login");
         }
-        if(isset($_SESSION['user']) && $_SESSION['user']['userRole'] == 'admin' || $_SESSION['user']['userRole'] == 'moderator'){
+        if($session->issetSession('user') && $session->get("user")['userRole'] == 'admin' || $session->get("user")['userRole'] == 'moderator'){
         return true;
         }
         $session->put("erreur","Vous n'avez pas les droits pour accéder à cette page");
