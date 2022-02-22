@@ -34,7 +34,7 @@
                         {% else %}
                             {{ text|join(' ') }}
                         {% endif %}</td>
-                    <td>{{ post.author }}</td>
+                    <td>{% set i = i + 1 %}{{ authorPublicNameList[i - 1] }}</td>
                     <td>{{ post.creationDate }}</td>
                     <td>
                         <a href="./index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>

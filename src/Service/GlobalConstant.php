@@ -10,4 +10,14 @@ class GlobalConstant
         return isset($_POST[$key]);
     }
 
+    public static function Post(string $key)
+    {
+        return ($_POST[$key]);
+    }
+
+    public static function Env(string $key)
+    {
+        return ($_ENV[$key]);
+    }
+
 }

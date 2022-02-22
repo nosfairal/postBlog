@@ -8,6 +8,7 @@ use Nosfair\Blogpost\Entity\User;
 use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Service\GlobalConstant;
 
 class UserController extends Controller
 {
@@ -31,13 +32,14 @@ class UserController extends Controller
     {   
         //Instance of Session
         $session = new Session;
+        $global = new GlobalConstant;
         $sessionStop = $session->forget('error');
         //Verify the form's compliance
         if(Form::validate($_POST, ['emailAddress', 'password'])){
         // Search by email the User
         $user = new User;
         //$userRepository = new UserRepository();
-        $userArray = $user->findOneByEmail(strip_tags($_POST['emailAddress']));
+        $userArray = $user->findOneByEmail(strip_tags($global->Post('emailAddress')));
         //If email doesn't exist
         if(!$userArray){
             $session->put("erreur", 'Vos identifiants sont incorrects');                
@@ -82,7 +84,7 @@ class UserController extends Controller
         $session = new Session;
         $session->forget("user");
         $session->put("message", "Merci et à bientôt");
-        $session->redirect("./index.php?p=user/login");
+        $session->redirect("./index.php?");
     }
 
     /**

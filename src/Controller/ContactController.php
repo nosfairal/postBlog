@@ -30,10 +30,10 @@ class ContactController extends Controller
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
             $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING); 
-            $mailPass= filter_var($_ENV["EPASS"] , FILTER_DEFAULT );
-            $myMail = filter_var($_ENV["EMAIL"] , FILTER_DEFAULT );
-            $host= filter_var($_ENV["HOST"] , FILTER_DEFAULT );
-            $port = filter_var($_ENV["PORT"] , FILTER_DEFAULT );
+            $mailPass= filter_var($global->Env("EPASS") , FILTER_DEFAULT );
+            $myMail = filter_var($global->Env("EMAIL") , FILTER_DEFAULT );
+            $host= filter_var($global->Env("HOST") , FILTER_DEFAULT );
+            $port = filter_var($global->Env("PORT") , FILTER_DEFAULT );
 
             $mail = new PHPMailer(true);
             try{

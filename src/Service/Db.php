@@ -3,6 +3,7 @@ namespace Nosfair\Blogpost\Service;
 use PDO;
 use PDOException;
 use Symfony\Component\Dotenv\Dotenv;
+use Nosfair\Blogpost\Service\GlobalConstant;
 
 $dotenv = new Dotenv();
 $dotenv->load(\ROOT.'\blogpost\.env');
@@ -14,12 +15,13 @@ class Db extends PDO
 
     private function __construct()
     {
+        $global = new GlobalConstant;
         // DSN of connexion
-        $_dsn = 'mysql:dbname='. $_ENV['DBNAME'] . ';host=' . $_ENV['DBHOST'];
+        $_dsn = 'mysql:dbname='. $global->Env('DBNAME') . ';host=' . $global->Env('DBHOST');
 
         // Call PDO class constructor
         try{
-            parent::__construct($_dsn, $_ENV['DBUSER'], $_ENV['DBPASS']);
+            parent::__construct($_dsn, $global->Env('DBUSER'), $global->Env('DBPASS'));
 
             $this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
-<h1>Gestion des commentaires</h1>
+<h1 class="text-center mb-4">Gestion des commentaires</h1>
 <div class="table-responsive">
 <table class="table table-striped">
     <thead>
@@ -14,26 +14,26 @@
         <th>Auteur</th>
         <th>Date de rédaction</th>
         <th>Statut</th>
-        <th>Changer le statut</th>
-        <th>Actions</th>
+        {#<th>Changer le statut</th>#}
+        <th class="text-center">Actions</th>
     </thead>
     {%  for comment in comments %}
         <tr>
             <td>{{ comment.commentId }}</td>
             <td>{{ comment.content }}</td>
-            <td>{{ comment.author }}</td>
+            <td>{% set i = i + 1 %}{{ commentatorPublicNameList[i - 1] }}</td>
             <td>{{ comment.creationDate }}</td>
             <td>{% if comment.commentStatus == 1 %} Approuvé {% else %} à valider {% endif %}</td>
-            <td>
+            {#<td>
                 <div class="form-check form-switch">
                     <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ comment.commentId }}" {% if comment.commentStatus == 1 %} checked {% else %} '' {% endif %} data-id="{{ comment.commentId }}">
                     <label class="form-check-label" for="customSwitch{{ comment.commentId }}"></label>
                 </div>
-            </td>
+            </td>#}
             <td>
                 <a href="https://localhost/blogpost/index.php?p=comment/update/{{ comment.commentId }}" class="btn btn-warning">Modifier</a>
                 <a href="https://localhost/blogpost/index.php?p=admin/deleteComment/{{ comment.commentId }}"class="btn btn-danger">Supprimer</a>
-                <a href="https://localhost/blogpost/index.php?p=admin/approuveComment/{{ comment.commentId }}"class="btn btn-danger">approuver</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/approuveComment/{{ comment.commentId }}"class="btn btn-success">approuver</a>
             </td>
         </tr>
     {% endfor %}

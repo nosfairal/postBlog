@@ -231,7 +231,6 @@ class PostController extends Controller
                     //Instance of Datetime
                     $postDate = new DateTime('now');
                     $update = $postDate->format('Y-m-d H:i:s');
-                    \var_dump($update);
 
                     //Set the data
                     $modifiedPost->setPostId($post->postId)                    
@@ -241,7 +240,6 @@ class PostController extends Controller
                         ->setContent($content)
                         ->setLastUpdate($update)                    
                     ;
-                    var_dump($modifiedPost);
                     //Record
                     $modifiedPost->update($post->postId);
 

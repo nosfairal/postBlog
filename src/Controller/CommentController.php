@@ -41,11 +41,13 @@ class CommentController extends Controller
         }
         $this->twig->display('back/comment.html.twig', compact('comment'));
     }
+
+    /*
     public function add()
     {
         $comment = new Comment;
         $this->twig->display('front/addcomment.html.twig', compact('comment'));
-    }
+    }*/
 
     /**
      * Method to update a comment

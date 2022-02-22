@@ -196,7 +196,14 @@ class AdminController extends Controller
             $currentPage="adminPosts";
             $post = new Post;
             $posts = $post->findAll();
-            $this->twig->display('back/adminPosts.html.twig', compact('posts', 'currentPage'));
+            $commentator = new User;
+            $authorPublicNameList = [];
+            foreach ($posts as $com) {
+                $postId = $com->postId;
+                $authorPublicName = $commentator->getPostAuthorPublicName($postId);
+                array_push($authorPublicNameList, $authorPublicName->{'publicName'});
+            };
+            $this->twig->display('back/adminPosts.html.twig', compact('authorPublicNameList', 'posts', 'currentPage'));
         }
     }
 
@@ -214,7 +221,7 @@ class AdminController extends Controller
         if($this->isAdmin()){
             $post = new Post;
             $post->delete($postId);
-            $session->redirect("./index.php?p=admin/comments");
+            $session->redirect("./index.php?p=admin/posts");
     }
     }
 
@@ -230,7 +237,14 @@ class AdminController extends Controller
             $currentPage="adminComments";
             $comment= new Comment;
             $comments = $comment->findAll();
-            $this->twig->display('back/adminComments.html.twig', compact('comments', 'currentPage'));
+            $commentator = new User;
+            $commentatorPublicNameList = [];
+            foreach ($comments as $com) {
+                $commentId = $com->commentId;
+                $commentatorPublicName = $commentator->getCommentAuthorPublicName($commentId);
+                array_push($commentatorPublicNameList, $commentatorPublicName->{'publicName'});
+            };            
+            $this->twig->display('back/adminComments.html.twig', compact('commentatorPublicNameList', 'comments', 'currentPage'));
         }
     }
 
