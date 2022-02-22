@@ -34,6 +34,7 @@ class UserController extends Controller
         $session = new Session;
         $global = new GlobalConstant;
         $sessionStop = $session->forget('error');
+        $sessionStopMessage = $session->forget('message');
         //Verify the form's compliance
         if(Form::validate($_POST, ['emailAddress', 'password'])){
         // Search by email the User
@@ -72,7 +73,7 @@ class UserController extends Controller
             ->addButton('Me connecter', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm();
 
-        $this->twig->display('front/login.html.twig', ['sessionStop' => $sessionStop, 'loginForm' => $loginForm->create()]);
+        $this->twig->display('front/login.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'sessionStop' => $sessionStop, 'loginForm' => $loginForm->create()]);
     }
 
     /**
@@ -84,7 +85,7 @@ class UserController extends Controller
         $session = new Session;
         $session->forget("user");
         $session->put("message", "Merci et à bientôt");
-        $session->redirect("./index.php?");
+        $session->redirect("./index.php?p=user/login");
     }
 
     /**
@@ -147,7 +148,7 @@ class UserController extends Controller
             ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
             ->addLabelFor('password', 'Votre mot de passe :',['class' => 'label-color'])
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-secondary label-color'])
+            ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-outline-success btn-block label-color'])
             ->endForm();
             $this->twig->display('front/register.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         

@@ -29,7 +29,6 @@
         
         {{ parent() }}
         <script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
-        <script src="./public/javascript/alert.js"></script>
         <script>
         grecaptcha.ready(function() {
             grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: 'contact'}).then(function(token) {

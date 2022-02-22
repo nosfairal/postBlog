@@ -21,20 +21,15 @@
         {% if session.message == "Merci et à bientôt" %}
             <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="5000">
                 <span>Merci et à bientôt</span>
-            </div>             
+            </div> 
+            {{ sessionStopMessage }}            
         {% endif %} 
         <div class="container">
             <h1 class="text-center">Formulaire de connection</h1>   
                 {{ loginForm|raw }}
             <div class="text-center mt-4">
-                <img src="./public/images/bienvenue.png" width="600px" high="600px" alt="Erreur 404">
+                <img src="./public/images/bienvenue.png" class="img-fluid" width="600px" high="600px" alt="Bienvenue">
             </div>
         </div>
 
-    {% endblock %}
-
-
-    {% block script %} 
-        {{ parent() }}
-        <script src="./public/javascript/loginAlert.js"></script>
     {% endblock %}

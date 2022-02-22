@@ -202,13 +202,13 @@ class Form
     public function addButton(string $text, array $attributes = []):self
     {
         // Openning tags
-        $this->formCode .= '</br><button ';
+        $this->formCode .= "</br><div class='d-grid'><button ";
 
         // Adding attributes
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
         // Adding text and closing tag
-        $this->formCode .= ">$text</button>";
+        $this->formCode .= ">$text</button></div>";
 
         return $this;
     }
