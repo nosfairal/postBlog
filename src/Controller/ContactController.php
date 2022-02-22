@@ -25,8 +25,9 @@ class ContactController extends Controller
         $form = new Form;
         //instance of Globalconstant
         $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
        
-        if($form->validate($_POST, ['name', 'firstName', 'email', 'message'])){
+        if($form->validate($arrayPost->collectInput(), ['name', 'firstName', 'email', 'message'])){
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);

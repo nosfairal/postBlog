@@ -30,4 +30,10 @@ class GlobalConstant
         return ($_ENV[$key]);
     }
 
+    public function collectInput(): ?array
+    {
+
+    return $_POST;
+    }
+
 }

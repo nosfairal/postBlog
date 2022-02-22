@@ -34,12 +34,13 @@ class UserController extends Controller
         $session = new Session;
         //Instance of GlobalConstant
         $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
         $sessionStop = $session->forget('error');
         $sessionStopMessage = $session->forget('message');
         //Instance of Form
         $form = new Form;
         //Verify the form's compliance
-        if($form->validate($_POST, ['emailAddress', 'password'])){
+        if($form->validate($arrayPost->collectInput(), ['emailAddress', 'password'])){
         // Search by email the User
         $user = new User;
         //$userRepository = new UserRepository();
@@ -113,9 +114,10 @@ class UserController extends Controller
         $sessionStopMessage = $session->forget('message');
         //Instance of Form
         $form = new Form;
+        $arrayPost = new GlobalConstant;
         $currentPage = "register";
         //Verify the form's compliance
-        if($form->validate($_POST, ['lastName', 'firstName', 'publicName', 'email', 'password'])){
+        if($form->validate($arrayPost->collectInput(), ['lastName', 'firstName', 'publicName', 'email', 'password'])){
             // Verify informations and hash password
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $email = filter_var($emailSafe,FILTER_VALIDATE_EMAIL); 
