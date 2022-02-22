@@ -30,10 +30,10 @@
                     <label class="form-check-label" for="customSwitch{{ comment.commentId }}"></label>
                 </div>
             </td>#}
-            <td>
-                <a href="https://localhost/blogpost/index.php?p=comment/update/{{ comment.commentId }}" class="btn btn-warning">Modifier</a>
-                <a href="https://localhost/blogpost/index.php?p=admin/deleteComment/{{ comment.commentId }}"class="btn btn-danger">Supprimer</a>
-                <a href="https://localhost/blogpost/index.php?p=admin/approuveComment/{{ comment.commentId }}"class="btn btn-success">approuver</a>
+            <td class="">
+                <a href="https://localhost/blogpost/index.php?p=comment/update/{{ comment.commentId }}" class="btn btn-warning m-2">Modifier</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/deleteComment/{{ comment.commentId }}"class="btn btn-danger m-2">Supprimer</a>
+                <a href="https://localhost/blogpost/index.php?p=admin/approuveComment/{{ comment.commentId }}"class="btn btn-success m-2">approuver</a>
             </td>
         </tr>
     {% endfor %}
