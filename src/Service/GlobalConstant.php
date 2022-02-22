@@ -20,6 +20,11 @@ class GlobalConstant
         return ($_POST[$key]);
     }
 
+    public static function notEmptyPost()
+    {
+        return !empty($_POST);
+    }
+
     public static function Env(string $key)
     {
         return ($_ENV[$key]);

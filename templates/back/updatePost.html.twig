@@ -5,8 +5,11 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
-    <h1>Modifier un post </h1>
-{{ updatePostForm|raw }}
+    <h1 class="text-center">Modifier un post </h1>
+    {{ updatePostForm|raw }}
+    <div class="text-center mt-4">
+    <img src="./public/images/admin.png" alt="admin" class="img-fluid">
+    </div>
 {% endblock %}
 {% block script %}
     {{ parent() }}

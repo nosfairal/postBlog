@@ -82,7 +82,7 @@ class PostController extends Controller
                 $session->redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
-                $session->put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+                $session->put("error", $global->notEmptyPost()) ? "le formulaire est incomplet" : '';
                 $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }
         
@@ -157,7 +157,7 @@ class PostController extends Controller
                 $session->redirect("./index.php?p=post/index");
             }else{
                 //form doesn't match
-                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
                 $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
                 $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
                 $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
@@ -255,7 +255,7 @@ class PostController extends Controller
                 $session->redirect("./index.php?p=post/index");
                 }else{
                     //form doesn't verify validation
-                    $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                    $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
                     $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
                     $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
                     $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';

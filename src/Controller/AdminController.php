@@ -8,6 +8,7 @@ use Nosfair\Blogpost\Service\Session;
 use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Form;
+use Nosfair\Blogpost\Service\GlobalConstant;
 
 class AdminController extends Controller
 {
@@ -116,6 +117,8 @@ class AdminController extends Controller
         $session = new Session;
         //Instance of Form
         $form = new Form;
+        //Instance of Form
+        $global = new GlobalConstant;
         // Verify if User is admin
         if($this->isAdmin()){
                     
@@ -162,7 +165,7 @@ class AdminController extends Controller
             return;
             }
             //form dosen't verify validation
-            $session->put("error", !empty($_POST)) ? "le formulaire est incomplet" : '';
+            $session->put("error", $global->notEmptyPost()) ? "le formulaire est incomplet" : '';
                  
             //Display the form
             $updateUserForm = new Form;
@@ -174,8 +177,6 @@ class AdminController extends Controller
                 ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control','value' => $user->firstName])
                 ->addLabelFor('publicName', 'Votre pseudonyme :')
                 ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control','value' => $user->publicName])
-                ->addLabelFor('email', 'Votre email :')
-                ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
                 ->addButton('Modifier', ['type' => 'submit', 'class' => 'btn btn-primary'])
                 ->endForm();
                 //var_dump($updateUserForm);

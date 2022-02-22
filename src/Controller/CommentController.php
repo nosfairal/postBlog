@@ -97,7 +97,7 @@ class CommentController extends Controller
             $session->redirect("./index.php?p=comment/index");
             }else{
                 //form dosen't verify compliance
-                $_SESSION['error'] = !empty($_POST) ? "le formulaire est incomplet" : '';
+                $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
                 $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
             }   
             //Display the form
