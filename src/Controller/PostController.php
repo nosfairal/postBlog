@@ -35,8 +35,12 @@ class PostController extends Controller
      */
     public function show(int $postId)
     {   
+        //Instance of Session
         $session = new Session;
         $sessionStopMessage = $session->forget('message');
+        //Instance of Form
+        $form = new Form;
+        //Instance of GlobalConstant
         $global = new GlobalConstant;
         //Verify if User is connected
         if(!$session->issetSession('user')){
@@ -57,7 +61,7 @@ class PostController extends Controller
             $userPublicName= $userPublicName->publicName;
             //var_dump($userPublicName);
             //Verify form compliance
-            if(Form::validate($_POST, ['content']) && $session->issetSession('user')){
+            if($form->validate($_POST, ['content']) && $session->issetSession('user')){
 
                 $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
@@ -201,6 +205,8 @@ class PostController extends Controller
         {   
             //instance of Session
             $session = new Session;
+            //Instance of Form
+            $form = new Form;
             //instance of Globalconstant
             $global = new GlobalConstant;
            // Verify User's session
@@ -220,7 +226,7 @@ class PostController extends Controller
                     $session->redirect("./index.php?p=post/index");
                 }
                 //Verify form compliance
-                if(Form::validate($_POST, ['title', 'slug', 'intro', 'content'])){
+                if($form->validate($_POST, ['title', 'slug', 'intro', 'content'])){
                     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
                     $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
                     $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);

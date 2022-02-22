@@ -21,10 +21,12 @@ class ContactController extends Controller
         $session = new Session;
         $sessionStop = $session->forget('error');
         $sessionStopMessage = $session->forget('message');
+        //Instance of Form
+        $form = new Form;
         //instance of Globalconstant
         $global = new GlobalConstant;
        
-        if(Form::validate($_POST, ['name', 'firstName', 'email', 'message'])){
+        if($form->validate($_POST, ['name', 'firstName', 'email', 'message'])){
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
             $emailSafe = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
