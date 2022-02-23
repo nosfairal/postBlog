@@ -48,9 +48,13 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if currentPage == "adminComments" %} active {% endif %}" href="./index.php?p=admin/comments">Gérer les commentaires</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if currentPage == "adminUsers" %} active {% endif %}" href="./index.php?p=admin/users">Gérer les utilisateurs</a>
-                            </li>
+                            {% if session.user.userId != 20 %}
+                                
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if currentPage == "adminUsers" %} active {% endif %}" href="./index.php?p=admin/users">Gérer les utilisateurs</a>
+                                </li>>
+                            {% endif %}
                         {% endif %}
                         {% if session.user %} {% else %}
                             <li class="nav-item">
@@ -117,9 +121,13 @@
                             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                                 <a class="h5 {% if currentPage == "adminComments" %} active {% endif %}" href="./index.php?p=admin/comments">Gérer les commentaires</a>
                             </div>
-                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                                <a class="h5 {% if currentPage == "adminUsers" %} active {% endif %}" href="./index.php?p=admin/users">Gérer les utilisateurs</a>
-                            </div>
+                            {% if session.user.userId != 20 %}
+                                
+                            {% else %}
+                                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                    <a class="h5 {% if currentPage == "adminUsers" %} active {% endif %}" href="./index.php?p=admin/users">Gérer les utilisateurs</a>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                    

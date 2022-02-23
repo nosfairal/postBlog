@@ -6,9 +6,12 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
-{% for user in users %}
-    {{ user.publicName }}
-{% endfor %}
+    {% for user in users %}
+        {{ user.publicName }}
+    {% endfor %}
+    <div class="text-center mt-4">
+        <img src="./public/images/profil.png" class="img-fluid" width="600px" high="400px" alt="Bienvenue">
+    </div
 {% endblock %}
 {% block script %}
     {{ parent() }}

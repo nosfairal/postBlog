@@ -1,6 +1,6 @@
 function approuveUser(){
     let xmlhttp = new XMLHttpRequest;
-    xmlhttp.open("GET", "https://localhost/blogpost/index.php?p=admin/approuveUser/"+this.dataset.id);
+    xmlhttp.open("GET", "https://localhost/blogpost/index.php?p=admin/approveUser/"+this.dataset.id);
     xmlhttp.send();
 }
 

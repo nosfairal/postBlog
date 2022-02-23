@@ -14,7 +14,7 @@
             <th>Prénom</th>
             <th>Pseudo</th>
             <th>Statut</th>
-            <th>Changer le statut</th>
+            {#<th>Changer le statut</th>#}
             <th>Role</th>
             <th>Changer le rôle</th>
             <th>Date d'inscription</th>
@@ -28,20 +28,21 @@
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.publicName }}</td>
                 <td>{{ user.userStatus}}</td>
-                <td>
+                {#<td>
                     <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ user.userId }}" {% if user.userStatus == 'approuved' %} checked {% else %} '' {% endif %} data-id="{{ user.userId }}">
+                        <input type="checkbox" class="form-check-input" role="switch" id="customSwitch{{ user.userId }}" {% if user.userStatus == 'approved' %} checked {% else %} '' {% endif %} data-id="{{ user.userId }}">
                         <label class="form-check-label" for="customSwitch{{ user.userId }}"></label>
                     </div>
-                </td>
+                </td>#}
                 <td>{{ user.userRole }}</td>
                 <td>
                     <button type="button" class="btn btn-success" id="buttonUpgrade{{ user.userId }}" data-id="{{ user.userId }}">Rendre Modérateur</button>
                 </td>
                 <td>{{ user.creationDate }}</td>
                 <td>
-                    <a href="./index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning">Modifier</a>
-                    <a href="./index.php?p=admin/deleteUser/{{ user.userId }}"class="btn btn-danger">Supprimer</a>
+                    <a href="./index.php?p=admin/updateUser/{{ user.userId }}" class="btn btn-warning m-2">Modifier</a>
+                    <a href="./index.php?p=admin/deleteUser/{{ user.userId }}"class="btn btn-danger m-2">Supprimer</a>
+                    <a href="./index.php?p=admin/approveUser/{{ user.userId }}"class="btn btn-success m-2">Approuver</a>
                 </td>
             </tr>
         {% endfor %}

@@ -27,13 +27,17 @@ class AdminController extends Controller
      */
     public function users()
     {
+        $session =new Session;
         //Verify Admin status
-        if($this->isAdmin()){
+        if($this->isAdmin() && $session->get('user')['userId'] == 20){
             $currentPage="adminUsers";
             $user = new User;
             $users = $user->findAll();
             $this->twig->display('back/adminUsers.html.twig', compact('users','currentPage'));
+            return;
         }
+        $session->put("erreur","Vous n'avez pas les droits pour accéder à cette page");
+        $this->twig->display('front/404.html.twig');
     }
 
     /**
@@ -54,12 +58,12 @@ class AdminController extends Controller
      }
     
     /**
-     * Method to approuve a user
+     * Method to approve a user
      * @param int $userId
      * @return void
      */
 
-    public function approuveUser(int $userId)
+    public function approveUser(int $userId)
     {
         //Instance of Session
         $session = new Session;
@@ -68,19 +72,19 @@ class AdminController extends Controller
             $user = new User;
             $userRepository = new userRepository();
             $userArray = $userRepository->findBy(['userId' => $userId]);
-            $userApprouved = $user->hydrate($userArray);
+            $userApproved = $user->hydrate($userArray);
     
-            $userApprouved->setUserStatus("approuved")
+            $userApproved->setUserStatus("approved")
                         ->setUserRole("member");
 
-            $userApprouved->update($userId);
+            $userApproved->update($userId);
 
-            $session->redirect("./index.php?p=admin/index");
+            $session->redirect("./index.php?p=admin/users");
         }
     }
 
     /**
-     * Method to approuve a user
+     * Method to upgrade a user
      * @param int $userId
      * @return void
      */
@@ -98,7 +102,7 @@ class AdminController extends Controller
 
     
             $userUpgraded->setUserRole("moderator");
-               //$userStatus = "approuved";
+
             $userUpgraded->update($userId);
 
             $session->redirect("./index.php?p=admin/users");
@@ -264,8 +268,10 @@ class AdminController extends Controller
         $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
+            //Instance of Comment
             $comment= new Comment;
             $comment->delete($commentId);
+            //redirection after deleting
             $session->redirect("./index.php?p=admin/comments");
         }
     }
@@ -276,21 +282,23 @@ class AdminController extends Controller
      * @return void
      */
 
-    public function approuveComment(int $commentId)
+    public function approveComment(int $commentId)
     {
         //Instance of Session
         $session = new Session;
         //Verify Admin status
         if($this->isAdmin()){
-        $comment= new Comment;
-        $commentRepository = new CommentRepository();
-        $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
-        $commentApprouved =$comment->hydrate($commentArray);
+            //Instance of Comment and CommentRepository
+            $comment= new Comment;
+            $commentRepository = new CommentRepository();
+            //Search of Data
+            $commentArray = $commentRepository->findBy(['commentId' => $commentId]);
+            $commentApproved =$comment->hydrate($commentArray);
 
             if($this->commentStatus == 0){
-                $commentApprouved->setCommentStatus(1);
+                $commentApproved->setCommentStatus(1);
             }
-            $commentApprouved->update($commentId);
+            $commentApproved->update($commentId);
             $session->redirect("./index.php?p=admin/comments");
         }
     }

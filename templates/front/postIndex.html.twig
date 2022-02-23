@@ -22,6 +22,7 @@
                         <h5 class="card-title">{{ post.title }}</br></h5>
                         <p class="card-text">{{ post.intro }}</p>
                         <div class="card-footer text-muted">Publié le : {{ post.creationDate|date("d/m/Y \\à H:i") }}
+                        {% if post.lastUpdate  is not null %}<p>Dernière modification le : {{ post.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}
                         </div>
                     </div>
                 </div>

@@ -113,7 +113,7 @@ class PostController extends Controller
             array_push($commentatorPublicNameList, $commentatorPublicName->{'publicName'});
         };
 
-        //Get comments approuved
+        //Get comments approved
         $commentStatus = new Comment;
         
         $commentStatus= $commentRepository->findBy(['commentStatus' => 1]);   

@@ -7,9 +7,12 @@
 {% block content %}
     {% if user is defined %}
     {%  for attribute in user %}
-     <span class="title"> Nom : {{ attribute.lastName }} </span>
+     <span class="title"> Pseudo: {{ attribute.publicName }} </span>
      {% endfor %}
     {% endif %}
+    <div class="text-center mt-4">
+        <img src="./public/images/profil.png" class="img-fluid" width="600px" high="400px" alt="Bienvenue">
+    </div>
 {% endblock %}
 {% block script %}
     {{ parent() }}
