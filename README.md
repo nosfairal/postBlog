@@ -1,17 +1,16 @@
 # PostBlog
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa0d47c4b90042889836b0428ede6c80)](https://www.codacy.com/gh/nosfairal/postBlog/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nosfairal/postBlog&amp;utm_campaign=Badge_Grade)
 
 Professionnal PHP blog, without CMS neither PHP framework.
 
 This is the fifth project of the formation Application Developer - PHP / Symfony on Openclassrooms.
 
 # Table of contents
-1. Prerequisites and technologies
+1.  Prerequisites and technologies
     . Server
     . Languages and libraries
 
-2. Installation
-
-3. Use
+2.  Installation
 
 # Prerequisites and technologies
 
