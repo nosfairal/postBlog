@@ -46,21 +46,27 @@ Download zip files or clone the project repository with github (see GitHub docum
 1.  You have to create an .env file.
 2.  Replace the example values below with your own values.
 
-# .env
+    .env
 
-DBHOST=db-host_name
-DBUSER=db-username
-DBPASS= db-password
-DBNAME=db_name
-EMAIL=your@email.com
-EPASS=your email password
-HOST=SMTP host_name
-PORT=your port
+    DBHOST=db-host_name
+    DBUSER=db-username
+    DBPASS= db-password
+    DBNAME=db_name
+    EMAIL=your@email.com
+    EPASS=your email password
+    HOST=SMTP host_name
+    PORT=your port
 
 3.  Create a new MySQl Datbase in your DBMS with the db_name chosen above.
+   
 4.  Import the Sql file.
+
 5.  Install composer.
+
 6.  Install dependencies.
+
 7.  Open index.php file in your favorite browser. This is the home page.
+
 8.  Register you as a new user via registration form (index.php?p=user/register).
+
 9.  Update your user profile in the database to set status to approved and role to admin.
