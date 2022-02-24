@@ -109,11 +109,14 @@ class UserController extends Controller
     }
     public function register()
     {   
+        
         //Instance of Session
         $session = new Session;
         $sessionStopMessage = $session->forget('message');
+        $sessionStop = $session->forget('error');
         //Instance of Form
         $form = new Form;
+        
         $arrayPost = new GlobalConstant;
         $currentPage = "register";
         //Verify the form's compliance
@@ -124,40 +127,51 @@ class UserController extends Controller
             $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_STRING);
             $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
             $passwordSafe = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            //$form->validatePwd($passwordSafe) ? $session->put("message", "le mot de passe est valide") : $session->put("message", "le mot de passe n'est pas valide");
             $password = password_hash($passwordSafe, PASSWORD_ARGON2I);
+            
             $publicName = filter_input(INPUT_POST, 'publicName', FILTER_SANITIZE_STRING);
-            //Instance of a new User
-            $user = new User;
+            if ($form->validatePwd($passwordSafe) == true){ 
+                
+                //Instance of a new User
+                $user = new User;
 
-            $user->setLastName($lastName)
-                ->setFirstName($firstName)
-                ->setPublicName($publicName)
-                ->setEmailAddress($email)
-                ->setPassword($password)              
-                ;
-            
-            $session->put("message", "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais");
-            //Insert into BDD
-            $user->create();
-            
+                $user->setLastName($lastName)
+                    ->setFirstName($firstName)
+                    ->setPublicName($publicName)
+                    ->setEmailAddress($email)
+                    ->setPassword($password)              
+                    ;
+                $session->forget('error');    
+                $session->put("message", "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais");
+                
+                //Insert into BDD
+                $user->create();
+                $session->redirect("./index.php?p=user/register");
+                return;
+            }
+            $session->put("alerte", "le mot de passe n'est pas valide");
+        }else{
 
+        $session->put("erreur", "Le formulaire d'inscription n'est pas complet");
+        //$session->redirect("./index.php?p=user/register");
         }
         $registerForm = new Form;
 
         $registerForm->startForm()
-            ->addLabelFor('lastName', 'Votre nom :',['class' => 'label-color'])
+            ->addLabelFor('lastName', ' Votre nom :',['class' => 'label-color p-1'])
             ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
-            ->addLabelFor('firstName', 'Votre prénom :',['class' => 'label-color'])
+            ->addLabelFor('firstName', ' Votre prénom :',['class' => 'label-color p-1'])
             ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
-            ->addLabelFor('publicName', 'Votre pseudonyme :',['class' => 'label-color'])
+            ->addLabelFor('publicName', ' Votre pseudonyme :',['class' => 'label-color p-1'])
             ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
-            ->addLabelFor('email', 'Votre e-mail :',['class' => 'label-color'])
+            ->addLabelFor('email', ' Votre e-mail :',['class' => 'label-color p-1'])
             ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
-            ->addLabelFor('password', 'Votre mot de passe :',['class' => 'label-color'])
+            ->addLabelFor('password', ' Votre mot de passe :',['class' => 'label-color p-1'])
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-outline-success btn-block label-color'])
             ->endForm();
-            $this->twig->display('front/register.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
+            $this->twig->display('front/register.html.twig', ['sessionStop' => $sessionStop, 'sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         
     }
 

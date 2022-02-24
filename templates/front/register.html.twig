@@ -7,24 +7,39 @@
     {% endblock %}
 
     {% block content %}
-    {% if session.message == "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais" %}
+        {% if session.message == "Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais" %}
+
             <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="5000">
                 <span>Nous avons bien enregistré votre demande d'inscription et l'examinerons dans les plus brefs délais</span>
             </div>
             {{ sessionStopMessage }}
-    {% endif %}
-    <div class="container">
-    <h1 class="text-center">S'inscrire</h1>
-    <p>Vous souhaitez participer et commenter le blog, il suffit de remplir le formulaire juste en dessous :</p>
-    <div class="mb-4 bg-personnal">
-        <h2 class="label-color">Formulaire d'inscription</h1>    
-        {{ registerForm|raw }}        
-    </div>
-    <a href="./index.php?p=user/login" class="mt-4">Déjà inscrit?</a>
-    <div>
+            {{ sessionStop }}
+        {% elseif session.erreur == "Le formulaire d'inscription n'est pas complet" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" auto-close="5000">
+                    <span> Le formulaire d'inscription n'est pas complet</span>
+                </div>
+                {{ sessionStop }}
+        {% endif %}
+        {% if session.alerte == "le mot de passe n'est pas valide" and session.message == null %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" auto-close="5000">
+                    <span>le mot de passe n'est pas valide</span>
+                </div>
+                {{ sessionStopMessage }}
+                {{ sessionStop }}
+        {% endif %}
+        <div class="container">
+            <h1 class="text-center">S'inscrire</h1>
+            <p>Vous souhaitez participer et commenter le blog, il suffit de remplir le formulaire juste en dessous :</p>
+            <div class="mb-4 bg-personnal">
+                <h2 class="label-color p-1">Formulaire d'inscription</h1>    
+                {{ registerForm|raw }}        
+            </div>
+        <a href="./index.php?p=user/login" class="mt-4">Déjà inscrit?</a>
+        <div>
     {% endblock %}
 
 
     {% block script %} 
         {{ parent() }}
+        <script src="./public/javascript/password.js"></script>
     {% endblock %}

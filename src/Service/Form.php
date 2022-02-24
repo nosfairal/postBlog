@@ -212,4 +212,14 @@ class Form
 
         return $this;
     }
+
+    public function validatePwd($pwd){
+
+        $regexp = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/';
+        //$password = 'erf58856++';
+
+        $match = preg_match($regexp, $pwd);
+        //var_dump($match);
+        return $match ? true : false;
+    }
 }
