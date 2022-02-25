@@ -61,7 +61,7 @@ Download zip files or clone the project repository with github (see GitHub docum
 
 3.  Create a new MySQl Datbase in your DBMS with the db_name chosen above.
    
-4.  Import the Sql file.
+4.  Import the Sql file : https://github.com/nosfairal/postBlog/blob/master/postblog.sql .
 
 5.  Install composer by following this instructions : https://getcomposer.org/download/.
 
