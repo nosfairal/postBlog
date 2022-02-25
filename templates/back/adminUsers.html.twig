@@ -36,7 +36,7 @@
                 </td>#}
                 <td>{{ user.userRole }}</td>
                 <td>
-                    <button type="button" class="btn btn-success" id="buttonUpgrade{{ user.userId }}" data-id="{{ user.userId }}">Rendre Modérateur</button>
+                    <a class="btn btn-success" href="./index.php?p=admin/upgradeUser/{{ user.userId }}">Rendre Modérateur</a>
                 </td>
                 <td>{{ user.creationDate }}</td>
                 <td>
