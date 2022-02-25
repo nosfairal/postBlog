@@ -5,18 +5,19 @@ Professionnal PHP blog, without CMS neither PHP framework.
 
 This is the fifth project of the formation Application Developer - PHP / Symfony on Openclassrooms.
 
-# Table of contents
+## Table of contents
 1.  Prerequisites and technologies
-    . Server
-    . Languages and libraries
+    - Server
+    - Languages and libraries
 
 2.  Installation
 
-# Prerequisites and technologies
+## Prerequisites and technologies
 
-Server
+Server:
 
 You need a web server with PHP7 and MySQL DBMS.
+
 Versions used in this project:
 
     Apache 2.4.46
@@ -25,10 +26,12 @@ Versions used in this project:
 
 You also need an access to a SMTP server.
 
-Languages and libraries
+Languages and libraries:
 
 This project is coded in PHP7, HTML5, CSS3 and JS.
+
 Dependencies manager: Composer
+
 PHP packages, included via Composer:
 
     . twig/twig: ^3.3,
@@ -38,7 +41,7 @@ PHP packages, included via Composer:
     . components/jquery: ^3.6,
     . components/jqueryui: ^1.12
 
-# Installation
+## Installation
 
 Download zip files or clone the project repository with github (see GitHub documentation).
 
@@ -46,7 +49,7 @@ Download zip files or clone the project repository with github (see GitHub docum
 
 2.  Replace the example values below with your own values.
 
-# .env
+### .env
     . DBHOST=db-host_name
     . DBUSER=db-username
     . DBPASS= db-password
@@ -60,9 +63,10 @@ Download zip files or clone the project repository with github (see GitHub docum
    
 4.  Import the Sql file.
 
-5.  Install composer.
+5.  Install composer by following this instructions : https://getcomposer.org/download/.
 
-6.  Install dependencies.
+6.  Install dependencies with the following command :
+    `` $ composer install ``
 
 7.  Open index.php file in your favorite browser. This is the home page.
 
