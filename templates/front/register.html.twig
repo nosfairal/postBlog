@@ -20,7 +20,7 @@
                 </div>
                 {{ sessionStop }}
         {% endif %}
-        {% if session.alerte == "le mot de passe n'est pas valide" and session.message == null %}
+        {% if session.alerte == "le mot de passe n'est pas valide" and session.message == null and session.erreur == "Le formulaire d'inscription n'est pas complet" %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert" auto-close="5000">
                     <span>le mot de passe n'est pas valide</span>
                 </div>

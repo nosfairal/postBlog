@@ -98,13 +98,13 @@ class UserController extends Controller
      * @param  int $id
      * @return void
      */
-    public function show(int $id)
+    public function show(int $userId)
     {
         // Instance of the model
         $model = new User;
 
         //Get the data
-        $user = $model->findBy(['userId' =>$id]);
+        $user = $model->findBy(['userId' =>$userId]);
         $this->twig->display('back/user.html.twig', ['user' => $user]);
     }
     public function register()
@@ -159,15 +159,15 @@ class UserController extends Controller
         $registerForm = new Form;
 
         $registerForm->startForm()
-            ->addLabelFor('lastName', ' Votre nom :',['class' => 'label-color p-1'])
+            ->addLabelFor('lastName', ' Votre nom *:',['class' => 'label-color p-1'])
             ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
-            ->addLabelFor('firstName', ' Votre prénom :',['class' => 'label-color p-1'])
+            ->addLabelFor('firstName', ' Votre prénom *:',['class' => 'label-color p-1'])
             ->addInput('firstName', 'firstName', ['id' => 'firstName', 'class' => 'form-control'])
-            ->addLabelFor('publicName', ' Votre pseudonyme :',['class' => 'label-color p-1'])
+            ->addLabelFor('publicName', ' Votre pseudonyme *:',['class' => 'label-color p-1'])
             ->addInput('publicName', 'publicName', ['id' => 'publicName', 'class' => 'form-control'])
-            ->addLabelFor('email', ' Votre e-mail :',['class' => 'label-color p-1'])
+            ->addLabelFor('email', ' Votre e-mail *:',['class' => 'label-color p-1'])
             ->addInput('email', 'email', ['id' => 'email', 'class' => 'form-control'])
-            ->addLabelFor('password', ' Votre mot de passe :',['class' => 'label-color p-1'])
+            ->addLabelFor('password', ' Votre mot de passe *:',['class' => 'label-color p-1', 'data-toggle'=> "tooltip", 'title'=> 'Entre 8 et 15 caractères avec au moins une lettre majuscule et une miniscule, un chiffre et un caractère spécial parmi [-+!*$@%_]'])
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-outline-success btn-block label-color'])
             ->endForm();

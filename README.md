@@ -7,8 +7,8 @@ This is the fifth project of the formation Application Developer - PHP / Symfony
 
 ## Table of contents
 1.  Prerequisites and technologies
-    - Server
-    - Languages and libraries
+    -   Server
+    -   Languages and libraries
 
 2.  Installation
 
