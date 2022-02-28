@@ -60,7 +60,7 @@ class PostController extends Controller
             //Get the publicName of the author of the post
             $userPublicName = $user->getPostAuthorPublicName($postId);
             $userPublicName= $userPublicName->publicName;
-            //var_dump($userPublicName);
+
             //Verify form compliance
             if($form->validate($arrayPost->collectInput(), ['content']) && $session->issetSession('user')){
 
@@ -90,7 +90,7 @@ class PostController extends Controller
     
         // Get datas
         $post = $model->findBy(['postId' =>$postId]);
-        //var_dump($post);
+
         //Instance of Form
         $addCommentForm = new Form;
         //Construction of the form
@@ -116,7 +116,8 @@ class PostController extends Controller
         //Get comments approved
         $commentStatus = new Comment;
         
-        $commentStatus= $commentRepository->findBy(['commentStatus' => 1]);   
+        $commentStatus= $commentRepository->findBy(['commentStatus' => 1]); 
+        //Display on view  
         $this->twig->display('front/post.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'commentators' => $commentatorPublicNameList,'author' => $userPublicName,'post' => $post,'commentOfPost' => $commentOfPost, 'commentStatus' => $commentStatus, 'addCommentForm' => $addCommentForm->create()]);
     }
 

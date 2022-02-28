@@ -63,12 +63,11 @@ class UserController extends Controller
             $user->setSession();
             $session->redirect("./index.php?");                
             
-        }
-         
+        }         
 
-            
+        //Instance of Form   
         $loginForm = new Form;
-
+        //Construction of the loginForm
         $loginForm->startForm()
             ->addLabelFor('emailAddress', 'Votre e-mail :')
             ->addInput('emailAddress', 'emailAddress', ['id' => 'emailAddress', 'class' => 'form-control'])
@@ -76,7 +75,7 @@ class UserController extends Controller
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('Me connecter', ['type' => 'submit', 'class' => 'btn btn-primary'])
             ->endForm();
-
+        //Display on view
         $this->twig->display('front/login.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'sessionStop' => $sessionStop, 'loginForm' => $loginForm->create()]);
     }
 
@@ -116,7 +115,7 @@ class UserController extends Controller
         $sessionStop = $session->forget('error');
         //Instance of Form
         $form = new Form;
-        
+        //Instance of GlobalConstant
         $arrayPost = new GlobalConstant;
         $currentPage = "register";
         //Verify the form's compliance
@@ -131,6 +130,7 @@ class UserController extends Controller
             $password = password_hash($passwordSafe, PASSWORD_ARGON2I);
             
             $publicName = filter_input(INPUT_POST, 'publicName', FILTER_SANITIZE_STRING);
+            //Verify the password 's compliance
             if ($form->validatePwd($passwordSafe) == true){ 
                 
                 //Instance of a new User
@@ -156,8 +156,9 @@ class UserController extends Controller
         $session->put("erreur", "Le formulaire d'inscription n'est pas complet");
         //$session->redirect("./index.php?p=user/register");
         }
+        //Instance of Form
         $registerForm = new Form;
-
+        //Construction of the registerForm
         $registerForm->startForm()
             ->addLabelFor('lastName', ' Votre nom *:',['class' => 'label-color p-1'])
             ->addInput('lastName', 'lastName', ['id' => 'lastName', 'class' => 'form-control'])
@@ -171,7 +172,8 @@ class UserController extends Controller
             ->addInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
             ->addButton('M\'inscrire', ['type' => 'submit', 'class' => 'btn btn-outline-success btn-block label-color'])
             ->endForm();
-            $this->twig->display('front/register.html.twig', ['sessionStop' => $sessionStop, 'sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
+        //Display on view
+        $this->twig->display('front/register.html.twig', ['sessionStop' => $sessionStop, 'sessionStopMessage' => $sessionStopMessage, 'currentPage' => $currentPage, 'registerForm' => $registerForm->create()]);
         
     }
 

@@ -15,6 +15,7 @@
     <body class="">
     {% block body %}
         <header class="h6">
+            <!-- navbar -->
             <nav class="navbar navbar-expand-lg navbar-dark bg-personnal">
                 <a class="navbar-brand" href="#">
                     <img src="./public/images/francoisT.jpg" width="100px" high="100px" class="rounded-3" alt="Photo François Thialon">
@@ -48,7 +49,7 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if currentPage == "adminComments" %} active {% endif %}" href="./index.php?p=admin/comments">Gérer les commentaires</a>
                             </li>
-                            {% if session.user.userId != 20 %}
+                            {% if session.user.userRole != "admin" %}
                                 
                             {% else %}
                                 <li class="nav-item">
@@ -78,6 +79,7 @@
                     {% endif %}
                 </div>
             </nav>
+            <!-- navbar -->
         </header>
         <main>
         {% block content %}

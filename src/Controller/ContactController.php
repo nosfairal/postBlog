@@ -9,6 +9,7 @@ use PHPMailer\PHPMailer\SMTP;
 use Nosfair\Blogpost\Service\GlobalConstant;
 use Symfony\Component\Dotenv\Dotenv;
 
+//Instance of Dotenv
 $dotenv = new Dotenv();
 $dotenv->load(\ROOT.'\blogpost\.env');
 
@@ -40,6 +41,7 @@ class ContactController extends Controller
 
             $mail = new PHPMailer(true);
             try{
+                //Construction of the message
                 $body="";
                 $body .= "De :".$name." ".$firstName. "\r\n";
                 $body .= "Email: ".$email. "\r\n";
