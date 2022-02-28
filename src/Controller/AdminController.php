@@ -250,10 +250,10 @@ class AdminController extends Controller
             }
             //Verify form compliance
             if($form->validate($arrayPost->collectInput(), ['title', 'slug', 'intro', 'content'])){
-                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
                 $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
-                $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);
-                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+                $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
                 //Instance of Post
                 $modifiedPost = new Post;
@@ -279,10 +279,10 @@ class AdminController extends Controller
             }else{
                 //form doesn't verify validation
                 $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
-                $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES) : '';
                 $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
-                $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
-                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+                $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES): '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES) : '';
             }   
             //Display the form
             $updatePostForm = new Form;
@@ -392,7 +392,7 @@ class AdminController extends Controller
             }
             //Verify form compliance
             if($form->validate($arrayPost->collectInput(), ['content'])){
-                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
                 //Instance of comment
                 $modifiedcomment = new Comment;
