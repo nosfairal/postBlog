@@ -42,7 +42,7 @@ class Main
         // if at least 1 parameter exists
 
         if(isset($params[0]) != "") {
-            if ($params[0] != "post" && $params[0] != "contact" && $params[0] != "admin" && $params[0] != "user"){
+            if ($params[0] != "post" && $params[0] != "contact" && $params[0] != "admin" && $params[0] != "user" && $params[0] != "comment"){
                 // Show the 404 page
         
                 $this->twig->display('front/404.html.twig');

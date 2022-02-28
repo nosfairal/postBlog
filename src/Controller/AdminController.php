@@ -9,6 +9,7 @@ use Nosfair\Blogpost\Repository\CommentRepository;
 use Nosfair\Blogpost\Repository\UserRepository;
 use Nosfair\Blogpost\Service\Form;
 use Nosfair\Blogpost\Service\GlobalConstant;
+use DateTime;
 
 class AdminController extends Controller
 {
@@ -216,6 +217,109 @@ class AdminController extends Controller
     }
 
     /**
+     * Method to update a Post
+     * @param int $id
+     * retrun void
+     */
+        
+    public function updatePost(int $postId)
+    {   
+        //instance of Session
+        $session = new Session;
+        $sessionStopMessage = $session->forget('message');
+        //Instance of Form
+        $form = new Form;
+        //instance of Globalconstant
+        $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
+       // Verify User's session
+        if($this->isAdmin()){
+            
+            
+            // Instance of Post
+            $post= new Post;
+
+            // Search for the post by id
+            $post = $post->find($postId);
+
+            // If Post doesn't exist
+            if (!$post) {
+                http_response_code(404);
+                
+                $session->redirect("./index.php?p=admin/posts");
+            }
+            //Verify form compliance
+            if($form->validate($arrayPost->collectInput(), ['title', 'slug', 'intro', 'content'])){
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                $slug= filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
+                $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING);
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+
+                //Instance of Post
+                $modifiedPost = new Post;
+                //Instance of Datetime
+                $postDate = new DateTime('now');
+                $update = $postDate->format('Y-m-d H:i:s');
+
+                //Set the data
+                $modifiedPost->setPostId($post->postId)                    
+                    ->setTitle($title)
+                    ->setSlug($slug)
+                    ->setIntro($intro)
+                    ->setContent($content)
+                    ->setLastUpdate($update)                    
+                ;
+                //Record
+                $modifiedPost->update($post->postId);
+
+
+            //Redirection + message
+            $session->put("message", "Le post a été modifié avec succès");
+            $session->redirect("./index.php?p=admin/posts");
+            }else{
+                //form doesn't verify validation
+                $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
+                $title = $global->issetPost('title') ? filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING) : '';
+                $slug= $global->issetPost('slug') ? filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING) : '';
+                $intro = $global->issetPost('intro') ? filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_STRING): '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+            }   
+            //Display the form
+            $updatePostForm = new Form;
+            $updatePostForm->startForm()
+                ->addLabelFor('title', 'Titre du post :')
+                ->addInput('text', 'title', [
+                    'id' => 'title',
+                    'class' => 'form-control',
+                    'value' => $post->title])
+                ->addLabelFor('slug', 'Slug du post :')
+                ->addInput('text', 'slug', [
+                    'id' => 'slug',
+                    'class' => 'form-control',
+                    'value' => $post->slug])
+                ->addLabelFor('intro', 'Introduction du post :')
+                ->addInput('text', 'intro', [
+                    'id' => 'intro',
+                    'class' => 'form-control',
+                    'value' => $post->intro])
+                ->addLabelFor('content', 'Votre post')
+                ->addTextarea('content', $post->content, [
+                    'id' => 'content',
+                    'class' => 'form-control',
+                    'rows' => '10'])
+                ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
+                ->endForm()
+                ;
+                $this->twig->display('back/updatePost.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'updatePostForm' => $updatePostForm->create()]);   
+
+        }else{
+            $session->put("erreur", "Vous devez vous connecter pour ajouter une annonce");
+            $session->redirect("./index.php?p=user/login");
+        }
+
+    }
+
+    /**
      * Method to delete a post
      * @param int $postId
      * return void
@@ -254,6 +358,76 @@ class AdminController extends Controller
             };            
             $this->twig->display('back/adminComments.html.twig', compact('commentatorPublicNameList', 'comments', 'currentPage'));
         }
+    }
+
+    /**
+     * Method to update a comment
+     * @param int $id
+     * return void
+     */
+        
+    public function updateComment(int $commentId)
+    {
+        //Instance of Session
+        $session = new Session;
+        $sessionStopMessage = $session->forget('message');
+        //Instance of Form
+        $form = new Form;
+        //Instance of GlobalConstant
+        $global = new GlobalConstant;
+        $arrayPost = new GlobalConstant;
+        // Verify User's session
+        if($this->isAdmin()){
+                
+            // Instance of comment
+            $comment= new Comment;
+
+            // Search for the comment by id
+            $comment = $comment->find($commentId);
+
+            // If comment doesn't exist
+            if (!$comment) {
+                http_response_code(404);
+                $session->redirect("./index.php?p=admin/comments");
+            }
+            //Verify form compliance
+            if($form->validate($arrayPost->collectInput(), ['content'])){
+                $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+
+                //Instance of comment
+                $modifiedcomment = new Comment;
+
+                //Set the data
+                $modifiedcomment->setcommentId($comment->commentId)                    
+                    ->setContent($content)                    
+                ;
+                //Record of the modified comment
+                $modifiedcomment->update($comment->commentId);
+
+
+            //Redirection + message
+            $session->put("message", "Le commentaire a été modifié avec succès");
+            $session->redirect("./index.php?p=admin/comments");
+            }else{
+                //form dosen't verify compliance
+                $_SESSION['error'] = $global->notEmptyPost() ? "le formulaire est incomplet" : '';
+                $content = $global->issetPost('content') ? filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING) : '';
+            }   
+            //Display the form
+            $updateCommentForm = new Form;
+            $updateCommentForm->startForm()
+                ->addLabelFor('content', 'Votre comment')
+                ->addTextarea('content', $comment->content, [
+                    'id' => 'content',
+                    'class' => 'form-control'])
+                ->addButton('Valider', ['type' => 'submit', 'class' => 'btn btn-primary'])
+                ->endForm()
+                ;
+            $this->twig->display('back/updateComment.html.twig', ['sessionStopMessage' => $sessionStopMessage, 'updateCommentForm' => $updateCommentForm->create()]);
+            return;
+        }
+            $session->put("erreur", "Vous devez vous connecter pour modifier un commentaire");
+            $session->redirect("./index.php?p=user/login");
     }
 
     /**

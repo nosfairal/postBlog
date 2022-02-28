@@ -114,7 +114,7 @@ class CommentController extends Controller
             $this->twig->display('back/updateComment.html.twig', ['updateCommentForm' => $updateCommentForm->create()]);
             return;
         }
-            $session->put("erreur", "Vous devez vous connecter pour ajouter une annonce");
-            $session->redirect("./index.php?p=user/login'");
+            $session->put("erreur", "Vous devez vous connecter pour ajouter un commentaire");
+            $session->redirect("./index.php?p=user/login");
     }
 }

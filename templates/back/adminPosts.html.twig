@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="./public/css/style.css"/>
 {% endblock %} 
 {% block content %}
+    {% if session.message == "Le post a été modifié avec succès" %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" auto-close="5000">
+            <span>Le post a été modifié avec succès</span>
+        </div> 
+        {{ sessionStopMessage }}            
+    {% endif %} 
     <h1 class="text-center mb-4">Gestion des posts</h1>
     <a href="./index.php?p=post/add" class="h4 mb-4 text-decoration-none link-secondary">Ajouter un nouveau post <i class="bi bi-plus"></i></a>
     <div class = "table-responsive">
@@ -37,7 +43,7 @@
                     <td>{% set i = i + 1 %}{{ authorPublicNameList[i - 1] }}</td>
                     <td>{{ post.creationDate }}</td>
                     <td>
-                        <a href="./index.php?p=post/update/{{ post.postId }}" class="btn btn-warning">Modifier</a>
+                        <a href="./index.php?p=admin/updatePost/{{ post.postId }}" class="btn btn-warning">Modifier</a>
                         <a href="./index.php?p=admin/deletePost/{{ post.postId }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
