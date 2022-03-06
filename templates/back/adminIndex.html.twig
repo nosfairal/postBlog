@@ -26,15 +26,19 @@
                 </div>
             </div>
         </div>
-        <div class="card col-lg-3 m-2 mx-auto">
-            <div class="card-body">
-                <h5 class="card-title"><a href="./index.php?p=admin/users">Gérer les utilisateurs</a></h5>
-                    <p class="card-text">C'est ici que vous pouvez valider ou modifier les informations d'un utilisateur du blog.</p>
-                <div class="card-footer text-muted">
-                    <p>Agissez avec sagesse</p>
+        {% if session.user.userRole != "admin" %}
+
+        {% else %}            
+            <div class="card col-lg-3 m-2 mx-auto">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="./index.php?p=admin/users">Gérer les utilisateurs</a></h5>
+                        <p class="card-text">C'est ici que vous pouvez valider ou modifier les informations d'un utilisateur du blog.</p>
+                    <div class="card-footer text-muted">
+                        <p>Agissez avec sagesse</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
     <div class="text-center">
     <img src="./public/images/admin.png" alt="admin" class="img-fluid">

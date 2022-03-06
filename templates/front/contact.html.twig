@@ -31,12 +31,12 @@
     {% block script %}
         
         {{ parent() }}
-        <script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
+        {#<script src="https://www.google.com/recaptcha/api.js?render=6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD"></script>
         <script>
         grecaptcha.ready(function() {
             grecaptcha.execute('6LffCVkeAAAAACio48uS4w9FVzukCUL7HefA5GyD', {action: 'contact'}).then(function(token) {
                 document.getElementById('recaptchaResponse').value = token
             });
         });
-        </script>
+        </script>#}
     {% endblock %}

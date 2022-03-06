@@ -30,7 +30,8 @@ class AdminController extends Controller
     {
         $session =new Session;
         //Verify Admin status
-        if($this->isAdmin() && $session->get('user')['userId'] == 20){
+        if($this->isSuperAdmin()){
+            //$this->isAdmin() && $session->get('user')['userId'] == 20){
             $currentPage="adminUsers";
             $user = new User;
             $users = $user->findAll();
@@ -51,7 +52,7 @@ class AdminController extends Controller
         //Instance of Session
         $session = new Session;
         //Verify Admin status
-        if($this->isAdmin()){
+        if($this->isSuperAdmin()){
             $user = new User;
             $user->delete($userId);
             $session->redirect("./index.php?p=admin/users");
@@ -69,7 +70,7 @@ class AdminController extends Controller
         //Instance of Session
         $session = new Session;
         //Verify Admin status
-        if($this->isAdmin()){
+        if($this->isSuperAdmin()){
             $user = new User;
             $userRepository = new userRepository();
             $userArray = $userRepository->findBy(['userId' => $userId]);
@@ -95,7 +96,7 @@ class AdminController extends Controller
         //Instance of Session
         $session = new Session;
         //Verify Admin status
-        if($this->isAdmin()){
+        if($this->isSuperAdmin()){
             $user = new User;
             $userRepository = new userRepository();
             $userArray = $userRepository->findBy(['userId' => $userId]);
@@ -126,7 +127,7 @@ class AdminController extends Controller
         $global = new GlobalConstant;
         $arrayPost = new GlobalConstant;
         // Verify if User is admin
-        if($this->isAdmin()){
+        if($this->isSuperAdmin()){
                     
             // Instance of User
             $user= new User;
@@ -490,6 +491,22 @@ class AdminController extends Controller
             $session->redirect("./index.php?p=user/login");
         }
         if($session->issetSession('user') && $session->get("user")['userRole'] == 'admin' || $session->get("user")['userRole'] == 'moderator'){
+        return true;
+        }
+        $session->put("erreur","Vous n'avez pas les droits pour accéder à cette page");
+        $this->twig->display('front/404.html.twig');
+        
+    }
+
+    private function isSuperAdmin()
+    {
+        //Instance of Session
+        $session = new Session;
+        if(!$session->get('user')){
+            $session->put("erreur","Vous devez être connecté pour accéder à cette page");
+            $session->redirect("./index.php?p=user/login");
+        }
+        if($session->issetSession('user') && $session->get("user")['userRole'] == 'admin'){
         return true;
         }
         $session->put("erreur","Vous n'avez pas les droits pour accéder à cette page");
